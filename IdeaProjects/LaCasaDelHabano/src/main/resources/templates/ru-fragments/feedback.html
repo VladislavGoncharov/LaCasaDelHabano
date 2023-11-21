@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+<div th:fragment="feedback" class="mt-5 h5 fw-200">
+   <form class="row position-relative" action="#">
+      <div class="offset-lg-3 offset-md-2 offset-0 col-lg-3 col-md-4 col-sm-6 col-12">
+         <input class="input-main opacity_hide_text" type="text" id="feedback-name" placeholder="ИМЯ*">
+         <div class="overflow-hidden">
+            <div class="border-top border_hide_left"></div>
+         </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-sm-0 mt-4">
+         <input class="input-main opacity_hide_text" type="text" id="feedback-tel-email" placeholder="ТЕЛЕФОН ИЛИ E-MAIL*">
+         <div class="overflow-hidden">
+            <div class="border-top border_hide_left"></div>
+         </div>
+      </div>
+      <div class="offset-lg-3 offset-md-2 col-lg-6 col-md-8 col-12 mt-160px-for-form position-relative ">
+         <textarea class="textarea-main opacity_hide_text" id="feedback-message" placeholder="СООБЩЕНИЕ"></textarea>
+         <div class="overflow-hidden">
+            <div class="border-top border_hide_left"></div>
+         </div>
+      </div>
+      <div
+              class="offset-lg-3 offset-md-2 offset-0 col-lg-6 col-md-8 col-12 mt-md-5 mt-4 position-relative opacity_hide_text">
+         <button class="flat-button flat-button-bg-light" id="feedback-button" type="button" onclick="sendFeedback(event)">
+            <div>Отправить</div>
+         </button>
+      </div>
+   </form>
+</div>
+
+</body>
+</html>

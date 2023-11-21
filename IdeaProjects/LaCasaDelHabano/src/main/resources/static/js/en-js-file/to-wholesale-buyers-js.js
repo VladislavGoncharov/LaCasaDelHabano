@@ -1,0 +1,207 @@
+
+$(window).scroll(function () {
+    let win = $(window)
+    let windowBottomTransform = win.scrollTop() + (win.innerHeight() * 0.95);
+    $('.transform_left').each(function () {
+        let elementTop = $(this).offset().top;
+        if (!$(this).closest('#allMenu').length)
+            if (elementTop <= windowBottomTransform) {
+                $(this).addClass('transform_show');
+            }
+    });
+});
+
+
+
+let registrationOfWholesaleCustomerName = $('#registration-of-a-wholesale-customer-name')
+let registrationOfWholesaleCustomerTelEmail = $('#registration-of-a-wholesale-customer-tel-email')
+let registrationOfWholesaleCustomerNameOfOrganization = $('#registration-of-a-wholesale-customer-name-of-organization')
+let registrationOfWholesaleCustomerCity = $('#registration-of-a-wholesale-customer-city')
+let registrationOfWholesaleCustomerSubjectOfLetter = $('#registration-of-a-wholesale-customer-subject-of-letter')
+let registrationOfWholesaleCustomerMessage = $('#registration-of-a-wholesale-customer-message')
+let registrationOfWholesaleCustomerButton = $('#registration-of-a-wholesale-customer-button')
+
+function sendRegistration(event) {
+    let check = true;
+    if (event !== null) event.preventDefault();
+
+    if (registrationOfWholesaleCustomerName.val().length === 0 || registrationOfWholesaleCustomerName.hasClass('input-block')) {
+        registrationOfWholesaleCustomerName.addClass('input-block')
+        check = false;
+    }
+    if (registrationOfWholesaleCustomerTelEmail.val().length === 0 || registrationOfWholesaleCustomerTelEmail.hasClass('input-block')) {
+        registrationOfWholesaleCustomerTelEmail.addClass('input-block')
+        check = false;
+    }
+
+    if (registrationOfWholesaleCustomerNameOfOrganization.val().length === 0 || registrationOfWholesaleCustomerNameOfOrganization.hasClass('input-block')) {
+        registrationOfWholesaleCustomerNameOfOrganization.addClass('input-block')
+        check = false;
+    }
+
+    if (registrationOfWholesaleCustomerCity.val().length === 0 || registrationOfWholesaleCustomerCity.hasClass('input-block')) {
+        registrationOfWholesaleCustomerCity.addClass('input-block')
+        check = false;
+    }
+
+    if (registrationOfWholesaleCustomerSubjectOfLetter.val().length === 0 || registrationOfWholesaleCustomerSubjectOfLetter.hasClass('input-block')) {
+        registrationOfWholesaleCustomerSubjectOfLetter.addClass('input-block')
+        check = false;
+    }
+
+    if (check) {
+
+        // animateAfterSendingRegistration('flat-button-failure','Произошла ошибка, пожалуйста обновить страницу');
+        // Плавное скрытие внутреннего div
+        let formRegistration = {
+            name: registrationOfWholesaleCustomerName.val(),
+            telOrEmail: registrationOfWholesaleCustomerTelEmail.val(),
+            nameOfOrganization: registrationOfWholesaleCustomerNameOfOrganization.val(),
+            city: registrationOfWholesaleCustomerCity.val(),
+            subjectOfLetter: registrationOfWholesaleCustomerSubjectOfLetter.val(),
+            message: registrationOfWholesaleCustomerMessage.val()
+        }
+
+        $.ajax({
+            url: '/api/send-registration-of-wholesale-customer',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formRegistration),
+            success: function (data) {
+                if (data) {
+                    clearingRegistration();
+                    animateAfterSendingRegistration('flat-button-success', 'We will contact you as soon as possible');
+                }
+                else animateAfterSendingRegistration('flat-button-failure', 'An error has occurred, please refresh the page');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+                animateAfterSendingRegistration('flat-button-failure', 'An error has occurred, please refresh the page');
+            }
+        });
+        console.log('-----------------')
+        console.log(registrationOfWholesaleCustomerName.val())
+        console.log(registrationOfWholesaleCustomerTelEmail.val())
+        console.log(registrationOfWholesaleCustomerMessage.val())
+        console.log('-----------------' + check)
+
+    }
+}
+
+registrationOfWholesaleCustomerName.on('input', function (event) {
+    let inputValue = event.target.value;
+    // Заменяем цифры на пустую строку
+    inputValue = inputValue.replace(/\d/g, '');
+    registrationOfWholesaleCustomerName.val(inputValue);
+
+    if (registrationOfWholesaleCustomerName.length > 100) registrationOfWholesaleCustomerName.addClass('input-block')
+    else registrationOfWholesaleCustomerName.removeClass('input-block')
+
+    console.log(inputValue);
+});
+registrationOfWholesaleCustomerNameOfOrganization.on('input', function (event) {
+    let inputValue = event.target.value;
+    // Заменяем цифры на пустую строку
+    inputValue = inputValue.replace(/\d/g, '');
+    registrationOfWholesaleCustomerNameOfOrganization.val(inputValue);
+
+    if (registrationOfWholesaleCustomerNameOfOrganization.length > 100) registrationOfWholesaleCustomerNameOfOrganization.addClass('input-block')
+    else registrationOfWholesaleCustomerNameOfOrganization.removeClass('input-block')
+
+    console.log(inputValue);
+});
+registrationOfWholesaleCustomerCity.on('input', function (event) {
+    let inputValue = event.target.value;
+    // Заменяем цифры на пустую строку
+    inputValue = inputValue.replace(/\d/g, '');
+    registrationOfWholesaleCustomerCity.val(inputValue);
+
+    if (registrationOfWholesaleCustomerCity.length > 100) registrationOfWholesaleCustomerCity.addClass('input-block')
+    else registrationOfWholesaleCustomerCity.removeClass('input-block')
+
+    console.log(inputValue);
+});
+registrationOfWholesaleCustomerSubjectOfLetter.on('input', function (event) {
+    let inputValue = event.target.value;
+    // Заменяем цифры на пустую строку
+    inputValue = inputValue.replace(/\d/g, '');
+    registrationOfWholesaleCustomerSubjectOfLetter.val(inputValue);
+
+    if (registrationOfWholesaleCustomerSubjectOfLetter.length > 100) registrationOfWholesaleCustomerSubjectOfLetter.addClass('input-block')
+    else registrationOfWholesaleCustomerSubjectOfLetter.removeClass('input-block')
+
+    console.log(inputValue);
+});
+registrationOfWholesaleCustomerTelEmail.on('input', function (event) {
+    let inputValue = event.target.value;
+
+    // Регулярное выражение для проверки адреса электронной почты
+    let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Регулярное выражение для проверки номера телефона (простой пример)
+    let phoneRegex = /^(\+7|8)[0-9]{10}$/;
+
+    if (emailRegex.test(inputValue) && inputValue.length <= 100 || phoneRegex.test(inputValue) && inputValue.length <= 100) {
+        registrationOfWholesaleCustomerTelEmail.removeClass('input-block')
+        console.log("registrationOfWholesaleCustomerTelEmail.removeClass('input-block')")
+    } else {
+        registrationOfWholesaleCustomerTelEmail.addClass('input-block')
+        console.log("registrationOfWholesaleCustomerTelEmail.addClass('input-block')")
+    }
+    console.log(event.target.value)
+})
+
+// Список элементов, которые нужно анимировать
+const elementsToAnimateRegistration =
+    [registrationOfWholesaleCustomerName, registrationOfWholesaleCustomerTelEmail,
+        registrationOfWholesaleCustomerNameOfOrganization, registrationOfWholesaleCustomerCity,
+        registrationOfWholesaleCustomerSubjectOfLetter, registrationOfWholesaleCustomerMessage];
+
+function clearingRegistration() {
+    // Вызов функции для анимации элементов
+    elementsToAnimateRegistration.forEach(element => {
+        element.toggleClass('opacity_show')
+        setTimeout(function () {
+            element.toggleClass('opacity_show')
+        }, 1500);
+    });
+
+    // Очистка значений через setTimeout
+    setTimeout(function () {
+        elementsToAnimateRegistration.forEach(element => {
+            element.val('').text('');
+            element.removeClass('input-block')
+        });
+    }, 1500);
+}
+
+function animateAfterSendingRegistration(cssClass, message) {
+    let innerDiv = registrationOfWholesaleCustomerButton.find('div')
+
+
+    gsap.to(innerDiv, {opacity: 0, duration: 1.5, onComplete: showInnerDiv});
+    setTimeout(function () {
+        registrationOfWholesaleCustomerButton.addClass(cssClass)
+        innerDiv.text(message)
+    }, 1500);
+
+    // Плавное показ внутреннего div
+    function showInnerDiv() {
+        gsap.to(innerDiv, {opacity: 1, duration: 1});
+    }
+
+    setTimeout(function () {
+
+        gsap.to(innerDiv, {opacity: 0, duration: 1, onComplete: showInnerDiv});
+        setTimeout(function () {
+            registrationOfWholesaleCustomerButton.removeClass(cssClass)
+            innerDiv.text('Send')
+        }, 1000)
+
+        // Плавное показ внутреннего div
+        function showInnerDiv() {
+            gsap.to(innerDiv, {opacity: 1, duration: 1});
+        }
+    }, 20000);
+}
+
