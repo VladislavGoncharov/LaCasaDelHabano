@@ -7,9 +7,12 @@ import com.vladislavgoncharov.lacasadelhabano.entity.Reserve;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import java.time.LocalDateTime;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Mapper
@@ -20,7 +23,7 @@ public interface ReserveMapper {
     default ReserveDTO fromReserve(Reserve reserve) {
         return ReserveDTO.builder()
                 .id(reserve.getId())
-                .datetime(reserve.getDatetime().format(DateTimeFormatter.ofPattern("dd MMMM yyyy hh:mm:ss")))
+                .datetime(reserve.getDatetime().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")))
                 .name(reserve.getName())
                 .mug(reserve.getMug())
                 .telOrEmail(reserve.getTelOrEmail())
@@ -28,8 +31,19 @@ public interface ReserveMapper {
                 .message(reserve.getMessage())
                 .type(reserve.getType())
                 .newsName(reserve.getNewsName())
-                .basket(fromBasketList(reserve.getBasket()))
+                .basketMap(fromBasketList(reserve.getBasket()))
+                .fullPrice(getFullPrice(reserve.getBasket()))
+                .quantityItems(reserve.getBasket().size())
                 .build();
+    }
+
+    default String getFullPrice(List<Basket> baskets) {
+        int fullPrice = baskets.stream()
+                .map(Basket::getItemPrice)
+                .reduce(0, Integer::sum
+                );
+
+        return new DecimalFormat("#,###").format(fullPrice);
     }
 
     default List<ReserveDTO> fromReserveList(List<Reserve> reserves) {
@@ -40,7 +54,7 @@ public interface ReserveMapper {
 
     default Reserve toFirstReserve(ReserveDTO reserveDTO, List<Basket> baskets) {
         return Reserve.builder()
-                .datetime(LocalDateTime.now())
+                .datetime(LocalDate.parse(reserveDTO.getDatetime(), DateTimeFormatter.ofPattern("dd.MM.yyyy")))
                 .name(reserveDTO.getName())
                 .mug(reserveDTO.getMug())
                 .telOrEmail(reserveDTO.getTelOrEmail())
@@ -51,10 +65,11 @@ public interface ReserveMapper {
                 .basket(baskets)
                 .build();
     }
+
     default Reserve toUpdateReserve(ReserveDTO reserveDTO) {
         return Reserve.builder()
                 .id(reserveDTO.getId())
-                .datetime(LocalDateTime.now())
+                .datetime(LocalDate.now())
                 .name(reserveDTO.getName())
                 .mug(reserveDTO.getMug())
                 .telOrEmail(reserveDTO.getTelOrEmail())
@@ -64,13 +79,26 @@ public interface ReserveMapper {
                 .build();
     }
 
-    default List<BasketDTO> fromBasketList(List<Basket> baskets) {
-        return baskets.stream()
-                .map(this::fromBasket)
-                .collect(Collectors.toList());
+    // сделать перевод корзины из лист в мап по количеству и показывать в админке
+    default Map<BasketDTO, Integer> fromBasketList(List<Basket> baskets) {
+
+        Map<BasketDTO, Integer> map = new HashMap<>();
+
+        baskets.forEach(basket -> {
+            BasketDTO basketDTO = fromBasket(basket);
+
+            if (map.containsKey(basketDTO)) {
+                int value = map.get(basketDTO);
+                value++;
+                map.put(basketDTO, value);
+            } else map.put(basketDTO, 1);
+
+        });
+
+        return map;
     }
 
-    default BasketDTO fromBasket (Basket basket) {
+    default BasketDTO fromBasket(Basket basket) {
         return BasketDTO.builder()
                 .id(basket.getId())
                 .itemId(basket.getItemIdentifier())

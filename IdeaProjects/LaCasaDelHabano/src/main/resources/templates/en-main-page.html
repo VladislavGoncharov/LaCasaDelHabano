@@ -14,6 +14,43 @@
     <link rel="stylesheet" th:href="@{/css/screen-size.css}">
     <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
     <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
+
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Main"
+                    }
+                ]
+            },
+            "inLanguage": "en-EN",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
+
     <title>La Casa Del Habano</title>
 </head>
 
@@ -38,20 +75,15 @@
 
 <div class="row mt-3 gx-0 position-relative">
     <div id="main__img_div" class="offset-lg-3 offset-md-2 col-lg-6 col-md-8 col-12 g-0 main__img_div">
-        <svg id="svg_loading" style="z-index: 30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-            <rect width="100%" height="100%" fill="white"/>
+        <svg id="svg_loading" style="z-index: 30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+            <rect width="100%" height="100%" fill="white" stroke="white" style="position:absolute;"/>
         </svg>
-        <video id="video-anim" class="main__img" pip="false" muted autoplay loop playsinline>
-            <source src="video/animate.webm" type="video/webm"/>
+        <video id="video-anim" class="main__img" pip="false" muted="true" autoplay="true" loop="true" playsinline="true" preload="auto">
+            <source src="/video/animate.webm" type="video/webm"/>
+            <source src="/video/animate_2.mp4" type="video/mp4"/>
+
             Your browser does not support video animation playback
         </video>
-        <script>
-            let video = document.getElementById('video-anim');
-            video.addEventListener('canplay', function () {
-                video.play();
-            });
-            video.load();
-        </script>
     </div>
 </div>
 <div class="main__bg_black_div">
@@ -85,8 +117,8 @@
                      alt="main__text_house_of_cuban_cigars_en"></div>
         </div>
         <div class="row mt-2 h5 overflow-hidden">
-            <div class="col-12 text-center enter-show text-uppercase">Cigar places and tasting areas in the
-                <br> centre of st. Petersburg
+            <div class="col-12 text-center enter-show text-uppercase"><h1 class="h5">Cigar places and tasting areas in the
+                <br> centre of st. Petersburg</h1>
             </div>
         </div>
         <div class="row mt-4 h5 overflow-hidden d-flex d-lg-none">
@@ -102,7 +134,7 @@
             </div>
         </div>
         <div class="row mt-235px h1 overflow-hidden">
-            <div class="col-12 text-center transform_up_text text-uppercase">The House of Cuban Cigars</div>
+            <div class="col-12 text-center transform_up_text text-uppercase"><h2 class="h1">The House of Cuban Cigars</h2></div>
         </div>
         <div class="row">
             <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8 col-12 mt-96px">
@@ -110,7 +142,7 @@
             </div>
         </div>
         <div class="row h3 overflow-hidden">
-            <div class="col-12  mt-4 text-center transform_up_text">Exclusivity</div>
+            <div class="col-12  mt-4 text-center transform_up_text"><h3 class="h3">Exclusivity</h3></div>
         </div>
         <div class="row h5">
             <div class="col-12  mt-3 text-center opacity_hide_text">The largest assortment of Cuban cigars in Russia: limited
@@ -123,7 +155,7 @@
             </div>
         </div>
         <div class="row h3 overflow-hidden">
-            <div class="col-12 mt-4 text-center transform_up_text">Quality</div>
+            <div class="col-12 mt-4 text-center transform_up_text"><h3 class="h3">Quality</h3></div>
         </div>
         <div class="row h5">
             <div class="col-12 mt-3 text-center opacity_hide_text">Top quality storage and expert assistance in
@@ -143,7 +175,7 @@
             </div>
         </div>
         <div class="row h1 overflow-hidden">
-            <div class="col-12 text-center mt-400px transform_up_text text-uppercase">assortment</div>
+            <div class="col-12 text-center mt-400px transform_up_text text-uppercase"><h2 class="h1">assortment</h2></div>
         </div>
         <div class="row mt-5 h5">
             <div class="col-md-3 col-6 gx-lg-4 gx-3 overflow-hidden">
@@ -151,7 +183,8 @@
                     <div class="fc-white main__bg_black_card_div transform_up_text">
                         <div class="mt-lg-5 mt-4 position-absolute top-0 start-50 translate-middle-x z-index-1
                         opacity_hide_text text-uppercase">
-                            cigars
+                            <h3 class="h5">cigars</h3>
+
                         </div>
                         <div class="mt-168px main__bg_black_card_img_div position-relative z-index-1"><img
                                 src="/img/main__img_card_1.jpg" alt="card-1"></div>
@@ -168,7 +201,8 @@
                     <div class="fc-white main__bg_black_card_div transform_up_text">
                         <div class="mt-lg-5 mt-4 position-absolute top-0 start-50 translate-middle-x z-index-1
                         opacity_hide_text text-uppercase">
-                            Cigarillos
+                            <h3 class="h5">Cigarillos</h3>
+
                         </div>
                         <div class="mt-168px main__bg_black_card_img_div position-relative z-index-1"><img
                                 src="/img/main__img_card_2.jpg" alt="card-2"></div>
@@ -185,7 +219,8 @@
                     <div class="fc-white main__bg_black_card_div transform_up_text">
                         <div class="mt-lg-5 mt-4 position-absolute top-0 start-50 translate-middle-x z-index-1
                         opacity_hide_text text-uppercase">
-                            coffee
+                            <h3 class="h5">coffee</h3>
+
                         </div>
                         <div class="mt-168px main__bg_black_card_img_div position-relative z-index-1"><img
                                 src="/img/main__img_card_3.jpg" alt="card-3"></div>
@@ -202,7 +237,8 @@
                     <div class="fc-white main__bg_black_card_div transform_up_text">
                         <div class="mt-lg-5 mt-4 position-absolute top-0 start-50 translate-middle-x z-index-1
                              opacity_hide_text text-uppercase">
-                            Accessories
+                            <h3 class="h5">Accessories</h3>
+
                         </div>
                         <div class="mt-168px main__bg_black_card_img_div position-relative z-index-1"><img
                                 src="/img/main__img_card_4.jpg" alt="card-4"></div>
@@ -219,7 +255,7 @@
 </div>
 <div class="row mt-2120px h1">
     <div class="col-12 text-center overflow-hidden">
-        <div class="transform_up_text text-uppercase">our places</div>
+        <div class="transform_up_text text-uppercase"><h2 class="h1">our places</h2></div>
     </div>
     <div class="col-12 mt-4 d-none d-lg-flex">
         <div class="border-top border_hide_center"></div>
@@ -227,7 +263,7 @@
 </div>
 <div class="main__our_mug_div  overflow-lg-hidden"><img id="our_mug_img_1"
                                                         class="our-mug__img-full-screen transform_scale"
-                                                        src="/img/main__our_mug_full_screen_1.png" alt="our_mug"
+                                                        src="/img/main__our_mug_full_screen_1.jpg" alt="our_mug"
                                                         style='z-index: 0'> <img id="our_mug_img_2"
                                                                                  class="our-mug__img-full-screen transform_scale"
                                                                                  src="/img/main__our_mug_full_screen_4.jpg"
@@ -312,29 +348,35 @@
                     <div class="our-mug__images-selectors">
                         <div class="our-mug__images-container" id="selectors-images-on-kuz" style='z-index: 1'>
                             <div class="our-mug__img-content our-mug__img-content--kuz our-mug__img-content--focused"
-                                 data-img-name="main__our_mug_full_screen_1.png"><img class="our-mug__img"
+                                 data-img-name="main__our_mug_full_screen_1.jpg">
+                                <img class="our-mug__img"
                                                                                       src="/img/view-mug-on-kuz-mini-1.png"
                                                                                       alt="image-on-kuz-1"></div>
                             <div class="our-mug__img-content our-mug__img-content--kuz"
-                                 data-img-name="main__our_mug_full_screen_2.png"><img class="our-mug__img"
+                                 data-img-name="main__our_mug_full_screen_2.jpg">
+                                <img class="our-mug__img"
                                                                                       src="/img/view-mug-on-kuz-mini-2.png"
                                                                                       alt="image-on-kuz-2"></div>
                             <div class="our-mug__img-content our-mug__img-content--kuz"
-                                 data-img-name="main__our_mug_full_screen_3.png"><img class="our-mug__img"
+                                 data-img-name="main__our_mug_full_screen_3.jpg">
+                                <img class="our-mug__img"
                                                                                       src="/img/view-mug-on-kuz-mini-3.png"
                                                                                       alt="image-on-kuz-3"></div>
                         </div>
                         <div class="our-mug__images-container" id="selectors-images-on-petr" style='z-index: 0'>
                             <div class="our-mug__img-content our-mug__img-content--petr our-mug__img-content--focused"
-                                 data-img-name="main__our_mug_full_screen_4.jpg"><img class="our-mug__img"
+                                 data-img-name="main__our_mug_full_screen_4.jpg">
+                                <img class="our-mug__img"
                                                                                       src="/img/view-mug-on-petr-mini-1.png"
                                                                                       alt="image-on-petr-1"></div>
                             <div class="our-mug__img-content our-mug__img-content--petr"
-                                 data-img-name="main__our_mug_full_screen_5.png"><img class="our-mug__img"
+                                 data-img-name="main__our_mug_full_screen_5.jpg">
+                                <img class="our-mug__img"
                                                                                       src="/img/view-mug-on-petr-mini-2.png"
                                                                                       alt="image-on-petr-2"></div>
                             <div class="our-mug__img-content our-mug__img-content--petr"
-                                 data-img-name="main__our_mug_full_screen_6.png"><img class="our-mug__img"
+                                 data-img-name="main__our_mug_full_screen_6.jpg">
+                                <img class="our-mug__img"
                                                                                       src="/img/view-mug-on-petr-mini-3.png"
                                                                                       alt="image-on-petr-3"></div>
                         </div>
@@ -432,7 +474,7 @@
     </div>
 </div>
 <div class="row mt-950px h1 overflow-hidden">
-    <div class="col-12 text-center transform_up_text text-uppercase">other projects</div>
+    <div class="col-12 text-center transform_up_text text-uppercase"><h2 class="h1">other projects</h2></div>
 </div>
 <div class="main__others_project row mt-96px">
     <div class="offset-lg-6 col-lg-1 col-12 h3-num ps-3 opacity_hide_text"><span class="d-none d-lg-block">01</span>
@@ -619,7 +661,7 @@
     </div>
 </div>
 <div class="row mt-96px h1 overflow-hidden">
-    <div class="col-12 d-flex justify-content-center align-items-center transform_up_text text-uppercase">get in touch</div>
+    <div class="col-12 d-flex justify-content-center align-items-center transform_up_text text-uppercase"><h2 class="h1">get in touch</h2></div>
 </div>
 <th:block th:insert="~{en-fragments/feedback :: feedback}"></th:block>
 <th:block th:insert="~{en-fragments/footer :: footer-black}"></th:block>

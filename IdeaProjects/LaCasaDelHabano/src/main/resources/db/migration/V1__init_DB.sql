@@ -1,4 +1,5 @@
 drop table if exists basket CASCADE;
+drop table if exists telegram CASCADE;
 drop table if exists feedback CASCADE;
 drop table if exists item CASCADE;
 drop table if exists item_option CASCADE;
@@ -6,6 +7,9 @@ drop table if exists links CASCADE;
 drop table if exists news CASCADE;
 drop table if exists reserve CASCADE;
 drop table if exists registration_of_wholesale_customer CASCADE;
+drop table if exists users cascade;
+drop sequence if exists seq_users;
+drop sequence if exists seq_telegrams;
 drop sequence if exists seq_basket;
 drop sequence if exists seq_feedback;
 drop sequence if exists seq_item;
@@ -13,6 +17,8 @@ drop sequence if exists seq_links;
 drop sequence if exists seq_news;
 drop sequence if exists seq_reserve;
 drop sequence if exists seq_registration_of_wholesale_customer;
+create sequence seq_users start with 1 increment by 1;
+create sequence seq_telegrams start with 1 increment by 1;
 create sequence seq_feedback start with 1 increment by 1;
 create sequence seq_item start with 100000 increment by 1;
 create sequence seq_links start with 1 increment by 1;
@@ -20,19 +26,26 @@ create sequence seq_news start with 100000 increment by 1;
 create sequence seq_reserve start with 1 increment by 1;
 create sequence seq_basket start with 1 increment by 1;
 create sequence seq_registration_of_wholesale_customer start with 1 increment by 1;
+
 create table feedback
 (
     id           bigint not null,
-    datetime     timestamp,
+    datetime     TIMESTAMP,
     message      varchar(255),
     name         varchar(255),
     tel_or_email varchar(255),
     primary key (id)
 );
+create table telegram
+(
+    id           bigint not null,
+    telegram_id  bigint,
+    primary key (id)
+);
 create table registration_of_wholesale_customer
 (
     id                   bigint not null,
-    datetime             timestamp,
+    datetime             TIMESTAMP,
     message              varchar(255),
     name                 varchar(255),
     name_of_organization varchar(255),
@@ -47,7 +60,7 @@ create table item
     article_number            varchar(255),
     brand                     varchar(255),
     country                   varchar(255),
-    description               varchar(2000),
+    description               CLOB,
     fortress                  integer,
     name                      varchar(255),
     photo                     varchar(500),
@@ -61,7 +74,7 @@ create table item
 
     en_lang_brand             varchar(255),
     en_lang_country           varchar(255),
-    en_lang_description       varchar(2000),
+    en_lang_description       CLOB,
     en_lang_name              varchar(255),
     en_lang_series            varchar(255),
     en_lang_type_of_accessory varchar(255),
@@ -103,17 +116,18 @@ create table news
     id                bigint not null,
     date              date,
     header            varchar(255),
-    main_text         TEXT,
+    main_text         CLOB,
     tag               varchar(400),
     en_lang_header    varchar(255),
-    en_lang_main_text TEXT,
+    en_lang_main_text CLOB,
     en_lang_tag       varchar(400),
+    photo             varchar(500),
     primary key (id)
 );
 create table reserve
 (
     id               bigint not null,
-    datetime         timestamp,
+    datetime         DATE,
     message          varchar(300),
     mug              varchar(255),
     type             varchar(255),
@@ -128,11 +142,21 @@ create table basket
 (
     id              bigint not null,
     reserve_id      bigint,
-    item_identifier integer,
+    item_identifier bigint,
     item_name       varchar(255),
     item_option     varchar(255),
     item_price      integer,
     item_photo      varchar(500),
+    primary key (id)
+);
+
+
+create table users
+(
+    id              bigint  not null,
+    username        varchar(255) not null,
+    password        varchar(255) not null,
+    role            varchar(50),
     primary key (id)
 );
 alter table item_option

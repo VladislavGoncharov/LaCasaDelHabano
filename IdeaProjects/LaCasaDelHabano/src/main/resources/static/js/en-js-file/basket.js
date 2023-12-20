@@ -172,7 +172,7 @@ function createItemInBasket(item, option, count) {
 
     itemDiv.innerHTML = `
          <div class="basket__box_img">
-            <img class="basket__img" src="/img/${item.type}.jpg" alt="catalog__img_card_1">
+            <img class="basket__img" src="${item.photo}" alt="catalog__img_card_1">
          </div>
          <div class="position-relative ms-2">
             <div class="h5">${item.name}</div>

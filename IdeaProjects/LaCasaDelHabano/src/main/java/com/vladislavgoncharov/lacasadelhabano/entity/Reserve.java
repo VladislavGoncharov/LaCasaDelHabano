@@ -1,11 +1,10 @@
 package com.vladislavgoncharov.lacasadelhabano.entity;
 
-import com.vladislavgoncharov.lacasadelhabano.dto.ItemDTO;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -13,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//@ToString
 
 @Entity
 @Table(name = "reserve")
@@ -25,8 +23,8 @@ public class Reserve {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
-    @DateTimeFormat(pattern = "dd-MMMM-yyyy hh:mm:ss")
-    private LocalDateTime datetime;
+    @DateTimeFormat(pattern = "dd-MMMM-yyyy")
+    private LocalDate datetime;
 
     private String mug;
     private String name;

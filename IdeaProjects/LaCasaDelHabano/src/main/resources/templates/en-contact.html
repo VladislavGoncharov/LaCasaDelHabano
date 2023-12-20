@@ -14,11 +14,47 @@
     <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
     <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
 
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
 
-    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>-->
-    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>-->
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Main"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Contact"
+                    }
+                ]
+            },
+            "inLanguage": "en-EN",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
 
-    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.10/SmoothScroll.min.js" integrity="sha256-huW7yWl7tNfP7lGk46XE+Sp0nCotjzYodhVKlwaNeco=" crossorigin="anonymous"></script>-->
     <title>Contact</title>
 </head>
 <!--/*@thymesVar id="phonesAndLink" type="com.vladislavgoncharov.lacasadelhabano.dto.PhonesAndLinkDTO"*/-->
@@ -34,7 +70,7 @@
     <div class="col-11 d-lg-flex d-none justify-content-star align-items-center h4 text-uppercase">main <img
             src="/img/vector-dash.svg" class="ps-3 pe-3" alt="vector-dash">contacts
     </div>
-    <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase">contacts</div>
+    <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase"><h1 class="h1">contacts</h1></div>
     <div class="col-1 d-flex justify-content-end align-items-center"><img src="/img/sheet.svg" alt="sheet"></div>
     <div class="col-12 mt-lg-3 mt-0">
         <div class="border-top"></div>
@@ -181,8 +217,8 @@
             document.getElementById('link-fb').getAttribute('data-href');">FB</a></div>
     </div>
 </div>
-<div class="row mt-156px h1">
-    <div class="offset-4 col-4 d-flex justify-content-center align-items-center text-uppercase">get in touch</div>
+<div class="row mt-156px h1"> h1 overflow-hidden">
+    <div class="col-12 d-flex justify-content-center align-items-center transform_up_text">get in touch</div>
 </div>
 <th:block th:insert="~{en-fragments/feedback :: feedback}"></th:block>
 <th:block th:insert="~{en-fragments/footer :: footer-black}"></th:block>

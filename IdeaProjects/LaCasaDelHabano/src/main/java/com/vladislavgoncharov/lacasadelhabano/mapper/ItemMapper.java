@@ -13,6 +13,35 @@ public interface ItemMapper {
 
     ItemMapper MAPPER = Mappers.getMapper(ItemMapper.class);
 
+    default ItemDTO fromItemAllLang(Item item) {
+        return ItemDTO.builder()
+                .id(item.getId())
+                .type(item.getType())
+                .brand(item.getBrand())
+                .name(item.getName())
+                .series(item.getSeries())
+                .typeOfAccessory(item.getTypeOfAccessory())
+                .price(item.getPrice())
+                .size(item.getSize())
+                .ringGauge(item.getRingGauge())
+                .fortress(item.getFortress())
+                .option(item.getOption())
+                .photo(item.getPhoto())
+                .photoSmall(item.getPhotoSmall())
+                .country(item.getCountry())
+                .description(item.getDescription())
+                .articleNumber(item.getArticleNumber())
+                .optionSize(item.getOption().size())
+
+                .enLangBrand(item.getEnLangBrand())
+                .enLangName(item.getEnLangName())
+                .enLangSeries(item.getEnLangSeries())
+                .enLangTypeOfAccessory(item.getEnLangTypeOfAccessory())
+                .enLangOption(item.getEnLangOption())
+                .enLangCountry(item.getEnLangCountry())
+                .enLangDescription(item.getEnLangDescription())
+                .build();
+    }
     default ItemDTO fromItemRu(Item item) {
         return ItemDTO.builder()
                 .id(item.getId())
@@ -27,6 +56,7 @@ public interface ItemMapper {
                 .fortress(item.getFortress())
                 .option(item.getOption())
                 .photo(item.getPhoto())
+                .photoSmall(item.getPhotoSmall())
                 .country(item.getCountry())
                 .description(item.getDescription())
                 .articleNumber(item.getArticleNumber())
@@ -57,7 +87,11 @@ public interface ItemMapper {
     }
 
     default List<ItemDTO> fromItemList(String lang, List<Item> items) {
-        if (lang.equalsIgnoreCase("ru"))
+        if (lang.equalsIgnoreCase("allLang"))
+            return items.stream()
+                    .map(this::fromItemAllLang)
+                    .collect(Collectors.toList());
+        else if (lang.equalsIgnoreCase("ru"))
             return items.stream()
                 .map(this::fromItemRu)
                 .collect(Collectors.toList());
@@ -103,13 +137,9 @@ public interface ItemMapper {
     }
 
     default List<ItemDTO> fromItemBriefDataList(String lang, List<ItemDTO> itemDTOS) {
-//        if (lang.equalsIgnoreCase("ru"))
             return itemDTOS.stream()
                     .map(this::fromItemBriefData)
                     .collect(Collectors.toList());
-//        else return itemDTOS.stream()
-//                .map(this::fromItemBriefEnData)
-//                .collect(Collectors.toList());
     }
 
     default Item toItem(ItemDTO itemDTO) {
@@ -126,6 +156,7 @@ public interface ItemMapper {
                 .fortress(itemDTO.getFortress())
                 .option(itemDTO.getOption())
                 .photo(itemDTO.getPhoto())
+                .photoSmall(itemDTO.getPhotoSmall())
                 .country(itemDTO.getCountry())
                 .description(itemDTO.getDescription())
                 .articleNumber(itemDTO.getArticleNumber())
@@ -135,7 +166,7 @@ public interface ItemMapper {
                 .enLangSeries(itemDTO.getEnLangSeries())
                 .enLangTypeOfAccessory(itemDTO.getEnLangTypeOfAccessory())
                 .enLangCountry(itemDTO.getEnLangCountry())
-                .enLangDescription(itemDTO.getDescription())
+                .enLangDescription(itemDTO.getEnLangDescription())
                 .enLangOption(itemDTO.getEnLangOption())
                 .build();
     }

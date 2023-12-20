@@ -49,24 +49,52 @@ $('.link-on-petrogradskoy').prev('.position-relative').add('.link-on-petrogradsk
     $('.link-on-petrogradskoy-text').css('opacity', 1);
 });
 
-gsap.registerPlugin(ScrollTrigger);
-gsap.fromTo('.about_us__foreground_picture', {
-    scrollTrigger: {
-        trigger: '.bg_transparent'
-        , start: (window.innerHeight * (-1.2)) + 'px top'
-        , scrub: true
-    , }
-    , translateY: -350
-}, {
-    scrollTrigger: {
-        trigger: '.bg_transparent'
-        , start: (window.innerHeight * (-1.2)) + 'px top'
-        , scrub: true
-    , }
-    , translateY: 100
-})
 function reserveBtnAboutUsPage(mug) {
     openPopUp('reserve',event);
     if (mug === 'kuznechny') $(`input[type="radio"][name="reserve-mug"][value="kuznechny"]`).prop('checked', true);
     else $(`input[type="radio"][name="reserve-mug"][value="petrogradskaya"]`).prop('checked', true);
+}
+
+
+
+$(window).on('load resize', function () {
+    let screenSize = document.documentElement.clientWidth
+    if (screenSize < 460) $('.about_us__foreground_picture').css('max-width', screenSize)
+});
+
+if (document.documentElement.clientWidth < 460) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.fromTo('.about_us__foreground_picture', {
+        scrollTrigger: {
+            trigger: '.bg_transparent'
+            , start: (window.innerHeight * (-1)) + 'px top'
+            , scrub: true
+            , }
+        , translateY: -150
+    }, {
+        scrollTrigger: {
+            trigger: '.bg_transparent'
+            , start: (window.innerHeight * (-1.1)) + 'px top'
+            , scrub: true
+            , }
+        , translateY: 100
+    })
+}
+else {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.fromTo('.about_us__foreground_picture', {
+        scrollTrigger: {
+            trigger: '.bg_transparent'
+            , start: (window.innerHeight * (-1.2)) + 'px top'
+            , scrub: true
+            , }
+        , translateY: -350
+    }, {
+        scrollTrigger: {
+            trigger: '.bg_transparent'
+            , start: (window.innerHeight * (-1.2)) + 'px top'
+            , scrub: true
+            , }
+        , translateY: 100
+    })
 }

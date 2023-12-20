@@ -15,6 +15,47 @@
     <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
     <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
 
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Main"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Privacy Policy"
+                    }
+                ]
+            },
+            "inLanguage": "en-EN",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
+
     <title>Privacy policy</title>
 </head>
 
@@ -29,11 +70,10 @@
 <th:block th:insert="~{en-fragments/enter :: enter-other-page}"></th:block>
 
 <div class="row mt-156px">
-    <div class="col-11 d-lg-flex d-none justify-content-star align-items-center h4 text-uppercase">ГЛАВНАЯ <img
-            src="/img/vector-dash.svg" class="ps-3 pe-3" alt="vector-dash">Политика конфиденциальности
+    <div class="col-11 d-lg-flex d-none justify-content-star align-items-center h4 text-uppercase">main <img
+            src="/img/vector-dash.svg" class="ps-3 pe-3" alt="vector-dash">Privacy policy
     </div>
-    <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase pe-0">Политика
-        конфиденциальности
+    <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase pe-0">Privacy policy
     </div>
     <div class="col-1 d-flex justify-content-end align-items-center ps-0"><img src="/img/sheet.svg" alt="sheet"></div>
     <div class="col-12 mt-lg-3">
@@ -41,30 +81,31 @@
     </div>
 </div>
 <div class="row mt-2 d-none d-lg-flex">
-    <div class="col-12 h1 text-uppercase">Политика конфиденциальности</div>
+    <div class="col-12 h1 text-uppercase">Privacy policy</div>
 </div>
 <div class="row mt-110px opacity_hide_text">
 
-    <div class="col-lg-10 col-12 offset-lg-2 offset-0 text-uppercase mb-3 h2-32">ОБЩИЕ УСЛОВИЯ</div>
+    <div class="col-lg-10 col-12 offset-lg-2 offset-0 text-uppercase mb-3 h2-32">GENERAL CONDITIONS</div>
     <div class="col-lg-10 col-12 offset-lg-2 offset-0 h5">
-        <div class="text-align-justify">Настоящая Политика определяет порядок обработки и защиты ООО
-            «Сигарное место» (далее – Общество) информации о физических лицах (далее – Пользователи), которая может быть
-            получена Обществом при заполнении Пользователем регистрационной формы на интернет-сайте
+        <div class="text-align-justify">This Policy defines the procedure for processing and protection of LLC
+            The "Cigar Place" (hereinafter referred to as the Company) of information about individuals
+            (hereinafter referred to as Users), which may be
+            received by the Company when the User fills out the registration form on the website
             <a class="underline-one" th:href="@{/en}">www.cigarsplace.ru</a>
         </div>
-        <div class="text-align-justify mt-2">Целью настоящей Политики является обеспечение надлежащей защиты
-            информации о Пользователях, в том числе их персональных данных, от несанкционированного доступа и
-            разглашения.
+        <div class="text-align-justify mt-2">The purpose of this Policy is to provide adequate protection
+            information about Users, including their personal data, from unauthorized access and
+            disclosures.
         </div>
-        <div class="text-align-justify mt-2">Отношения, связанные со сбором, хранением, распространением и
-            защитой информации предоставляемой Пользователем, регулируются настоящей Политикой, иными локальными
-            документами ООО «Сигарное Место» и действующим законодательством Российской Федерации.
+        <div class="text-align-justify mt-2">Relationships related to collection, storage, distribution and
+            The protection of information provided by the User is governed by this Policy and other local laws.
+            the documents of Cigar Place LLC and the current legislation of the Russian Federation.
         </div>
         <div class="text-align-justify mt-2">
-            Персональные данные, разрешённые к обработке в рамках настоящей Политики конфиденциальности, предоставляются
-            Пользователем путём заполнения регистрационной формы на интернет-сайте
-            <a class="underline-one" th:href="@{/en}">www.cigarsplace.ru</a> и включают в себя
-            следующую информацию:
+            The personal data allowed to be processed under this Privacy Policy is provided
+            By the user by filling out the registration form on the website
+            <a class="underline-one" th:href="@{/en}">www.cigarsplace.ru</a> and include
+            the following information:
         </div>
     </div>
     <div class="col-lg-9 col-md-10 col-12 offset-lg-3 offset-md-2 offset-0 h5 mt-4 text-mobile text-uppercase">
@@ -72,23 +113,23 @@
             <div class="border-top border_hide_right"
             ></div>
         </div>
-        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">фамилию, имя,
-            отчество
-            Пользователя
+        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">last name, first name,
+            patronymic
+            The user
         </div>
         <div class="overflow-hidden mt-4">
             <div class="border-top border_hide_right"
             ></div>
         </div>
-        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">контактный
-            телефон Пользователя
+        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">contact
+            User's phone number
         </div>
         <div class="overflow-hidden mt-4">
             <div class="border-top border_hide_right"
             ></div>
         </div>
-        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">адрес электронной
-            почты (e-mail)
+        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">email address
+            mail (e-mail)
         </div>
         <div class="overflow-hidden mt-4 mb-4">
             <div class="border-top border_hide_right"
@@ -97,61 +138,18 @@
     </div>
 
     <div class="col-lg-10 col-12 offset-lg-2 offset-0 h5">
-        <div class="text-align-justify">Заполняя регистрационную форму, Пользователь выражает свое полное
-            согласие с условиями настоящей Политики.
+        <div class="text-align-justify">By filling out the registration form, the User expresses his full
+            acceptance of the terms of this Policy.
         </div>
     </div>
-    <div class="col-lg-10 col-12 offset-lg-2 offset-0 text-uppercase mt-4 mb-3 h2-32">ЦЕЛИ СБОРА,
-        ОБРАБОТКИ И
-        ХРАНЕНИЯ ИНФОРМАЦИИ ПРЕДОСТАВЛЯЕМОЙ
-        ПОЛЬЗОВАТЕЛЯМИ
-    </div>
-    <div class="col-lg-10 col-12 offset-lg-2 offset-0 h5">
-        <div class="text-align-justify">Обработка персональных данных Пользователя осуществляется в соответствии
-            с законодательством Российской Федерации. Общество обрабатывает персональные данные Пользователя в целях:
-        </div>
-    </div>
-
-    <div class="col-lg-9 col-md-10 col-12 offset-lg-3 offset-md-2 offset-0 h5 mt-4 text-mobile text-uppercase">
-        <div class="overflow-hidden mt-4 mb-4">
-            <div class="border-top border_hide_right"
-            ></div>
-        </div>
-        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">предоставления
-            Пользователю информации об оказываемых
-            Обществом услугах, специальных предложений и иных сведений от имени Общества
-        </div>
-        <div class="overflow-hidden mt-4">
-            <div class="border-top border_hide_right"
-            ></div>
-        </div>
-        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">проведения
-            маркетинговых и иных
-            исследований
-        </div>
-        <div class="overflow-hidden mt-4 mb-4">
-            <div class="border-top border_hide_right"
-            ></div>
-        </div>
-    </div>
-
-    <div class="col-lg-10 col-12 offset-lg-2 offset-0 text-uppercase mt-4 mb-3 h2-32">УСЛОВИЯ ОБРАБОТКИ ПЕРСОНАЛЬНОЙ
-        ИНФОРМАЦИИ ПРЕДОСТАВЛЕННОЙ ПОЛЬЗОВАТЕЛЕМ
+    <div class="col-lg-10 col-12 offset-lg-2 offset-0 text-uppercase mt-4 mb-3 h2-32">COLLECTION GOALS,
+        PROCESSING AND
+        STORAGE OF INFORMATION PROVIDED BY
+        BY USERS
     </div>
     <div class="col-lg-10 col-12 offset-lg-2 offset-0 h5">
-        <div class="text-align-justify">Обработка персональных данных Пользователя осуществляется в течение
-            срока, необходимого для целей, указанных в настоящей Политике, любым законным способом, в том числе в
-            информационных системах с использованием средств автоматизации или без использования таких средств.
-        </div>
-        <div class="text-align-justify mt-2">Общество принимает необходимые организационные и технические меры
-            для защиты персональной информации Пользователя от неправомерного или случайного доступа, уничтожения,
-            изменения, блокирования, копирования, распространения, а также от иных неправомерных действий третьих лиц.
-        </div>
-        <div class="text-align-justify mt-2">Персональные данные Пользователя могут быть переданы уполномоченным
-            органам государственной власти Российской Федерации только по основаниям и в порядке, установленным
-            законодательством Российской Федерации.
-        </div>
-        <div class="text-align-justify mt-2">Пользователь при заполнении регистрационной формы подтверждает, что:
+        <div class="text-align-justify">The processing of the User's personal data is carried out in accordance with
+            with the legislation of the Russian Federation. The Company processes the User's personal data in order to:
         </div>
     </div>
 
@@ -160,18 +158,61 @@
             <div class="border-top border_hide_right"
             ></div>
         </div>
-        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">указывает
-            достоверную
-            информацию о себе, вся иная
-            информация предоставляется Пользователем по его собственному усмотрению.
+        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">provision of
+            To the user of information about the services provided
+            The Company's services, special offers and other information on behalf of the Company
         </div>
         <div class="overflow-hidden mt-4">
             <div class="border-top border_hide_right"
             ></div>
         </div>
-        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">ознакомлен с
-            настоящей Политикой, выражает
-            свое согласие с ней.
+        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">carrying out
+            marketing and other
+            research
+        </div>
+        <div class="overflow-hidden mt-4 mb-4">
+            <div class="border-top border_hide_right"
+            ></div>
+        </div>
+    </div>
+
+    <div class="col-lg-10 col-12 offset-lg-2 offset-0 text-uppercase mt-4 mb-3 h2-32">PERSONAL INFORMATION PROCESSING CONDITIONS
+        INFORMATION PROVIDED BY THE USER
+    </div>
+    <div class="col-lg-10 col-12 offset-lg-2 offset-0 h5">
+        <div class="text-align-justify">The processing of the User's personal data is carried out during
+            the time required for the purposes specified in this Policy, in any lawful way, including in
+            information systems with or without the use of automation tools.
+        </div>
+        <div class="text-align-justify mt-2">The Company takes the necessary organizational and technical measures
+            to protect the User's personal information from unauthorized or accidental access, destruction,
+            modification, blocking, copying, distribution, as well as from other illegal actions of third parties.
+        </div>
+        <div class="text-align-justify mt-2">The User's personal data may be transferred to authorized persons
+            to the state authorities of the Russian Federation only on the grounds and in accordance with the procedure established
+            the legislation of the Russian Federation.
+        </div>
+        <div class="text-align-justify mt-2">When filling out the registration form, the User confirms that:
+        </div>
+    </div>
+
+    <div class="col-lg-9 col-md-10 col-12 offset-lg-3 offset-md-2 offset-0 h5 mt-4 text-mobile text-uppercase">
+        <div class="overflow-hidden mt-4 mb-4">
+            <div class="border-top border_hide_right"
+            ></div>
+        </div>
+        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">indicates
+            reliable
+            information about yourself, all other
+            The information is provided by the User at his own discretion.
+        </div>
+        <div class="overflow-hidden mt-4">
+            <div class="border-top border_hide_right"
+            ></div>
+        </div>
+        <div class="mt-4 d-flex align-items-center"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">I am familiar with
+            this Policy expresses
+            your agreement with her.
         </div>
         <div class="overflow-hidden mt-4 mb-4">
             <div class="border-top border_hide_right"
@@ -179,33 +220,33 @@
         </div>
     </div>
     <div class="col-lg-10 col-12 offset-lg-2 offset-0 h5">
-        <div class="text-align-justify mt-2">Ознакомление с условиями настоящей Политики и проставление галочки
-            под ссылкой на данную Политику является письменным согласием Пользователя на сбор, хранение, обработку
-            персональных данных, предоставляемых Пользователем.
+        <div class="text-align-justify mt-2">Familiarization with the terms of this Policy and putting a check mark
+            under the link to this Policy is the written consent of the User to the collection, storage, processing
+            personal data provided by the User.
         </div>
-        <div class="text-align-justify mt-2">Общество не проверяет достоверность получаемой (собираемой)
-            информации о Пользователях, за исключением случаев, когда такая проверка необходима в целях исполнения
-            обязательств перед Пользователем.
+        <div class="text-align-justify mt-2">The Company does not verify the accuracy of the information received (collected)
+            about Users, except in cases where such verification is necessary for the purpose of execution
+            obligations to the User.
         </div>
     </div>
 
-    <div class="col-lg-10 col-12 offset-lg-2 offset-0 h3 text-uppercase mt-4 mb-3">ИЗМЕНЕНИЕ
-        ПОЛИТИКИ
-        КОНФИДЕНЦИАЛЬНОСТИ. ПРИМЕНИМОЕ
-        ЗАКОНОДАТЕЛЬСТВО
+    <div class="col-lg-10 col-12 offset-lg-2 offset-0 h3 text-uppercase mt-4 mb-3">change
+        politicians
+        CONFIDENTIALITY. APPLICABLE
+        LEGISLATION
     </div>
     <div class="col-lg-10 col-12 offset-lg-2 offset-0 h5">
-        <div class="text-align-justify">ООО «Сигарное Место» имеет право вносить изменения в настоящую Политику
-            конфиденциальности. При внесении изменений в актуальной редакции указывается дата последнего обновления.
-            Новая редакция Политики вступает в силу с момента ее размещения, если иное не предусмотрено новой редакцией
-            Политики.
+        <div class="text-align-justify">Cigar Place LLC has the right to make changes to this Policy
+            confidentiality. When making changes in the current version, the date of the last update is indicated.
+            The new version of the Policy comes into force from the moment it is posted, unless otherwise provided by the new version
+            Politicians.
         </div>
-        <div class="text-align-justify mt-2">К настоящей Политике и отношениям между Пользователем и Обществом,
-            возникающим в связи с применением Политики конфиденциальности, подлежит применению право Российской
-            Федерации.
+        <div class="text-align-justify mt-2">To this Policy and the relationship between the User and the Society,
+            arising in connection with the application of the Privacy Policy, the law of the Russian Federation is subject to application
+            Federation.
         </div>
-        <div class="text-align-justify mt-2">До обращения в суд с иском по спорам, возникающим из отношений между
-            Пользователем и Обществом, обязательным является соблюдение претензионного порядка регулирования спора.
+        <div class="text-align-justify mt-2">Before filing a lawsuit on disputes arising from the relationship between
+            The User and the Company must comply with the claim procedure for dispute settlement.
         </div>
         <div class="text-align-justify mt-2"><a
                 class="link-main underline-one" th:href="${'mailto:' + phonesAndLink.linkMail}"

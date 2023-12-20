@@ -72,7 +72,7 @@ function createItemSearchResult(container, item) {
     itemDiv.classList.add('d-flex', 'mt-2');
     itemDiv.innerHTML = `
            <div class="search__container-img-result">
-               <img class="search__img-result" src="/img/${item.linkPhoto}" alt="${item.name}">
+               <img class="search__img-result" src="${item.linkPhoto}" alt="${item.name}">
            </div>
            <div class="h5">
                 <div>

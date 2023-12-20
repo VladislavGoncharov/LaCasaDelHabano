@@ -2,7 +2,6 @@ package com.vladislavgoncharov.lacasadelhabano.controller;
 
 import com.vladislavgoncharov.lacasadelhabano.service.ItemService;
 import com.vladislavgoncharov.lacasadelhabano.service.PhonesAndLinkService;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -44,9 +43,9 @@ public class GlobalControllerAdvice {
 
     // Обработка всех ошибок
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleException(HttpServletRequest request, Exception e, Model model) {
-        System.out.println("heeeelp");
+        System.out.println("error");
         System.out.println(request.getRequestURL().toString());
         e.printStackTrace();
         addCommonAttributes(model, request);

@@ -25,12 +25,17 @@ public class News {
 
     @DateTimeFormat(pattern = "dd/MM/yy")
     private LocalDate date;
+    private String photo;
     //common variables and ru language
     private String header;
+    @Lob
+    @Column(name = "main_text", columnDefinition = "CLOB")
     private String mainText;
     private String tag;
     //only en language variables
     private String enLangHeader;
+    @Lob
+    @Column(name = "en_lang_main_text", columnDefinition = "CLOB")
     private String enLangMainText;
     private String enLangTag;
 }

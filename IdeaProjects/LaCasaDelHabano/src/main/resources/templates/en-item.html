@@ -16,6 +16,52 @@
     <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
     <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
 
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Main"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Catalog"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "[[${breadcrumbName}]]"
+                    }
+                ]
+            },
+            "inLanguage": "en-EN",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
+
     <title th:text="${item.name}"></title>
 </head>
 
@@ -55,13 +101,13 @@
     </div>
     <div class="row g-0">
         <div class="col-lg-3 col-5 pe-3 item-img z-index-2 position-relative">
-            <div class="border-right-black d-flex justify-content-center align-items-center overflow-hidden height-along-central-column">
-                <img th:src="'/img/' + ${item.photo}" alt="item">
+            <div class="border-right-black d-flex justify-content-center align-items-center overflow-hidden height-along-central-column" style="height: 100px">
+                <img th:src="${item.photo}" alt="item">
             </div>
         </div>
         <div class="col-lg-6 col-7 pe-lg-3 central-column">
             <div class="row g-0">
-                <div class="col-12 mt-4 pt-2 h3 text-uppercase text-center" th:text="${item.name}"></div>
+                <div class="col-12 mt-4 pt-2 h3 text-uppercase text-center"><h1 class="h3" th:text="${item.name}"></h1></div>
                 <div class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-96px h5 d-flex justify-content-between">
                     <div class="fw-300 text-uppercase">item</div>
                     <div class="h5-num" th:text="${item.articleNumber}"></div>
@@ -71,18 +117,23 @@
                     <div class="fw-300 text-uppercase">country</div>
                     <div class="h5-num" th:text="${item.country}"></div>
                 </div>
-                <div class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-1 border-top-black"></div>
-                <div class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-lg-4 mt-2 h5 d-flex justify-content-between">
+                <div th:if="${item.type.toString() == 'ACCESSORY'}" class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-1 border-top-black"></div>
+                <div th:if="${item.type.toString() == 'ACCESSORY'}" class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-lg-4 mt-2 h5 d-flex justify-content-between">
+                    <div class="fw-300 text-uppercase">Type of accessory</div>
+                    <div class="h5-num" th:text="${item.type.toString()OfAccessory}"></div>
+                </div>
+                <div th:if="${item.type.toString() == 'CIGAR'}" class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-1 border-top-black"></div>
+                <div th:if="${item.type.toString() == 'CIGAR'}" class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-lg-4 mt-2 h5 d-flex justify-content-between">
                     <div class="fw-300 text-uppercase">length</div>
                     <div class="h5-num" th:text="${item.size}">140</div>
                 </div>
-                <div class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-1 border-top-black"></div>
-                <div class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-lg-4 mt-2 h5 d-flex justify-content-between">
+                <div th:if="${item.type.toString() == 'CIGAR'}" class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-1 border-top-black"></div>
+                <div th:if="${item.type.toString() == 'CIGAR'}" class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-lg-4 mt-2 h5 d-flex justify-content-between">
                     <div class="fw-300 text-uppercase">Ring Gauge</div>
                     <div class="h5-num" th:text="${item.ringGauge}"></div>
                 </div>
-                <div class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-1 border-top-black"></div>
-                <div class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-lg-4 mt-2 h5 d-flex justify-content-between">
+                <div th:if="${item.type.toString() == 'CIGAR'}" class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-1 border-top-black"></div>
+                <div th:if="${item.type.toString() == 'CIGAR'}" class="offset-xxl-2 col-xxl-8 offset-1 col-10 mt-lg-4 mt-2 h5 d-flex justify-content-between">
                     <div class="fw-300 text-uppercase">fortress</div>
                     <th:block th:switch="${item.fortress}">
                         <div th:case="0" class="d-flex justify-content-center align-items-center">
@@ -138,7 +189,7 @@
         </div>
         <div class="col-lg-3 ps-lg-3">
             <div class="border-left-black height-along-central-column position-relative">
-                <div class="position-absolute bottom-0 ps-lg-4 pe-lg-4 w-100 h5">
+                <div class="position-absolute top-50 translate-middle-y ps-lg-4 pe-lg-4 w-100 h5">
                     <div class=" fw-300 text-uppercase text-lg-start text-center">packaging option</div>
                     <div class="w-100 mt-2">
                         <div class="border-top-black"></div>
@@ -216,7 +267,7 @@
     <div class="row mt-sm-5 mt-3 z-index-2 position-relative">
         <div th:class="${item.getClassCssForListSimilarProductsOnPageItem(number.count)}" th:each="item, number : ${listSimilarProducts}">
             <a th:href="${'/en/item/' + item.id}">
-                <div class="catalog__card_img_div"><img class="catalog__card_img" th:src="${'/img/' + item.photo}"
+                <div class="catalog__card_img_div"><img class="catalog__card_img" th:src="${item.photo}"
                                                         th:alt="${item.name}"></div>
             </a>
                 <div class="catalog__card_padding_text">

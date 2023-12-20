@@ -8,6 +8,14 @@ $(document).ready(function () {
     // запрос, где проверяем, заходил ли пользователь и подтверждал ли, что ему 18 лет
     $.ajax({
         url: siteBaseURL + '/api/session', method: 'GET', success: function (sessionId) {
+
+            if (currentURL.includes('/admin')) {
+                let newSessionObj = {
+                    id: sessionId, result: "yes"
+                }
+                localStorage.setItem("session", JSON.stringify(newSessionObj))
+            }
+
             // console.log(sessionId); // Вывод данных о сессии
             if (localStorage.getItem("session") !== null) {
                 let sessionObject = JSON.parse(localStorage.getItem("session"))
@@ -34,8 +42,6 @@ $(document).ready(function () {
     })
     scrollFunction()
     adaptationOfScreensaver()
-    // document.body.style.overflow = 'hidden';
-    // $('html, body').scrollTop(0);
 
     // скачиваем все элементы
     $.ajax({
@@ -94,16 +100,36 @@ function createSessionByFirstEnter(sessionId) {
 
 //адаптация заставки
 function adaptationOfScreensaver() {
-    let widthScreen = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-    let viewBoxSVGLoading = '0 0 1000 1000';
-    if (widthScreen > 1535) viewBoxSVGLoading = '0 0 1000 1000'; else if (widthScreen > 1395) viewBoxSVGLoading = '0 0 920 1000'; else if (widthScreen > 1195) viewBoxSVGLoading = '0 0 800 1000'; else if (widthScreen > 977) viewBoxSVGLoading = '0 0 640 1000'; else if (widthScreen > 555) viewBoxSVGLoading = '0 0 800 1000'; else if (widthScreen > 399) viewBoxSVGLoading = '0 0 690 1000'; else if (widthScreen > 350) viewBoxSVGLoading = '0 0 600 1000'; else viewBoxSVGLoading = '0 0 500 1000';
-    let svgLoading = $('#svg_loading')
+    let svg_loadingH = $('html #svg_loading').width()
+    let svg_loadingW = $('html #svg_loading').height()
+
+    console.log(svg_loadingH)
+    console.log(svg_loadingW)
+
+    let viewBoxSVGLoading = `0 0 ${svg_loadingH} ${svg_loadingW}`;
+    let svgLoading = $('html #svg_loading')
 
     svgLoading.attr('viewBox', viewBoxSVGLoading);
 }
+let isScrollEnabled = true;
 
+// Функция для переключения состояния прокрутки
+function toggleScroll() {
+    if (isScrollEnabled) {
+        // Если прокрутка разрешена, блокируем её
+        document.body.style.overflow = "hidden";
+    } else {
+        // Если прокрутка заблокирована, разрешаем её
+        document.body.style.overflow = "auto";
+    }
+
+    // Инвертируем состояние
+    isScrollEnabled = !isScrollEnabled;
+}
 //открытие меню
 function openPopUp(el, event) {
+
+    toggleScroll()
     if (event !== null) event.preventDefault();
     let element = $(`#${el}`);
     element.fadeToggle();
@@ -134,66 +160,99 @@ $('.bg_black_pop_up_windows_on_the_right_dark').click(function (event) {
     event.stopPropagation();
 });
 $('html #no').click(function () {
-    gsap.to($('.bg_black_pop_up_windows_on_the_right_darkening_enter'), {
-        yPercent: 100, duration: 1, ease: Power2.easeInOut
-    })
-    gsap.to($('#svg_loading rect'), {
-        yPercent: 100, duration: 1, ease: Power2.easeInOut
-    })
-
-    document.body.style.overflow = 'auto';
+    window.location.href = 'https://yandex.ru/games/category/kids'
 });
 $('html #yes').click(function () {
+
+    adaptationOfScreensaver()
     let sessionObject = JSON.parse(localStorage.getItem("session"))
     document.body.style.overflow = "hidden";
     sessionObject.result = "yes"
     localStorage.setItem("session", JSON.stringify(sessionObject))
 
     if ($("#is_homepage").length === 0) {
-        $('.top-775px').css('top', '400px')
+        $('.top-775px').css('top', '14vh')
     }
 
     let container = $('html #enter')
     let svg_loading = $('html #svg_loading rect')
     let svg_container = $('html #main__img_div')
     svg_container.addClass('main__img_div_enter')
+    svg_container.addClass('border-none')
     svg_container.removeClass('main__img_div')
+
     gsap.to(container.find('.top-775px'), {
         opacity: 1, duration: 3
     })
 
     let timeline = gsap.timeline();
     // Добавление анимации к таймлайну
-    timeline.to(container.find('.top-510px, .top-265px'), {
-        opacity: 0, duration: 2
-    })
-        .to(container.find('.top-775px'), {
-            opacity: 1, duration: 3, ease: Power2.easeInOut
-        }, 0)
-        .fromTo(svg_loading, {
-            yPercent: 100
-        }, {
-            yPercent: 70, duration: 2, ease: Power2.easeInOut
-        }, 1.5)
-        .to(svg_loading, {
-            yPercent: 40, duration: 2, ease: Power2.easeInOut
-        }, 3.5)
-        .to(svg_loading, {
-            yPercent: 18, duration: 1.5, ease: Power2.easeInOut
-        }, 5.5).to(svg_loading, {
-        height: 0, duration: 5, ease: Power2.easeInOut
-    }, 6).to($('.bg_black_pop_up_windows_on_the_right_darkening_enter'), {
-        yPercent: 100, duration: 3, ease: Power2.easeInOut
-    }, 7.7).to(container.find('.top-775px, nav'), {
-        opacity: 0, duration: .5, ease: Power2.easeInOut
-    }, 7.7).from($('.enter-show'), {
-        yPercent: 100, duration: 2, ease: Power2.easeInOut
-    }, 9);
+
+    if ($("#is_homepage").length === 1) {
+        timeline.to(container.find('.top-510px, .top-265px'), {
+            opacity: 0, duration: 2
+        })
+            .to(container.find('.top-775px'), {
+                opacity: 1, duration: 3, ease: Power2.easeInOut
+            }, 0)
+            .fromTo(svg_loading, {
+                yPercent: 100
+            }, {
+                yPercent: 70, duration: 2, ease: Power2.easeInOut
+            }, 1.5)
+            .to(svg_loading, {
+                yPercent: 40, duration: 2, ease: Power2.easeInOut
+            }, 3.5)
+            .to(svg_loading, {
+                yPercent: 0, duration: 1.5, ease: Power2.easeInOut
+            }, 5.5)
+            .to(svg_loading, {
+                height: 0, duration: 5, ease: Power2.easeInOut
+            }, 7)
+            .to($('.bg_black_pop_up_windows_on_the_right_darkening_enter'), {
+                yPercent: 500, duration: 3, ease: Power2.easeInOut
+            }, 7.7)
+            .to(container.find('.top-775px, nav'), {
+                opacity: 0, duration: .5, ease: Power2.easeInOut
+            }, 7)
+            .from($('.enter-show'), {
+                yPercent: 100, duration: 2, ease: Power2.easeInOut
+            }, 9);
+    }
+    else {
+
+        timeline.to(container.find('.top-510px, .top-265px'), {
+            opacity: 0, duration: 2
+        })
+            .to(container.find('.top-775px'), {
+                opacity: 1, duration: 3, ease: Power2.easeInOut
+            }, 0)
+            .fromTo(svg_loading, {
+                yPercent: 100
+            }, {
+                yPercent: 70, duration: 2, ease: Power2.easeInOut
+            }, 1.5)
+            .to(svg_loading, {
+                yPercent: 40, duration: 2, ease: Power2.easeInOut
+            }, 3.5)
+            .to(svg_loading, {
+                yPercent: 0, duration: 1.5, ease: Power2.easeInOut
+            }, 5.5)
+            .to(svg_loading, {
+                opacity: 0, duration: 1.5, ease: Power2.easeInOut
+            }, 7)
+            .to($('.bg_black_pop_up_windows_on_the_right_darkening_enter'), {
+                opacity: 0, duration: 1.5, ease: Power2.easeInOut, onComplete: function() {
+                    $('.bg_black_pop_up_windows_on_the_right_darkening_enter').css('display', 'none');
+                }
+            }, 7)
+            .to(container.find('.top-775px, nav'), {
+                opacity: 0, duration: 1.5, ease: Power2.easeInOut
+            }, 7);
+    }
     // // Запуск таймлайна
     timeline.play();
     setTimeout(function () {
-        //        svg_container.css('display', 'block')
-        //        svg_container.find('.imageHolderMain').css('opacity', 0)
         svg_container.find('.main__img').css('opacity', 0)
         svg_container.css('z-index', '19')
     }, 1500)
@@ -202,6 +261,8 @@ $('html #yes').click(function () {
         svg_container.removeClass('main__img_div_enter')
         svg_container.find('.main__img').css('opacity', 1)
         $('#main__img_div .layer').css('opacity', 1)
+        svg_container.removeClass('border-none')
+
         setTimeout(function () {
             $('body').css('overflow', 'auto');
             svg_container.css('z-index', '3');
@@ -215,10 +276,7 @@ function distanceToBottom() {
     $('.height-auto').each(function () {
         let $element = $(this);
         let distanceToBottom = Math.round($('body').height() - $element.position().top) + 25;
-        let heightClass = 'height-' + distanceToBottom + 'px';
-        // Добавление класса к текущему элементу
-        //        $element.addClass(heightClass);
-        // Применение стиля высоты к текущему элементу с добавленным классом
+
         $element.css('height', (distanceToBottom - 100));
         $element.css('pointer-events', 'none');
     });
@@ -324,8 +382,12 @@ document.body.addEventListener('wheel', function (e) {
 //      }
 //    },{ passive: false });
 //дата в резерве
+
+let position = 'left center'
+if (document.documentElement.clientWidth < 1000) position = 'bottom center'
+
 new AirDatepicker('#reserve-date', {
-    position: 'left center',
+    position: position,
     minDate: new Date(),
     maxDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
     buttons: [{
@@ -447,22 +509,21 @@ function sendDataReserve(event, type) {
         reserveCount.addClass('input-block')
         check = false;
     }
-
+    console.log(reserveDate.val())
     if (check) {
-
-        let formReserve = {};
+        let mugName = $(`input[type="radio"][name="reserve-mug"]:checked`).val()
+        let formReserve = new FormData();
+        formReserve.append('type', type)
+        formReserve.append('datetime', reserveDate.val())
+        formReserve.append('mug', mugName)
+        formReserve.append('name', reserveName.val())
+        formReserve.append('telOrEmail', reserveTelEmail.val())
+        formReserve.append('numberOfGuests', reserveCount.val())
+        formReserve.append('message', reserveMessage.val())
         switch (type) {
             case 'standard': {
-                formReserve = {
-                    type: type,
-                    newsName: '',
-                    mug: $(`input[type="radio"][name="reserve-mug"]:checked`).val(),
-                    name: reserveName.val(),
-                    telOrEmail: reserveTelEmail.val(),
-                    numberOfGuests: reserveCount.val(),
-                    message: reserveMessage.val(),
-                    firstBasket: ''
-                }
+                formReserve.append('newsName', '')
+                formReserve.append('firstBasket', '')
 
                 console.log('-----------------standard')
                 break;
@@ -470,30 +531,15 @@ function sendDataReserve(event, type) {
             case 'news': {
                 // ДОДЕЛАТЬ ОТПРАВКУ РЕЗЕРВА В НОВОСТИ И КОРЗИНУ, ПРИНИМАТЬ ДАННЫЕ В БЕКЕ И ОБРАБАТЫВАТЬ
                 console.log(reserveType.text() + "reserveType.text()")
-                formReserve = {
-                    type: type,
-                    newsName: reserveType.text(),
-                    mug: $(`input[type="radio"][name="reserve-mug"]:checked`).val(),
-                    name: reserveName.val(),
-                    telOrEmail: reserveTelEmail.val(),
-                    numberOfGuests: reserveCount.val(),
-                    message: reserveMessage.val(),
-                    firstBasket: ''
-                }
+                formReserve.append('newsName', reserveType.text())
+                formReserve.append('firstBasket', '')
                 console.log('-----------------news')
                 break;
             }
             case 'basket': {
-                formReserve = {
-                    type: type,
-                    newsName: '',
-                    mug: $(`input[type="radio"][name="reserve-mug"]:checked`).val(),
-                    name: reserveName.val(),
-                    telOrEmail: reserveTelEmail.val(),
-                    numberOfGuests: reserveCount.val(),
-                    message: reserveMessage.val(),
-                    firstBasket: localStorage.getItem("basket")
-                }
+                formReserve.append('newsName', '')
+                formReserve.append('firstBasket', localStorage.getItem("basket"))
+
                 console.log('-----------------basket')
                 break;
             }
@@ -503,22 +549,23 @@ function sendDataReserve(event, type) {
         $.ajax({
             url: '/api/send-reserve',
             type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(formReserve),
+            processData: false,
+            contentType: false,
+            data: formReserve,
             success: function (data) {
                 if (data) {
-                    clearingFeedback();
-                    animateAfterSendingFeedback('flat-button-success', 'Мы свяжемся с вами в ближайшее время');
-                } else animateAfterSendingFeedback('flat-button-failure', 'Произошла ошибка, пожалуйста обновите страницу');
+                    clearingReserve();
+                    // Плавное скрытие внутреннего div
+                    changeReserveType('success', '', 0, 0)
+                    localStorage.removeItem('basket')
+                } else changeReserveType('failure', '', 0, 0);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
-                animateAfterSendingFeedback('flat-button-failure', 'Произошла ошибка, пожалуйста обновите страницу');
+                changeReserveType('failure', '', 0, 0);
+                ;
             }
         });
-        clearingReserve();
-        // Плавное скрытие внутреннего div
-        changeReserveType('success', '', 0, 0)
     }
 }
 
@@ -708,17 +755,16 @@ function sendFeedback(event) {
 
         // animateAfterSendingFeedback('flat-button-failure','Произошла ошибка, пожалуйста обновить страницу');
         // Плавное скрытие внутреннего div
-        let formFeedback = {
-            name: feedbackName.val(),
-            telOrEmail: feedbackTelEmail.val(),
-            message: feedbackMessage.val()
-        }
-
+        let formFeedback = new FormData()
+        formFeedback.append('name', feedbackName.val())
+        formFeedback.append('telOrEmail', feedbackTelEmail.val())
+        formFeedback.append('message', feedbackMessage.val())
         $.ajax({
             url: '/api/send-feedback',
             type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(formFeedback),
+            processData: false,
+            contentType: false,
+            data: formFeedback,
             success: function (data) {
                 if (data) {
                     clearingFeedback();
@@ -833,3 +879,13 @@ $('html #switchLang').on('click', function (event) {
 
     window.location.href = newURL
 })
+
+
+$('html #reserve-name, html #reserve-tel-email, html #reserve-date, html #reserve-count, html #reserve-message, html #feedback-name, html #feedback-tel-email, html #feedback-message').on('input', function () {
+    let inputValue = $(this).val();
+    let maxLength = 250;
+
+    if (inputValue.length > maxLength) {
+        $(this).val(inputValue.substring(0, maxLength));
+    }
+});

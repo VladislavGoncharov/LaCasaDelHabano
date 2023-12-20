@@ -42,6 +42,17 @@ textarea::-webkit-input-placeholder {
     color: var(--mc-white);
 }
 
+input.input-login {
+    background-color: rgb(255, 255, 255) !important;
+    background-image: none !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+input.input-login:-internal-autofill-selected {
+    background-color: rgb(255, 255, 255) !important;
+    background-image: none !important;
+    color: rgb(0, 0, 0) !important;
+}
 
 .flat-button {
     position: relative;
@@ -232,7 +243,6 @@ textarea::-webkit-input-placeholder {
 
 .flag_of_cuba {
     position: absolute;
-    /*    opacity: 0;*/
     transform: scale(0);
     transition: 1s;
 }
@@ -290,7 +300,6 @@ textarea::-webkit-input-placeholder {
 }
 
 .link-main {
-    /*    border-bottom: solid 1px transparent;*/
     transition: linear 0.35s;
 }
 
@@ -421,6 +430,7 @@ textarea::-webkit-input-placeholder {
 }
 
 .checkbox-type-filter-checked,
+.checkbox-type-filter-checked *,
 .checkbox-type-filter-checked:hover {
     background: var(--mc-black);
     color: var(--mc-white) !important;

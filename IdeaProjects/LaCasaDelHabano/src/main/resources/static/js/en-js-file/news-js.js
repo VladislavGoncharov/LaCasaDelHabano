@@ -20,8 +20,14 @@ $(document).ready(function () {
                     for (let i = 0; i < data.length; i++) {
                         createNews(container, data[i]);
                     }
+
+                    setTimeout(function () {
+                        distanceToBottom()
+
+                    },500)
                 }
             });
+            scrollFunction()
         },
         error: function (xhr, status, error) {
             // Обработка ошибок
@@ -32,6 +38,10 @@ $(document).ready(function () {
 
 
 function createNews(container, item) {
+    let dateComponents = item.date.split('-');
+    let dateObject = new Date(parseInt(dateComponents[0]), parseInt(dateComponents[1]) - 1, parseInt(dateComponents[2])); // Месяцы в JavaScript начинаются с 0
+    let formattedDate = dateObject.toLocaleDateString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' });
+
     let itemDiv = document.createElement('div');
     itemDiv.classList.add('offset-lg-3', 'offset-md-2', 'col-lg-9', 'col-md-10',
         'offset-0', 'col-12', 'mb-3', 'opacity_hide_text');
@@ -39,11 +49,11 @@ function createNews(container, item) {
                 <div class="border-top">
                     <div class="row mt-5 mb-sm-5 mt-0">
                         <div class="col-12 d-block d-sm-none">
-                            <div class="h5-num">04/05/23</div>
+                            <div class="h5-num">${formattedDate}</div>
                         </div>
                         <div class="col-lg-5 col-sm-6 col-12 order-sm-1 order-2">
-                            <div class="h5-num d-none d-sm-block">${item.date}</div>
-                            <div class="mt-sm-2 mt-4 h3">${item.header}</div>
+                            <div class="h5-num d-none d-sm-block">${formattedDate}</div>
+                            <div class="mt-sm-2 mt-4 h3"><h2 class="h3">${item.header}</h2></div>
                             <div class="mt-4 pe-lg-5">
                                 <p class="h5">${item.mainText}</p>
                             </div>
@@ -56,14 +66,14 @@ function createNews(container, item) {
                                 <div class="position-absolute bottom-0 end-0"><a
                                         class="round-button round-button-big d-flex justify-content-center align-items-center"
                                         onclick="reserveNews('${item.header}')">
-                                    Резерв
+                                    Reserve
                                 </a></div>
                             </div>
                         </div>
                     </div>
                     <button class="d-lg-none d-block flat-button flat-button-bg-light mt-4 mb-4 opacity_hide_text transform_up_text"
                             type="button" onclick="reserveNews('${item.header}')">
-                        <div>Резерв</div>
+                        <div>Reserve</div>
                     </button>
                     <div class="h5 text-mobile mb-2 opacity_hide_text transform_up_text" 
                     style="color:var(--mc-white-06)">${item.tag}

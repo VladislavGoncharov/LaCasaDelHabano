@@ -17,10 +17,4 @@ public enum TypeItem {
         return type;
     }
 
-//    public static Price getEnumPrice(String priceText) {
-//        for (Price price: Price.values()){
-//            if (price.getPrice().equalsIgnoreCase(priceText)) return price;
-//        }
-//        return null;
-//    }
 }

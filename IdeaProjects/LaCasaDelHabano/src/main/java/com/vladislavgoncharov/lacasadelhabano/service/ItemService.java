@@ -1,5 +1,6 @@
 package com.vladislavgoncharov.lacasadelhabano.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vladislavgoncharov.lacasadelhabano.dto.ItemDTO;
 import com.vladislavgoncharov.lacasadelhabano.utilities.SearchQuery;
 
@@ -13,8 +14,8 @@ public interface ItemService {
     List<ItemDTO> findAllItemBriefData(String lang);
     ItemDTO getItemById(String lang, Long id);
 
-    boolean addItem(ItemDTO itemDTO);
-    boolean updateItem(ItemDTO itemDTO);
+    void addItem(ItemDTO itemDTO) throws JsonProcessingException, RuntimeException;
+    void updateItem(ItemDTO itemDTO) throws JsonProcessingException, RuntimeException;
     boolean deleteItem(Long id);
 
     Map<String, Set<String>> getAllMainSubsections(String lang);
@@ -25,4 +26,7 @@ public interface ItemService {
     Map<String, Integer> getAmountItemsByCategory(String lang);
 
     List<Character> getQuantityItemsAsAnArrayChars();
+
+    List<ItemDTO> findAllItemForAdmin();
+    Long getCount();
 }

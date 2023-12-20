@@ -15,4 +15,21 @@ public interface ReserveAndFeedbackAndRegistrationService {
     List<FeedbackDTO> findAllFeedbacks();
 
     List<ReserveDTO> findAllReserves();
+
+    List<RegistrationOfWholesaleCustomerDTO> findAllRegistrationOfWholesaleCustomer();
+
+    Long getCountReserves();
+    Long getCountFeedbacks();
+    Long getCountRegistration();
+
+    boolean deleteReserve(Long id);
+
+    boolean deleteFeedback(Long id);
+
+    boolean deleteRegistration(Long id);
+
+    List<String> findAllTelegramId();
+    void deleteTelegramId(String telegramId);
+    void addTelegramId(String telegramId);
+
 }

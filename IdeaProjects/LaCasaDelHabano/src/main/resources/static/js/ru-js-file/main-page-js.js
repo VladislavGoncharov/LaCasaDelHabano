@@ -60,7 +60,9 @@ function buttonInformationShow(elName, event) {
     }
 }
 $('.our-mug__img-content--kuz').click(function () {
+
     let nameImg = $(this).data('img-name')
+
     $('#our_mug_img_1').attr('src', 'img/' + nameImg);
     $('.our-mug__img-content--kuz').each(function () {
         $(this).removeClass('our-mug__img-content--focused')
@@ -68,7 +70,9 @@ $('.our-mug__img-content--kuz').click(function () {
     $(this).addClass('our-mug__img-content--focused')
 })
 $('.our-mug__img-content--petr').click(function () {
-    let nameImg = $(this).data('img-name');
+
+    let nameImg = $(this).data('img-name')
+
     $('#our_mug_img_2').attr('src', 'img/' + nameImg); // Исправление 1: использование .attr() вместо .src()
     $('.our-mug__img-content--petr').each(function () {
         $(this).removeClass('our-mug__img-content--focused');
@@ -106,10 +110,12 @@ function nextMug() {
         horizontalTransitionTo($('#our_mug_img_1'))
         horizontalTransitionFrom($('#our_mug_img_2'))
         $('.our_shop_on_petrogradskaya').each(function () {
+            $(this).css('z-index', '0')
             verticalTransitionTo($(this))
         });
         $('.our_shop_on_kuznechnoye').each(function () {
             verticalTransitionFrom($(this))
+            $(this).css('z-index', '1')
         });
     }
     else {
@@ -123,9 +129,11 @@ function nextMug() {
         horizontalTransitionFrom($('#our_mug_img_1'))
         $('.our_shop_on_kuznechnoye').each(function () {
             verticalTransitionTo($(this))
+            $(this).css('z-index', '0')
         });
         $('.our_shop_on_petrogradskaya').each(function () {
             verticalTransitionFrom($(this))
+            $(this).css('z-index', '1')
         });
     }
     setTimeout(function () {
@@ -178,68 +186,31 @@ function verticalTransitionFrom(el) {
 let arrayEl = ['#our_mug_img_1', '#our_mug_img_2'];
 let translateYGSAP = -350
 let endGSAP = '-30% top'
-let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+let screenWidth = document.documentElement.clientWidth;
 if (screenWidth < 978) {
     arrayEl = ['#our_mug_img_1', '#our_mug_img_2', '.main__our_mug_card_right_inner_div'];
     translateYGSAP = -300
     endGSAP = '-70% top'
 }
 gsap.registerPlugin(ScrollTrigger);
-gsap.from(arrayEl, {
-    scrollTrigger: {
-        trigger: '.main__our_mug_div'
-        , start: (window.innerHeight * (-1.2)) + 'px top'
-        , end: endGSAP
-        , scrub: true
-        // , markers: true
-    }
-    , scale: 1.15
-    , translateY: translateYGSAP
-})
-//    $('.main__img_div').ripples({
-//        resolution: 300
-//        , dropRadius: 15
-//        , perturbance: 0.02
-//    });
-//gsap.registerPlugin(MorphSVGPlugin);
-var length = document.querySelectorAll(".layer").length;
-var layers = document.querySelectorAll(".layer");
-var mouseTween;
-var circles = document.querySelectorAll(".layer");
-//gsap.set(".clippath", {
-//    scale: 0,
-//  transformOrigin: "center center"
-//});
-//gsap.set(".clippath path", {
-//    scale: 2.2,
-//  transformOrigin: "center center"
-//});
-//gsap.to(".clippath", {
-//  rotation: 360,
-//  duration: 3,
-//  repeat: -1,
-//  ease: "none"
-//});
-//$('body').on("mousemove", function (e) {
-//    TweenMax.set('.layer', {
-//        transformOrigin: mousePos(e).x + "px " + mousePos(e).y + "px"
-//    });
-//    mouseTween = TweenMax.to([".layer .clippath"], {
-//        x: mousePos(e).x
-//        , y: mousePos(e).y
-//        , ease: Cubic.easeOut
-//    })
-//})
-//$('#main__img_div').on("mouseenter", function (e) {
-//    gsap.to([".clippath"], {
-//        scale: 1
-//    })
-//})
-//$('#main__img_div').on("mouseleave", function (e) {
-//    gsap.to([".clippath"], {
-//             scale: 0
-//        })
-//})
+
+// Используем ScrollTrigger только на не-мобильных устройствах
+if (screenWidth > 768) {
+    gsap.from(arrayEl, {
+        scrollTrigger: {
+            trigger: '.main__our_mug_div',
+            start: (window.innerHeight * (-1.2)) + 'px top',
+            end: endGSAP,
+            scrub: true,
+            // markers: true
+        },
+        scale: 1.15,
+        translateY: translateYGSAP
+    });
+}
+
+let length = document.querySelectorAll(".layer").length;
+let circles = document.querySelectorAll(".layer");
 function mousePos(e) {
     return {
         x: e.pageX - $('#main__img_div').offset().left - 87
@@ -247,6 +218,21 @@ function mousePos(e) {
     };
 }
 
-function getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
+
+
+
+$(document).ready(function () {
+    let video = document.getElementById('video-anim');
+    // if (screenWidth > 768) {
+    //     document.addEventListener('click', function () {
+    //         // Воспроизводим видео при клике
+    //         video.play();
+    //     });
+    // }
+
+    video.addEventListener('canplay', function () {
+        video.play();
+    });
+
+    video.load();
+});

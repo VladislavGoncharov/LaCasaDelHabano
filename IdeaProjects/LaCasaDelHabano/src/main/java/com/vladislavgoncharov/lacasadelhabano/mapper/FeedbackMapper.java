@@ -1,9 +1,7 @@
 package com.vladislavgoncharov.lacasadelhabano.mapper;
 
 import com.vladislavgoncharov.lacasadelhabano.dto.FeedbackDTO;
-import com.vladislavgoncharov.lacasadelhabano.dto.ReserveDTO;
 import com.vladislavgoncharov.lacasadelhabano.entity.Feedback;
-import com.vladislavgoncharov.lacasadelhabano.entity.Reserve;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

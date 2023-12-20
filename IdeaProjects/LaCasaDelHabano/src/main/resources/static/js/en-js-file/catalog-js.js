@@ -752,7 +752,7 @@ $('#closeMobileFilters').click(function () {
 $('#openMobileFilters').click(function () {
     let mobileFilters = $('.border-right-black');
     mobileFilters.css({
-        'z-index': 10,
+        'z-index': 6,
         'opacity': 1
     })
 })
@@ -924,15 +924,15 @@ function createItem(container, item) {
     // я закончил на том, что если опция МОРЕ то выскакиет плашка с выбором опции (если элемент с одной опцией, то нихуя не происходит)
     itemDiv.innerHTML = `
             <a href="item/${item.id}" class="catalog__card_img_div">
-                <img class="catalog__card_img" src="/img/${item.photo}" alt="catalog__img_card_1">
+                <img class="catalog__card_img" src="${item.photo}" alt="catalog__img_card_1">
             </a>
             <div class="catalog__card_padding_text">
                 <div class="mt-2 catalog__card_name h5">
-                    <a href="item/${item.id}"> ${item.name}</a>
+                    <a href="item/${item.id}">${item.brand} ${item.name}</a>
                 </div>
                 <div class="border-top-black"></div>
                 <div class="h5 pe-1 text-uppercase d-flex justify-content-between">
-                    <div class="ff-lato">${item.price} р.</div>
+                    <div class="ff-lato">${item.price} r.</div>
                     <div class="d-flex justify-content-between">
                         <div class="box_count" id="box_count_${item.id}" style="display: none">
                             <a class="box_img_minus" onclick="minusItemInBasketFromCatalog(${item.id})">
@@ -942,7 +942,7 @@ function createItem(container, item) {
                             </a>
                             <div class="ff-lato">(<span id="count_${item.id}">0</span>)</div>
                         </div> 
-                        <a class="underline-one d-flex align-items-center" onclick="addItemInBasket(${item.id}, '${option}')" ${optionLink}>в корзину</a></div>
+                        <a class="underline-one d-flex align-items-center" onclick="addItemInBasket(${item.id}, '${option}')" ${optionLink}>Into a basket</a></div>
                 </div>
             </div>
         `;

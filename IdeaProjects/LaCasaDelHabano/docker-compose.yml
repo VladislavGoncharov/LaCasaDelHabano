@@ -1,0 +1,73 @@
+version: "3.7"
+services:
+  app:
+    image: veyvik87/lcdh:1.03
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /root/lcdh-data:/root/dblcdh
+    depends_on:
+      - database
+
+  database:
+    image: oscarfonts/h2:latest
+    environment:
+      - H2_DATABASE_NAME=lcdh
+      - H2_DATABASE_USERNAME=admin
+      - H2_DATABASE_PASSWORD=nimda321
+    ports:
+      - "9092:9092"
+    volumes:
+      - /root/lcdh-data:/root/dblcdh
+#services:
+#  your-app:
+#    image: your-app-image:latest
+#    ports:
+#      - "8080:8080"
+#    volumes:
+#      - ./data:/path/to/your/database
+#    depends_on:
+#      - database
+#
+#  database:
+#    image: h2database/h2:latest
+#    environment:
+#      - H2_DATABASE_NAME=lcdh
+#      - H2_DATABASE_USERNAME=your_username
+#      - H2_DATABASE_PASSWORD=your_password
+#    volumes:
+#      - ./data:/h2-data
+
+
+#    volumes:
+#      - /etc/letsencrypt:/etc/letsencrypt
+#      - ./server.xml:/usr/local/tomcat/conf/server.xml
+
+
+#  grafana:
+#    build: './scripts/config/grafana'
+#    ports:
+#      - 3000:3000
+#    volumes:
+#      - ./scripts/grafana:/var/lib/grafana
+#    environment:
+#      - GF_SECURITY_ADMIN_USER=admin111
+#      - GF_SECURITY_ADMIN_PASSWORD=admin111
+#    networks:
+#      monitoring:
+#        aliases:
+#          - grafana
+#  prometheus:
+#    image: prom/prometheus
+#    ports:
+#      - 9090:9090
+#    volumes:
+#      - ./scripts/config/prometheus.yml:/etc/prometheus/prometheus.yml
+#      - ./scripts/prometheus:/prometheus
+#    networks:
+#      monitoring:
+#        aliases:
+#          - prometheus
+#networks:
+#  monitoring:

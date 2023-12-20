@@ -200,9 +200,6 @@
 @media screen and (min-width: 1200px) {
 }
 
-/*на экраны больших планшетов-----------------------------*/
-
-/*на экраны планшетов-----------------*/
 @media screen and (max-width: 1710px) and (min-width: 1540px) {
     .main__our_mug_div .h5,
     .main__our_mug_div .h5-num {
@@ -237,8 +234,6 @@
         line-height: 23px;
     }
 }
-
-/*на экраны планшетов-----------------*/
 
 @media screen and (max-width: 1537px) {
     .h1 {
@@ -327,8 +322,6 @@
     }
 }
 
-/*на экраны телефонов*/
-
 @media screen and (max-width: 737px) {
     .h5,
     .h5-num,
@@ -346,8 +339,6 @@
     }
 }
 
-/*на очень маленькие экраны телефонов*/
-
 @media screen and (max-width: 556px) {
     .h1 {
         font-size: var(--fs-26);
@@ -362,19 +353,6 @@
         font-size: var(--fs-24);
         line-height: 38px;
     }
-    /*
-    .text-mobile {
-        font-size: var(--fs-10);
-        line-height: 15px;
-    }
-*/
-    /*
-    .fs-sm-7 {
-        font-size: var(--fs-7);
-        line-height: 10px;
-        text-align: justify;
-    }
-*/
     .h5,
     .h5-num,
     footer .h4,
@@ -382,16 +360,6 @@
         font-size: var(--fs-10);
         line-height: 15px;
     }
-    /*
-    #enter .h1-64 {
-        font-size: var(--fs-12);
-        line-height: 15px;
-    }
-    #enter .h2-32 {
-        font-size: var(--fs-10);
-        line-height: 12px;
-    }
-*/
     .item .h1-64 {
         font-size: var(--fs-32);
         line-height: 34px;

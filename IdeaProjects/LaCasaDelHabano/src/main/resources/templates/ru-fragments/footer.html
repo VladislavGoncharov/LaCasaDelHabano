@@ -88,21 +88,21 @@
             </div>
         </div>
         <div class="order-lg-0 order-2 offset-lg-3 col-lg-3 col-12 d-lg-block d-flex justify-content-between mt-4">
-            <a class="me-2 link-main underline-one" href="#"
-               onclick="window.location.href = document.getElementById('link-tlg').getAttribute('data-href');"
+            <a class="me-2 link-main underline-one"  target="_blank"
+               onclick="window.open(document.getElementById('link-tlg').getAttribute('data-href'), '_blank');"
                th:data-href="${phonesAndLink.linkTLG}"
                id="link-tlg">TLG</a>/
             <a class="ms-2 me-2 link-main underline-one"
-               href="#"
-               onclick="window.location.href = document.getElementById('link-vk').getAttribute('data-href');"
+                target="_blank"
+               onclick="window.open(document.getElementById('link-vk').getAttribute('data-href'), '_blank');"
                th:data-href="${phonesAndLink.linkVK}"
                id="link-vk">VK</a>/<a class="ms-2 me-2 link-main underline-one"
-                                      href="#"
-                                      onclick="window.location.href = document.getElementById('link-inst').getAttribute('data-href');"
+                                       target="_blank"
+                                      onclick="window.open(document.getElementById('link-inst').getAttribute('data-href'), '_blank');"
                                       th:data-href="${phonesAndLink.linkINST}"
                                       id="link-inst">INST</a>/<a
-                class="ms-2 me-2 link-main underline-one" href="#"
-                onclick="window.location.href = document.getElementById('link-fb').getAttribute('data-href');"
+                class="ms-2 me-2 link-main underline-one"  target="_blank"
+                onclick="window.open(document.getElementById('link-fb').getAttribute('data-href'), '_blank');"
                 th:data-href="${phonesAndLink.linkFB}"
                 id="link-fb">FB</a></div>
         <div class=" order-1 order-lg-0 col-lg-3 col-12 d-lg-block d-flex justify-content-center mt-4"><a
@@ -128,9 +128,9 @@
         <div
                 class="col-lg-2 col-12 order-lg-0 order-1 d-flex justify-content-lg-between align-items-center mt-lg-0 mt-4">
             <div class="fw-200">Made by:</div>
-            <a class="link-main underline-one ms-lg-1 ms-3" href="#"
-               onclick="window.location.href = document.getElementById('link-developer').getAttribute('data-href');"
-               th:data-href="${'https://www.'+ phonesAndLink.linkDevelopers}"
+            <a class="link-main underline-one ms-lg-1 ms-3"  target="_blank"
+               onclick="window.open(document.getElementById('link-developer').getAttribute('data-href'), '_blank');"
+               th:data-href="${phonesAndLink.linkDevelopers}"
                id="link-developer">DUO CREATIVE</a>
         </div>
         <div class="offset-lg-1 col-lg-6 col-12 h4 fls-01 d-lg-flex align-items-center">
@@ -167,12 +167,14 @@
                 <div class="mt-3 d-flex justify-content-between">
                     <div class="fw-200">Городской</div>
                     <div class="h5-num"><a class="link-main underline-one"
-                                           th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyHouse}"></a></div>
+                                           th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyHouse}"
+                                            th:text="${phonesAndLink.kuznechnyTelephonyHouse}"></a></div>
                 </div>
                 <div class="mt-3 d-flex justify-content-between">
                     <div class="fw-200">Сотовый</div>
                     <div class="h5-num"><a class="link-main underline-one"
-                                           th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyMobile}"></a></div>
+                                           th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyMobile}"
+                                            th:text="${phonesAndLink.kuznechnyTelephonyMobile}"></a></div>
                 </div>
             </div>
             <div class="d-lg-block d-none">
@@ -186,12 +188,14 @@
                 <div class="mt-3 d-flex justify-content-between">
                     <div class="fw-200">Городской</div>
                     <div class="h5-num"><a class="link-main underline-one"
-                                           th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyHouse}"></a></div>
+                                           th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyHouse}"
+                                            th:text="${phonesAndLink.petrogradskoyTelephonyHouse}"></a></div>
                 </div>
                 <div class="mt-3 d-flex justify-content-between">
                     <div class="fw-200">Сотовый</div>
                     <div class="h5-num"><a class="link-main underline-one"
-                                           th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyMobile}"></a></div>
+                                           th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyMobile}"
+                                            th:text="${phonesAndLink.petrogradskoyTelephonyMobile}"></a></div>
                 </div>
             </div>
         </div>
@@ -216,21 +220,21 @@
             </div>
         </div>
         <div class="order-lg-0 order-2 offset-lg-3 col-lg-3 col-12 d-lg-block d-flex justify-content-between mt-4">
-            <a class="me-2 link-main underline-one" href="#"
-               onclick="window.location.href = document.getElementById('link-tlg').getAttribute('data-href');"
+            <a class="me-2 link-main underline-one"  target="_blank"
+               onclick="window.open(document.getElementById('link-tlg').getAttribute('data-href'), '_blank');"
                th:data-href="${phonesAndLink.linkTLG}"
                id="link-tlg">TLG</a>/
             <a class="ms-2 me-2 link-main underline-one"
-               href="#"
-               onclick="window.location.href = document.getElementById('link-vk').getAttribute('data-href');"
+                target="_blank"
+               onclick="window.open(document.getElementById('link-vk').getAttribute('data-href'), '_blank');"
                th:data-href="${phonesAndLink.linkVK}"
                id="link-vk">VK</a>/
-            <a class="ms-2 me-2 link-main underline-one" href="#"
-               onclick="window.location.href = document.getElementById('link-inst').getAttribute('data-href');"
+            <a class="ms-2 me-2 link-main underline-one"  target="_blank"
+               onclick="window.open(document.getElementById('link-inst').getAttribute('data-href'), '_blank');"
                th:data-href="${phonesAndLink.linkINST}"
                id="link-inst">INST</a>/<a
-                class="ms-2 me-2 link-main underline-one" href="#"
-                onclick="window.location.href = document.getElementById('link-fb').getAttribute('data-href');"
+                class="ms-2 me-2 link-main underline-one"  target="_blank"
+                onclick="window.open(document.getElementById('link-fb').getAttribute('data-href'), '_blank');"
                 th:data-href="${phonesAndLink.linkFB}"
                 id="link-fb">FB</a>
         </div>
@@ -258,8 +262,8 @@
         <div
                 class="col-lg-2 col-12 order-lg-0 order-1 d-flex justify-content-lg-between align-items-center mt-lg-0 mt-4">
             <div class="fw-200">Made by:</div>
-            <a class="link-main underline-one ms-lg-1 ms-3" href="#"
-               onclick="window.location.href = document.getElementById('link-developer').getAttribute('data-href');"
+            <a class="link-main underline-one ms-lg-1 ms-3"  target="_blank"
+               onclick="window.open(document.getElementById('link-developer').getAttribute('data-href'), '_blank');"
                th:data-href="${phonesAndLink.linkDevelopers}"
                id="link-developer">DUO CREATIVE</a>
 

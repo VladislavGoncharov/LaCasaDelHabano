@@ -1,10 +1,6 @@
 package com.vladislavgoncharov.lacasadelhabano.dto;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

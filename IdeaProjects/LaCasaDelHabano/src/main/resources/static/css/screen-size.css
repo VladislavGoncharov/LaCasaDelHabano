@@ -179,6 +179,7 @@
     }
     #link-on-kuznechny-or-petrogradskoy {
         margin-top: 48px !important;
+        padding: 0 1vw;
     }
     .link-on-kuznechny,
     .link-on-petrogradskoy {
@@ -1058,7 +1059,19 @@
         border: none;
         height: 50px;
         width: 50px;
-        background: var(--mc-white-06);
+        background: transparent;
+    }
+    .main__our_mug_card_right_div .round-button:hover:before, .main__our_mug_card_right_div .round-button:hover:before {
+        content: "";
+        background: transparent;
+        position: absolute;
+        height: 0;
+        width: 0;
+        top: 50%;
+        left: 50%;
+        transform: none;
+        transition: none;
+        z-index: -10;
     }
     .main__our_mug_card_right_div .round-button svg {
         height: 25px;
@@ -1256,7 +1269,8 @@
         top: 9px;
     }
     .new-select {
-        padding: 10px 10px;
+        text-align: end;
+        padding: 10px 30px 10px 10px;
     }
     .select {
         width: 170px;
@@ -1696,12 +1710,11 @@
         height: 18px;
     }
     .select {
-        width: 140px;
+        width: 160px;
         padding-top: 0;
         padding-left: 15px;
     }
     #resetFilters {
-        padding-right: 45px;
         padding: 10px 45px 10px 0;
     }
     #resetFilters img {
@@ -1772,6 +1785,60 @@
 @media screen and (max-width: 480px) {
     .catalog__card {
         min-height: 280px;
+    }
+
+    .our-mug__img-content {
+        height: 100px;
+        width: 110px;
+    }
+    .our-mug__images-selectors {
+        min-height: 100px;
+    }
+    .main__our_mug_card_left_div {
+        height: 340px;
+        margin: -360px -1px -1px -1px;
+    }
+
+    .main__our_mug_div {
+        top: 2715px;
+    }
+    .main__our_mug_div .container .row {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    #container_for_img_brands {
+        display: none;
+    }
+}
+@media screen and (max-width: 460px) {
+    .about_us .bg_transparent {
+        height: 65px;
+    }
+    .about_us__bg_vinous {
+        height: 1680px;
+    }
+    .about_us__foreground_picture {
+        background-size: 91% 50%;
+        top: 1410px;
+    }
+    .about_us__bg_vinous_2 {
+        top: calc(1620px + 250px);
+    }
+    .payment_and_delivery__bg_vinous {
+        height: 850px;
+    }
+    .payment_and_delivery__bg_vinous_2 {
+        top: calc(785px + 220px);
+    }
+    .payment_and_delivery__foreground_picture {
+         background-size: 91% 60%;
+         top: 645px;
+     }
+    .payment_and_delivery .bg_transparent {
+        height: 85px;
+    }
+    .under-title-about-us, .under-title-place, .under-title-news {
+        padding-right: 0;
     }
 }
 @media screen and (max-width: 440px) {
@@ -1884,14 +1951,17 @@
         height: 170px;
     }
     .payment_and_delivery__bg_vinous {
-        height: 790px;
+        height: 890px;
     }
     .payment_and_delivery__foreground_picture {
         background-size: 140%;
-        top: 520px;
+        top: 560px;
+    }
+    .payment_and_delivery .bg_transparent {
+        margin-bottom: 30px;
     }
     .payment_and_delivery__bg_vinous_2 {
-        top: calc(790px + 200px);
+        top: calc(890px + 200px);
     }
     .about_us .bg_transparent {
         height: 80px;
@@ -1932,13 +2002,6 @@
     }
     .main__our_mug_div {
         top: 2460px;
-    }
-    .our-mug__img-content {
-        height: 100px;
-        width: 110px;
-    }
-    .our-mug__images-selectors {
-        min-height: 100px;
     }
     .main__our_mug_card_left_div {
         height: 340px;

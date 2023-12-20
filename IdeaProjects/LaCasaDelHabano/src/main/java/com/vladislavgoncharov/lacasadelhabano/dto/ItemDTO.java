@@ -2,7 +2,7 @@ package com.vladislavgoncharov.lacasadelhabano.dto;
 
 import com.vladislavgoncharov.lacasadelhabano.entity.enums.TypeItem;
 import lombok.*;
-
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,6 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 public class ItemDTO {
 
     private Long id;
@@ -31,11 +30,14 @@ public class ItemDTO {
 
     private String photo;
     private String photoSmall;
+    private MultipartFile photoMultipartFile;
+
     private String country;
     private String description;
     private String articleNumber;
 
     private Map<String,Integer> option = new HashMap<>();
+    private String optionJSON;
     private int optionSize;
     //only en language variables
     private String enLangSeries;
@@ -47,6 +49,10 @@ public class ItemDTO {
     private String enLangDescription;
 
     private Map<String,Integer> enLangOption = new HashMap<>();
+    private String enLangOptionJSON;
+
+
+
 
     public String getClassCssForListSimilarProductsOnPageItem(int numberItemInList) {
 
@@ -57,4 +63,36 @@ public class ItemDTO {
         };
     }
 
+    @Override
+    public String toString() {
+        return "ItemDTO{" +
+                "id=" + id +
+                ",\n type=" + type +
+                ",\n series='" + series + '\'' +
+                ",\n brand='" + brand + '\'' +
+                ",\n name='" + name + '\'' +
+                ",\n typeOfAccessory='" + typeOfAccessory + '\'' +
+                ",\n price=" + price +
+                ",\n size=" + size +
+                ",\n ringGauge=" + ringGauge +
+                ",\n fortress=" + fortress +
+                ",\n photo='" + photo + '\'' +
+                ",\n photoSmall='" + photoSmall + '\'' +
+                ",\n photoMultipartFile=" + photoMultipartFile +
+                ",\n country='" + country + '\'' +
+                ",\n description='" + description + '\'' +
+                ",\n articleNumber='" + articleNumber + '\'' +
+                ",\n option=" + option +
+                ",\n optionJSON='" + optionJSON + '\'' +
+                ",\n optionSize=" + optionSize +
+                ",\n enLangSeries='" + enLangSeries + '\'' +
+                ",\n enLangBrand='" + enLangBrand + '\'' +
+                ",\n enLangName='" + enLangName + '\'' +
+                ",\n enLangTypeOfAccessory='" + enLangTypeOfAccessory + '\'' +
+                ",\n enLangCountry='" + enLangCountry + '\'' +
+                ",\n enLangDescription='" + enLangDescription + '\'' +
+                ",\n enLangOption=" + enLangOption +
+                ",\n enLangOptionJSON='" + enLangOptionJSON + '\'' +
+                '}';
+    }
 }

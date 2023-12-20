@@ -21,10 +21,41 @@ $('.item-img').mouseleave(function (e) {
 
 // Вызываем функцию обновления высоты при загрузке страницы и при изменении размера окна
 $(window).on('load resize', function () {
-    $('.height-along-central-column').css('height', $('.central-column .row').height())
-    $('.central-column').css('height', $('.central-column .row').first().height())
+    let screenWidth = document.documentElement.clientWidth;
 
+    let $heightAlongCentralColumnElements = $('.height-along-central-column');
+    let $centralColumnElement = $('.central-column');
+
+    if (screenWidth > 768) {
+
+        let heightAlongCentralColumnHeight2 = getElementHeight($heightAlongCentralColumnElements.find('> div:first-child'));
+        let centralColumnHeight = getElementHeight($centralColumnElement);
+
+        console.log(heightAlongCentralColumnHeight2)
+        console.log(centralColumnHeight)
+
+        if (heightAlongCentralColumnHeight2 > centralColumnHeight) {
+            heightAlongCentralColumnHeight2 = heightAlongCentralColumnHeight2 + 50
+            $heightAlongCentralColumnElements.css('height', heightAlongCentralColumnHeight2)
+            $centralColumnElement.css('height', heightAlongCentralColumnHeight2)
+        } else {
+            centralColumnHeight = centralColumnHeight + 50
+
+            $heightAlongCentralColumnElements.css('height', centralColumnHeight)
+            $centralColumnElement.css('height', centralColumnHeight)
+        }
+
+        $heightAlongCentralColumnElements.find('> img:first-child').css('height', '100%')
+    }
+    else {
+
+        $heightAlongCentralColumnElements.css('height', 'auto')
+    }
 });
+
+function getElementHeight($element) {
+    return $element.outerHeight();
+}
 
 //обработка кнопок в корзину и количество
 let plusItem = $('#plus-item');
@@ -82,7 +113,6 @@ function formatNumberWithThousandsSeparator(number) {
 }
 
 
-
 $(document).ready(function () {
     window.autoWidthImgInCardItems()
 })
@@ -91,63 +121,61 @@ $(window).resize(function () {
 });
 
 
-
 //добавить товары в корзину
 function addItemInBasket(idItem, optionItem) {
 
 
-        if (localStorage.getItem("basket") !== null) {
+    if (localStorage.getItem("basket") !== null) {
 
-            let jsonBasket = localStorage.getItem("basket");
+        let jsonBasket = localStorage.getItem("basket");
 
-            // Преобразование JSON-строки в массив пар ключ-значение and Восстановление Map из массива
-            let myArrayRestored = JSON.parse(jsonBasket);
-            // console.log(myMapRestored);
+        // Преобразование JSON-строки в массив пар ключ-значение and Восстановление Map из массива
+        let myArrayRestored = JSON.parse(jsonBasket);
+        // console.log(myMapRestored);
 
-            let quantityOfItem = parseInt($('#quantity-of-item').text());
+        let quantityOfItem = parseInt($('#quantity-of-item').text());
 
-            for (let i = 0; i < quantityOfItem; i++) {
-                myArrayRestored.push({
-                    id: idItem,
-                    option: optionItem
-                })
-            }
-
-            jsonBasket = JSON.stringify(myArrayRestored);
-
-            localStorage.setItem("basket", jsonBasket);
-
-            // Ключ "basket" существует в локальном хранилище
-            // console.log("Ключ 'basket' существует:", localStorage.getItem("basket"));
-        } else {
-
-            let myArrayRestored = []
-
-
-            let quantityOfItem = parseInt($('#quantity-of-item').text());
-
-            for (let i = 0; i < quantityOfItem; i++) {
-                myArrayRestored.push({
-                    id: idItem,
-                    option: optionItem
-                })
-            }
-
-
-            // Преобразование Map в JSON-строку и сохранение в LocalStorage
-            let jsonBasket = JSON.stringify(myArrayRestored);
-
-
-            localStorage.setItem("basket", jsonBasket);
+        for (let i = 0; i < quantityOfItem; i++) {
+            myArrayRestored.push({
+                id: idItem,
+                option: optionItem
+            })
         }
 
-        updateBasket()
+        jsonBasket = JSON.stringify(myArrayRestored);
+
+        localStorage.setItem("basket", jsonBasket);
+
+        // Ключ "basket" существует в локальном хранилище
+        // console.log("Ключ 'basket' существует:", localStorage.getItem("basket"));
+    } else {
+
+        let myArrayRestored = []
+
+
+        let quantityOfItem = parseInt($('#quantity-of-item').text());
+
+        for (let i = 0; i < quantityOfItem; i++) {
+            myArrayRestored.push({
+                id: idItem,
+                option: optionItem
+            })
+        }
+
+
+        // Преобразование Map в JSON-строку и сохранение в LocalStorage
+        let jsonBasket = JSON.stringify(myArrayRestored);
+
+
+        localStorage.setItem("basket", jsonBasket);
+    }
+
+    updateBasket()
 
 
 }
 
 function minusItemInBasketFromCatalog(idItem) {
-
 
 
     let jsonBasket = localStorage.getItem("basket");

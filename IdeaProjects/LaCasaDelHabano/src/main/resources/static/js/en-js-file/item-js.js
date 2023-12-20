@@ -21,10 +21,40 @@ $('.item-img').mouseleave(function (e) {
 
 // Вызываем функцию обновления высоты при загрузке страницы и при изменении размера окна
 $(window).on('load resize', function () {
-    $('.height-along-central-column').css('height', $('.central-column .row').height())
-    $('.central-column').css('height', $('.central-column .row').first().height())
+    let screenWidth = document.documentElement.clientWidth;
 
+    let $heightAlongCentralColumnElements = $('.height-along-central-column');
+    let $centralColumnElement = $('.central-column');
+
+    if (screenWidth > 768) {
+
+        let heightAlongCentralColumnHeight2 = getElementHeight($heightAlongCentralColumnElements.find('> div:first-child'));
+        let centralColumnHeight = getElementHeight($centralColumnElement);
+
+        console.log(heightAlongCentralColumnHeight2)
+        console.log(centralColumnHeight)
+
+        if (heightAlongCentralColumnHeight2 > centralColumnHeight) {
+            heightAlongCentralColumnHeight2 = heightAlongCentralColumnHeight2 + 50
+            $heightAlongCentralColumnElements.css('height', heightAlongCentralColumnHeight2)
+            $centralColumnElement.css('height', heightAlongCentralColumnHeight2)
+        } else {
+            centralColumnHeight = centralColumnHeight + 50
+
+            $heightAlongCentralColumnElements.css('height', centralColumnHeight)
+            $centralColumnElement.css('height', centralColumnHeight)
+        }
+
+        $heightAlongCentralColumnElements.find('> img:first-child').css('height', '100%')
+    }
+    else {
+
+        $heightAlongCentralColumnElements.css('height', 'auto')
+    }
 });
+function getElementHeight($element) {
+    return $element.outerHeight();
+}
 
 //обработка кнопок в корзину и количество
 let plusItem = $('#plus-item');

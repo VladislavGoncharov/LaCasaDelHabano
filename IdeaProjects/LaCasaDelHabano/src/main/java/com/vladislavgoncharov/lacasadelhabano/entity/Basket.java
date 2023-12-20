@@ -2,7 +2,9 @@ package com.vladislavgoncharov.lacasadelhabano.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,7 +12,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//@ToString
 
 @Entity
 @Table(name = "basket")

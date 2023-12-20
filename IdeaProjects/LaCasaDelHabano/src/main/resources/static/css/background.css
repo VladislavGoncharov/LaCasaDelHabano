@@ -19,13 +19,20 @@
 #svg_loading {
     display: none;
 }
+#svg_loading rect{
+    fill: var(--mc-white);
+    stroke: var(--mc-white);
+}
+.border-none {
+    border: none !important;
+}
 .bg_black_pop_up_windows_on_the_right_darkening,
 .bg_black_pop_up_windows_on_the_right_darkening_enter {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 105vw;
     height: 100vh;
     z-index: 19;
     background: var(--mc-darkening);
@@ -86,7 +93,7 @@
 .bg_nav_black,
 .bg_nav_white {
     height: 60px;
-    z-index: 6;
+    z-index: 7;
     position: sticky;
     top: 0;
     left: 0;
@@ -100,23 +107,6 @@
 .bg_nav_white {
     background: #ffffff
 }
-
-
-/* bg_nav_vinous, .bg_nav_black, .bg_nav_white {
-    height: 80px;
-    z-index: 4;
-    position: sticky;
-    top: 0;
-    left: 0;
-    background: linear-gradient(to top, transparent 0%, #6a3837 30%);
-}
-.bg_nav_black {
-    background: linear-gradient(to top, transparent 0%, #0F0E0D 30%);
-}
-.bg_nav_white {
-    background: linear-gradient(to top, transparent 0%, #ffffff 30%);
-} */
-
 
 .about_us__foreground_picture {
     background-image: url('/img/about_us__picture_cigars.jpg');

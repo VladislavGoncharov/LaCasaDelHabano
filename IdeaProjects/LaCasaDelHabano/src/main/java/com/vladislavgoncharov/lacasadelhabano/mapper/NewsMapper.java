@@ -13,6 +13,20 @@ public interface NewsMapper {
 
     NewsMapper MAPPER = Mappers.getMapper(NewsMapper.class);
 
+    default NewsDTO fromNewsAllLang(News news) {
+        return NewsDTO.builder()
+                .id(news.getId())
+                .date(news.getDate())
+                .header(news.getHeader())
+                .mainText(news.getMainText())
+                .tag(news.getTag())
+                .enLangHeader(news.getEnLangHeader())
+                .enLangMainText(news.getEnLangMainText())
+                .enLangTag(news.getEnLangTag())
+                .photo(news.getPhoto())
+                .build();
+    }
+
     default NewsDTO fromNewsRu(News news) {
         return NewsDTO.builder()
                 .id(news.getId())
@@ -20,6 +34,7 @@ public interface NewsMapper {
                 .header(news.getHeader())
                 .mainText(news.getMainText())
                 .tag(news.getTag())
+                .photo(news.getPhoto())
                 .build();
     }
 
@@ -30,11 +45,16 @@ public interface NewsMapper {
                 .header(news.getEnLangHeader())
                 .mainText(news.getEnLangMainText())
                 .tag(news.getEnLangTag())
+                .photo(news.getPhoto())
                 .build();
     }
 
     default List<NewsDTO> fromNewsList(String lang, List<News> newsList) {
-        if (lang.equalsIgnoreCase("ru"))
+        if (lang.equalsIgnoreCase("allLang"))
+            return newsList.stream()
+                    .map(this::fromNewsAllLang)
+                    .collect(Collectors.toList());
+        else if (lang.equalsIgnoreCase("ru"))
             return newsList.stream()
                     .map(this::fromNewsRu)
                     .collect(Collectors.toList());
@@ -54,6 +74,7 @@ public interface NewsMapper {
                 .enLangHeader(newsDTO.getEnLangHeader())
                 .enLangMainText(newsDTO.getEnLangMainText())
                 .enLangTag(newsDTO.getEnLangTag())
+                .photo(newsDTO.getPhoto())
                 .build();
     }
 

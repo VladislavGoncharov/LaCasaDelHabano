@@ -149,10 +149,9 @@ public class SimilarProduct {
 
                 } else return randomFourItems(null, similarProduct.values().stream().toList(), 4);
             }
-            default -> {
-                System.out.println("default");
+            default ->
                 throw new RuntimeException("нет типа айтема");
-            }
+
         }
     }
 

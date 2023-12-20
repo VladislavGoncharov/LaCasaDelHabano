@@ -15,15 +15,55 @@
     <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
     <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
 
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Main"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Payment and delivery"
+                    }
+                ]
+            },
+            "inLanguage": "en-EN",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
 
     <title>Payment and delivery</title>
 </head>
 
 <!--/*@thymesVar id="phonesAndLink" type="com.vladislavgoncharov.lacasadelhabano.dto.PhonesAndLinkDTO"*/-->
 <body class="container payment_and_delivery">
-<div class="payment_and_delivery__bg_vinous"></div>
-<div class="payment_and_delivery__bg_vinous_2 height-auto"></div>
+<div class="payment_and_delivery__bg_vinous height-auto"></div>
 <div class="position-absolute top-0 start-0 w-100 height-auto">
     <div class="bg_nav_vinous"></div>
 </div>
@@ -48,7 +88,7 @@
         </div>
     </div>
     <div class="row mt-2 d-none d-lg-flex">
-        <div class="col-12 h1 text-uppercase">payment and delivery</div>
+        <div class="col-12 h1 text-uppercase"><h1 class="h1">payment and delivery</h1></div>
     </div>
     <div class="row mt-110px">
         <div class="offset-lg-3 offset-md-2 offset-0 col-lg-9 col-md-10 col-12">
@@ -57,12 +97,12 @@
                 ></div>
             </div>
             <div>
-                <div class="pt-4 pb-4 h2-32 w-100 opacity_hide_text text-uppercase">payment and delivery</div>
+                <div class="pt-4 pb-4 h2-32 w-100 opacity_hide_text"><h2 class="h2-32">Payment and delivery</h2></div>
                 <div id="answer-1" class="h4 text-mobile">
                     <div class="mt-lg-2 opacity_hide_text">
                         <img class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg"
                              alt="rhomb">Apply for the purchase of goods on our
-                        сайте
+                        site
                     </div>
                     <div class="mt-lg-4 mt-2 pt-lg-2 d-none d-lg-block opacity_hide_text"><img
                             class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">You can also issue
@@ -99,7 +139,7 @@
                 </div>
             </div>
             <div>
-                <div class="h2-32 w-100 pt-4 pb-4 opacity_hide_text">Terms of delivery</div>
+                <div class="h2-32 w-100 pt-4 pb-4 opacity_hide_text"><h2 class="h2-32">Terms of delivery</h2></div>
                 <div id="answer-2" class="h4 text-mobile">
                     <div class="mt-lg-2 opacity_hide_text">
                         <img class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">
@@ -125,13 +165,10 @@
         </div>
     </div>
 </section>
-<div class="mt-156px bg_transparent">
-    <div class="payment_and_delivery__foreground_picture"></div>
-</div>
-<section class="section_text">
+<section class="mt-156px section_text">
     <div class="row h1 overflow-hidden">
         <div class="col-12 d-flex justify-content-center align-items-center transform_up_text text-uppercase">
-            attention!
+            <h2 class="h1">attention!</h2>
         </div>
     </div>
     <div class="row h5 mt-96px opacity_hide_text">
@@ -152,8 +189,8 @@
             We do not sell tobacco products to anyone under the age of 18.
         </div>
     </div>
-    <div class="row mt-156px fs-48 fw-500 flh-58 ff-cormorant">
-        <div class="offset-4 col-4 d-flex justify-content-center align-items-center text-uppercase">get in touch</div>
+    <div class="row mt-156px h1 overflow-hidden">
+        <div class="col-12 d-flex justify-content-center align-items-center transform_up_text text-uppercase">get in touch</div>
     </div>
     <th:block th:insert="~{en-fragments/feedback :: feedback}"></th:block>
     <th:block th:insert="~{en-fragments/footer :: footer-black}"></th:block>

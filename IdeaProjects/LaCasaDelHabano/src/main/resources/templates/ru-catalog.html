@@ -16,6 +16,48 @@
     <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
     <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
     <link rel="stylesheet" th:href="@{/js/noUiSlider-15.7.1/nouislider.min.css}">
+
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Главная"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Каталог"
+                    }
+                ]
+            },
+            "inLanguage": "ru-RU",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
+
     <title>Каталог</title>
 </head>
 <body class="container bg_white catalog">
@@ -41,7 +83,7 @@
         </div>
         <div class="row mt-2">
             <div class="col-12 d-flex justify-content-between h1 text-uppercase">
-                <div id="scrollToCatalog">каталог</div>
+                <div id="scrollToCatalog"><h1 class="h1">каталог</h1> </div>
                 <div class="col-1 d-lg-none d-flex justify-content-end align-items-center"><img
                         src="/img/sheet_black.svg" alt="sheet">
                 </div>
@@ -58,11 +100,8 @@
 
                         <div class="filters-main">
                             <div class="d-block d-lg-none nav-mobile-filters">
-                                <div class="d-flex justify-content-center"> <img src="/img/navbar__logo_black.svg"
-                                        alt="navbar__logo" class="h-37px"> </div>
-                                <div class="mt-2">
-                                    <div class="border-top-black"></div>
-                                </div>
+                                <div class="mt-5 mb-5"></div>
+                                <div class="mt-5 mb-5"></div>
                                 <div class="pt-3 d-flex justify-content-between h5 text-uppercase">
                                     <div class="fc-peach">Фильтры</div>
                                     <div id="closeMobileFilters">Закрыть</div>
@@ -71,13 +110,13 @@
                             </div>
                             <div class="pt-4 d-lg-block d-none h5">Фильтры</div>
                             <div class="mt-lg-3 h5 text-uppercase border-top-black">
-                                <label class="checkbox-type-filter"> сигары<input type="checkbox" name="type"
+                                <label class="checkbox-type-filter"><h2 class="h5">сигары</h2><input type="checkbox" name="type"
                                         data-name="cigar"></label>
-                                <label class="checkbox-type-filter"> сигариллы<input type="checkbox" name="type"
+                                <label class="checkbox-type-filter"><h2 class="h5">сигариллы</h2><input type="checkbox" name="type"
                                         data-name="cigarillo"></label>
-                                <label class="checkbox-type-filter"> кофе<input type="checkbox" name="type"
+                                <label class="checkbox-type-filter"><h2 class="h5">кофе</h2><input type="checkbox" name="type"
                                         data-name="coffee"></label>
-                                <label class="checkbox-type-filter"> аксессуары<input type="checkbox" name="type"
+                                <label class="checkbox-type-filter"><h2 class="h5">аксессуары</h2><input type="checkbox" name="type"
                                         data-name="accessory"></label>
                             </div>
                             <div id="filterSeries" class="mb-sm-4 mb-2 border-top-black" style="display: none;">

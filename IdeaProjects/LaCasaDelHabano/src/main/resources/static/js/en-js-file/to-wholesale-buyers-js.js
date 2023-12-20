@@ -53,20 +53,20 @@ function sendRegistration(event) {
 
         // animateAfterSendingRegistration('flat-button-failure','Произошла ошибка, пожалуйста обновить страницу');
         // Плавное скрытие внутреннего div
-        let formRegistration = {
-            name: registrationOfWholesaleCustomerName.val(),
-            telOrEmail: registrationOfWholesaleCustomerTelEmail.val(),
-            nameOfOrganization: registrationOfWholesaleCustomerNameOfOrganization.val(),
-            city: registrationOfWholesaleCustomerCity.val(),
-            subjectOfLetter: registrationOfWholesaleCustomerSubjectOfLetter.val(),
-            message: registrationOfWholesaleCustomerMessage.val()
-        }
+        let formRegistration = new FormData()
+        formRegistration.append('name', registrationOfWholesaleCustomerName.val())
+        formRegistration.append('telOrEmail', registrationOfWholesaleCustomerTelEmail.val())
+        formRegistration.append('nameOfOrganization', registrationOfWholesaleCustomerNameOfOrganization.val())
+        formRegistration.append('city', registrationOfWholesaleCustomerCity.val())
+        formRegistration.append('subjectOfLetter', registrationOfWholesaleCustomerSubjectOfLetter.val())
+        formRegistration.append('message', registrationOfWholesaleCustomerMessage.val())
 
         $.ajax({
             url: '/api/send-registration-of-wholesale-customer',
             type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(formRegistration),
+            processData: false,
+            contentType: false,
+            data: formRegistration,
             success: function (data) {
                 if (data) {
                     clearingRegistration();
@@ -205,3 +205,32 @@ function animateAfterSendingRegistration(cssClass, message) {
     }, 20000);
 }
 
+
+$('html #registration-of-a-wholesale-customer-name, html #registration-of-a-wholesale-customer-tel-email, html #registration-of-a-wholesale-customer-name-of-organization, html #registration-of-a-wholesale-customer-city, html #registration-of-a-wholesale-customer-subject-of-letter, html #registration-of-a-wholesale-customer-message').on('input', function () {
+    let inputValue = $(this).val();
+    let maxLength = 250;
+
+    if (inputValue.length > maxLength) {
+        $(this).val(inputValue.substring(0, maxLength));
+    }
+});
+
+
+$('#downloadButtonDocument').on('click', function(event) {
+    // Создаем элемент <a> для скачивания файла
+    event.preventDefault()
+    let downloadLink = $('<a></a>');
+
+    // Устанавливаем атрибуты элемента <a>
+    downloadLink.attr('href', '/document/price_list_on_18_11_23.xls');
+    downloadLink.attr('download', 'price_list_on_18_11_23.xls');
+
+    // Добавляем элемент в DOM (временно)
+    $('body').append(downloadLink);
+
+    // Имитируем клик по элементу
+    downloadLink[0].click();
+
+    // Удаляем элемент из DOM
+    downloadLink.remove();
+});

@@ -41,6 +41,8 @@ public class Item {
     private String photo;
     private String photoSmall;
     private String country;
+    @Lob
+    @Column(name = "description", columnDefinition = "CLOB")
     private String description;
     private String articleNumber;
 
@@ -57,6 +59,8 @@ public class Item {
     private String enLangTypeOfAccessory;
 
     private String enLangCountry;
+    @Lob
+    @Column(name = "en_lang_description", columnDefinition = "CLOB")
     private String enLangDescription;
 
 

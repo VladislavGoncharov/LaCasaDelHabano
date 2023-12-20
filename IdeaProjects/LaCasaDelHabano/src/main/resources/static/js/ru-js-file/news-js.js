@@ -1,26 +1,4 @@
-//web socket
-// var socket = new SockJS("http://127.0.0.1:8080/websocket");
-// var stompClient = Stomp.over(socket);
-// stompClient.connect({}, function (frame) {
-//     console.log('Connected: ' + frame);
-//     sendFilterRequest('привет')
-//     // Подписка на определенные топики
-//     stompClient.subscribe('/get/news', function (data) {
-//         var responseData = JSON.parse(data.body);
-//         var container = $('#containerForNews');
-//         $('#pagination-news').pagination({
-//             dataSource: responseData,
-//             pageSize: 5,
-//             callback: function (data, pagination) {
-//                 container.empty();
-//                 // Отображение элементов на текущей странице
-//                 for (var i = 0; i < data.length; i++) {
-//                     createNews(container, data[i]);
-//                 }
-//             }
-//         });
-//     });
-// });
+
 $(document).ready(function () {
 
     let currentURL = window.location.href;
@@ -43,8 +21,14 @@ $(document).ready(function () {
                     for (let i = 0; i < data.length; i++) {
                         createNews(container, data[i]);
                     }
+
+                    setTimeout(function () {
+                        distanceToBottom()
+
+                    },500)
                 }
             });
+            scrollFunction()
         },
         error: function (xhr, status, error) {
             // Обработка ошибок
@@ -55,6 +39,10 @@ $(document).ready(function () {
 
 
 function createNews(container, item) {
+    let dateComponents = item.date.split('-');
+    let dateObject = new Date(parseInt(dateComponents[0]), parseInt(dateComponents[1]) - 1, parseInt(dateComponents[2])); // Месяцы в JavaScript начинаются с 0
+    let formattedDate = dateObject.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+
     let itemDiv = document.createElement('div');
     itemDiv.classList.add('offset-lg-3', 'offset-md-2', 'col-lg-9', 'col-md-10',
         'offset-0', 'col-12', 'mb-3', 'opacity_hide_text');
@@ -62,11 +50,11 @@ function createNews(container, item) {
                 <div class="border-top">
                     <div class="row mt-5 mb-sm-5 mt-0">
                         <div class="col-12 d-block d-sm-none">
-                            <div class="h5-num">04/05/23</div>
+                            <div class="h5-num">${formattedDate}</div>
                         </div>
                         <div class="col-lg-5 col-sm-6 col-12 order-sm-1 order-2">
-                            <div class="h5-num d-none d-sm-block">${item.date}</div>
-                            <div class="mt-sm-2 mt-4 h3">${item.header}</div>
+                            <div class="h5-num d-none d-sm-block">${formattedDate}</div>
+                            <div class="mt-sm-2 mt-4 h3"><h2 class="h3">${item.header}</h2></div>
                             <div class="mt-4 pe-lg-5">
                                 <p class="h5">${item.mainText}</p>
                             </div>
