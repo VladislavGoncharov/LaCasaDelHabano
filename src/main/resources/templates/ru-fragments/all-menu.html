@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!--/*@thymesVar id="phonesAndLink" type="com.vladislavgoncharov.lacasadelhabano.dto.PhonesAndLinkDTO"*/-->
+<!--/*@thymesVar id="accessoryAmount" type="com.vladislavgoncharov.lacasadelhabano.controller.GlobalControllerAdvice"*/-->
+<!--/*@thymesVar id="cigarAmount" type="com.vladislavgoncharov.lacasadelhabano.controller.GlobalControllerAdvice"*/-->
+<!--/*@thymesVar id="cigarilloAmount" type="com.vladislavgoncharov.lacasadelhabano.controller.GlobalControllerAdvice"*/-->
+<!--/*@thymesVar id="coffeeAmount" type="com.vladislavgoncharov.lacasadelhabano.controller.GlobalControllerAdvice"*/-->
+<section th:fragment="all-menu" id="allMenu">
+    <div id="search" class="bg_black_pop_up_windows_on_the_right_darkening" style="display: none">
+        <div class="bg_black_pop_up_windows_on_the_right_dark">
+            <div class="d-flex justify-content-between h5 text-uppercase">
+                <div class="fc-peach overflow-hidden">
+                    <div class="transform_right_text">поиск</div>
+                </div>
+                <div class="overflow-hidden">
+                    <div class="transform_right_text"><a class="link-main underline-one" href="#"
+                                                         onclick="openPopUp('search',event)">закрыть</a></div>
+                </div>
+            </div>
+            <div class="mt-96px overflow-hidden">
+                <input class="input-main text-uppercase fw-300 opacity_hide_text h5" id="search_input" type="text"
+                       placeholder="введите название бренда или витолы*">
+                <div class="border-top border_hide_right"></div>
+            </div>
+            <div class="basket__scroll_div position-relative opacity_hide_text">
+                <div class="mt-3" id="search_result">
+
+                </div>
+            </div>
+            <div class="search__footer h5 opacity_hide_text">
+                <div class="search__footer-top">Пожалуйста, уточняйте наличие сигар в магазинах или по телефону:</div>
+                <div class="search__footer-content ">
+                    <div class="search__footer-name-mug">
+                        <a class="link-main underline-one"
+                           href="https://yandex.ru/maps/org/la_casa_del_habano/106333396780/?from=tabbar&ll=30.353964%2C59.927151&mode=search&sctx=ZAAAAAgBEAAaKAoSCdwNorWiVT5AEYjxmld1%2BE1AEhIJU%2BdR8X9Hyj8RrVEP0egOsj8iBgABAgMEBSgKOABAAkgBagJydZ0BzcxMPaABAKgBAL0Ba87T7MIBBqy%2B24%2BMA%2BoBAPIBAPgBAIICKmxhIGNhc2EgZGVsIGhhYmFubyDQvdCwINC60YPQt9C90LXRh9C90L7QvIoCAJICBTEwODczmgIMZGVza3RvcC1tYXBz&sll=30.353964%2C59.927151&source=serp_navig&sspn=0.025663%2C0.008821&text=la%20casa%20del%20habano%20%D0%BD%D0%B0%20%D0%BA%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%D0%BC&z=16"
+                           target="_blank">lcdh kuznechny</a>
+                    </div>
+                    <div class="search__footer-number-mug"><a class="link-main underline-one"
+                                                              th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyHouse}"
+                                                              th:text="${phonesAndLink.kuznechnyTelephonyHouse}"></a>
+                    </div>
+                </div>
+                <div class="search__footer-content">
+                    <div class="search__footer-name-mug">
+                        <a class="link-main underline-one"
+                           href="https://yandex.ru/maps/org/la_casa_del_habano/198481625494/?from=tabbar&ll=30.302790%2C59.959905&mode=search&sctx=ZAAAAAgBEAAaKAoSCZombD8ZUz5AEVg4SfPH%2BE1AEhIJU%2BdR8X9Hyj8RaY1BJ4QOsj8iBgABAgMEBSgKOABAAkgBagJydZ0BzcxMPaABAKgBAL0BXtfSaMIBBpaDtbPjBeoBAPIBAPgBAIICLmxhIGNhc2EgZGVsIGhhYmFubyDQvdCwINCx0L7Qu9GM0YjQvtC5INC%2F0YAgMzeKAgCSAgEymgIMZGVza3RvcC1tYXBz&sll=30.302790%2C59.959905&source=serp_navig&sspn=0.025663%2C0.008812&text=la%20casa%20del%20habano%20%D0%BD%D0%B0%20%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9%20%D0%BF%D1%80%2037&z=16"
+                           target="_blank">lcdh bolshoy p.side</a>
+                    </div>
+                    <div class="search__footer-number-mug"><a class="link-main underline-one"
+                                                              th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyHouse}"
+                                                              th:text="${phonesAndLink.petrogradskoyTelephonyHouse}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="basket" class="bg_black_pop_up_windows_on_the_right_darkening" style="display: none">
+        <div class="bg_black_pop_up_windows_on_the_right_dark">
+            <div class="d-flex justify-content-between h5 text-uppercase">
+                <div class="fc-peach overflow-hidden">
+                    <div class="transform_right_text">корзина</div>
+                </div>
+                <div class="overflow-hidden">
+                    <div class="transform_right_text"><a class="link-main underline-one" href="#"
+                                                         onclick="openPopUp('basket',event)">закрыть</a></div>
+                </div>
+            </div>
+            <div class="basket__scroll_div position-relative opacity_hide_text">
+
+            </div>
+            <div class="mt-5 overflow-hidden" id="basket_total">
+                <div class="border-top border_hide_right"></div>
+                <div class="mt-2 d-flex justify-content-between align-items-center">
+                    <div class="h3 text-uppercase overflow-hidden">
+                        <div class="transform_right_text">итого</div>
+                    </div>
+                    <div class="h3-num text-uppercase overflow-hidden">
+                        <div class="transform_right_text"><span id="basket_total_price">7 900</span> р.</div>
+                    </div>
+                </div>
+                <div class="mt-5 opacity_hide_text">
+                    <button class="flat-button text-center" id="reserve-basket">
+                        <div>Оформить</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="reserve" class="bg_black_pop_up_windows_on_the_right_darkening" style="display: none">
+        <div class="bg_black_pop_up_windows">
+            <nav class="row h5 text-uppercase position-sticky top-0">
+                <div class="col-lg-5">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_left"></div>
+                    </div>
+                </div>
+                <div class="offset-2 col-5 d-none d-lg-block">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_right"></div>
+                    </div>
+                </div>
+                <div class="col-3 d-flex justify-content-start align-items-end fc-peach overflow-hidden">
+                    <div class="transform_up_text">резерв</div>
+                </div>
+                <div class="col-6 overflow-hidden">
+                    <div class="transform_up_text h-37px"><a th:href="@{/ru}"><img src="/img/navbar__logo.svg"
+                                                                                 alt="navbar__logo"
+                                                                                 class="position-absolute start-50 translate-middle-x h-37px">
+                    </a></div>
+                </div>
+                <div class="col-3 d-flex justify-content-end align-items-end overflow-hidden">
+                    <div class="transform_up_text"><a class="link-main underline-one" href="#"
+                                                      onclick="openPopUp('reserve',event)">закрыть</a></div>
+                </div>
+            </nav>
+            <div class="row mt-96px">
+                <div class="offset-lg-4 offset-sm-2 col-lg-4 col-sm-8 h5 text-center ps-xxl-4 ps-3 pe-xxl-4 pe-3">
+                    <div class="ps-xxl-3 ps-0 pe-xxl-3 pe-0 opacity_hide_text" id="reserve-type">Вы можете забронировать для себя место в
+                        нашей
+                        дегустационной зоне. Для этого заполните форму ниже. Мы свяжемся с вами в ближайшее время.
+                    </div>
+                </div>
+            </div>
+            <form class="row mt-75px h5 fw-300 text-uppercase" action="#">
+                <div class="offset-lg-3 col-lg-3 col-sm-6">
+                    <label class="radio-main opacity_hide_text">
+                        <input id="radio_kuz" type="radio" name="reserve-mug" value="kuznechny" checked>
+                        <div class="radio-main-checkmark me-xxl-4 me-2">
+                            <div></div>
+                        </div>
+                        <div>кузнечный переулок д.14</div>
+                    </label>
+                </div>
+                <div class="col-lg-3 col-sm-6 mt-3 mt-sm-0">
+                    <label class="radio-main opacity_hide_text">
+                        <input id="radio_petr" type="radio" name="reserve-mug" value="petrogradskaya">
+                        <div class="radio-main-checkmark me-xxl-4 me-2">
+                            <div></div>
+                        </div>
+                        <div>большой проспект п.с. д.37</div>
+                    </label>
+                </div>
+                <div class="offset-lg-3 col-lg-3 col-sm-6 mt-sm-5 mt-3">
+                    <input class="input-main opacity_hide_text" id="reserve-name" type="text" placeholder="ИМЯ*">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_left"></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 mt-sm-5 mt-3">
+                    <input class="input-main opacity_hide_text" id="reserve-tel-email" type="text" placeholder="ТЕЛЕФОН ИЛИ E-MAIL*">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_left"></div>
+                    </div>
+                </div>
+                <div class="offset-lg-3 col-lg-3 col-sm-6 pt-sm-5 pt-3">
+                    <input class="input-main opacity_hide_text" id="reserve-date" type="text" placeholder="дата*">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_left"></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 pt-sm-5 pt-3">
+                    <input class="input-main  opacity_hide_text" id="reserve-count" type="text" placeholder="количество гостей*">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_left"></div>
+                    </div>
+                </div>
+                <div class="offset-lg-3 col-lg-6 pt-sm-5 pt-3">
+                    <textarea class="textarea-main opacity_hide_text" id="reserve-message" placeholder="СООБЩЕНИЕ"></textarea>
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_left"></div>
+                    </div>
+                </div>
+                <div class="offset-lg-3 col-lg-6 mt-sm-5 mt-3 position-relative">
+                    <button class="flat-button flat-button-bg-light opacity_hide_text" id="reserve-button"
+                            onclick="sendDataReserve(event, 'standard')">
+                        <div>Отправить</div>
+                    </button>
+                </div>
+            </form>
+            <div class="mb-4 position-absolute bottom-0 row w-100 h5 fw-300 gy-1 pe-3 menu__footer">
+                <div class="col-3 text-uppercase overflow-hidden">
+                    <div class="transform_up_text">резерв по телефону</div>
+                </div>
+                <div class="col-3 text-uppercase d-flex justify-content-between overflow-hidden">
+                    <div class="transform_up_text">Кузнечный:</div>
+                    <img class="transform_up_text"
+                         src="/img/dotted_line.svg" alt="dotted_line">
+                    <div class="h5-num transform_up_text"><a class="link-main underline-one"
+                                                             th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyHouse}"
+                                                             th:text="${phonesAndLink.kuznechnyTelephonyHouse}"></a>
+                    </div>
+                </div>
+                <div class="col-3 text-uppercase d-flex justify-content-between overflow-hidden">
+                    <div class="transform_up_text">петроградская:</div>
+                    <img class="transform_up_text"
+                         src="/img/dotted_line_2.svg" alt="dotted_line">
+                    <div class="h5-num transform_up_text"><a class="link-main underline-one"
+                                                             th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyHouse}"
+                                                             th:text="${phonesAndLink.petrogradskoyTelephonyHouse}"></a>
+                    </div>
+                </div>
+                <div class="col-3 d-flex justify-content-end overflow-hidden">
+                    <div class="transform_up_text">
+                        <a class="me-2 link-main underline-one link-main underline-one" href="#"
+                           onclick="window.location.href = document.getElementById('link-tlg').getAttribute('data-href');">TLG</a>/
+                        <a class="ms-2 me-2 link-main underline-one" href="#"
+                           onclick="window.location.href = document.getElementById('link-vk').getAttribute('data-href');">VK</a>/<a
+                            class="ms-2 me-2 link-main underline-one" href="#"
+                            onclick="window.location.href = document.getElementById('link-inst').getAttribute('data-href');">INST</a>/<a
+                            class="ms-2 link-main underline-one" href="#"
+                            onclick="window.location.href = document.getElementById('link-fb').getAttribute('data-href');">FB</a>
+                    </div>
+                </div>
+                <div class="col-12 mt-2">
+                    <div class="border-top-grey border_hide_center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="catalog" class="bg_black_pop_up_windows_on_the_right_darkening" style="display: none">
+        <div class="bg_black_pop_up_windows">
+            <nav class="row h5 text-uppercase position-sticky top-0">
+                <div class="col-lg-5">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_left"></div>
+                    </div>
+                </div>
+                <div class="offset-2 col-5 d-none d-lg-block">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_right"></div>
+                    </div>
+                </div>
+                <div class="col-3 d-flex justify-content-start align-items-end fc-peach overflow-hidden">
+                    <div class="transform_up_text">каталог</div>
+                </div>
+                <div class="col-6 overflow-hidden">
+                    <div class="transform_up_text h-37px">
+                        <a th:href="@{/ru}"><img src="/img/navbar__logo.svg" alt="navbar__logo"
+                                               class="position-absolute start-50 translate-middle-x h-37px">
+                        </a></div>
+                </div>
+                <div class="col-3 d-flex justify-content-end align-items-end overflow-hidden">
+                    <div class="transform_up_text"><a class="link-main underline-one" href="#"
+                                                      onclick="openPopUp('catalog',event)">закрыть</a></div>
+                </div>
+            </nav>
+            <div class="row mt-96px">
+                <div class="offset-xxl-3 offset-lg-2 col-xxl-3 col-lg-4 col-sm-10 h5 opacity_hide_text">
+                    <div class="pe-5">В нашем магазине самый большой в России ассортимент кубинских сигар:
+                        лимитированные и специальные выпуски, винтажные серии, эксклюзивные витолы.
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-lg-4 col-sm-10 h5 pe-5 mt-4 mt-lg-0 opacity_hide_text">
+                    <div class="pe-5">
+                        <div class="pe-xxl-2">Кроме того мы предлагаем вам познакомиться с сигариллами, аксессуарами
+                            и превосходным кубинским кофе.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-96px">
+                    <a class="row h-100px g-0 d-flex justify-content-center align-items-start"
+                       th:href="@{/ru/catalog#product?text=type=cigar}">
+                        <div class="border-top border_hide_center"></div>
+                        <div class="col-xxl-3 col-2 h5-num d-flex justify-content-start align-items-center opacity_hide_text">
+                            01
+                        </div>
+                        <div class="col-8 h5 text-uppercase d-flex justify-content-lg-start justify-content-center align-items-center ps-1">
+                            <div class="ps-1 opacity_hide_text">сигары</div>
+                        </div>
+                        <div
+                                class="col-xxl-1 col-2 h5-num text-uppercase d-flex justify-content-end align-items-center opacity_hide_text"
+                                th:text="${'(' + cigarAmount + ')'}">
+                            (211)
+                        </div>
+                    </a>
+                    <a class="row h-100px g-0 d-flex justify-content-center align-items-start"
+                       th:href="@{/ru/catalog#product?text=type=cigarillo}">
+                        <div class="border-top border_hide_center"></div>
+                        <div class="col-xxl-3 col-2 h5-num d-flex justify-content-start align-items-center opacity_hide_text">
+                            02
+                        </div>
+                        <div class="col-8 h5 text-uppercase d-flex justify-content-lg-start justify-content-center align-items-center ps-1">
+                            <div class="ps-1 opacity_hide_text">сигариллы</div>
+                        </div>
+                        <div
+                                class="col-xxl-1 col-2 h5-num text-uppercase d-flex justify-content-end align-items-center opacity_hide_text"
+                                th:text="${'(' + cigarilloAmount + ')'}">
+                            (31)
+                        </div>
+                    </a>
+                    <a class="row h-100px g-0 d-flex justify-content-center align-items-start"
+                       th:href="@{/ru/catalog#product?text=type=coffee}">
+                        <div class="border-top border_hide_center"></div>
+                        <div class="col-xxl-3 col-2 h5-num d-flex justify-content-start align-items-center opacity_hide_text">
+                            03
+                        </div>
+                        <div class="col-8 h5 text-uppercase d-flex justify-content-lg-start justify-content-center align-items-center ps-1">
+                            <div class="ps-1 opacity_hide_text">кофе</div>
+                        </div>
+                        <div
+                                class="col-xxl-1 col-2 h5-num text-uppercase d-flex justify-content-end align-items-center opacity_hide_text"
+                                th:text="${'(' + coffeeAmount + ')'}">
+                            (12)
+                        </div>
+                    </a>
+                    <a class="row h-100px g-0" th:href="@{/ru/catalog#product?text=type=accessory}">
+                        <div class="border-top border_hide_center"></div>
+                        <div class="col-xxl-3 col-2 h5-num d-flex justify-content-start align-items-center opacity_hide_text">
+                            04
+                        </div>
+                        <div class="col-8 h5 text-uppercase d-flex justify-content-lg-start justify-content-center align-items-center ps-1">
+                            <div class="ps-1 opacity_hide_text">аксессуары</div>
+                        </div>
+                        <div
+                                class="col-xxl-1 col-2 h5-num text-uppercase d-flex justify-content-end align-items-center opacity_hide_text"
+                                th:text="${'(' + accessoryAmount + ')'}">
+                            (86)
+                        </div>
+                        <div class="border-bottom border_hide_center"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="mb-4 position-absolute bottom-0 row w-100 h5 fw-300 gy-1 pe-3 menu__footer">
+                <div class="col-3 text-uppercase overflow-hidden">
+                    <div class="transform_up_text">нужна консультация?</div>
+                </div>
+                <div class="col-3 text-uppercase d-flex justify-content-between overflow-hidden">
+                    <div class="transform_up_text">Кузнечный:</div>
+                    <img class="transform_up_text"
+                         src="/img/dotted_line.svg" alt="dotted_line">
+                    <div class="h5-num transform_up_text"><a class="link-main underline-one"
+                                                             th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyHouse}"
+                                                             th:text="${phonesAndLink.kuznechnyTelephonyHouse}"></a>
+                    </div>
+                </div>
+                <div class="col-3 text-uppercase d-flex justify-content-between overflow-hidden">
+                    <div class="transform_up_text">петроградская:</div>
+                    <img class="transform_up_text"
+                         src="/img/dotted_line_2.svg" alt="dotted_line">
+                    <div class="h5-num transform_up_text"><a class="link-main underline-one"
+                                                             th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyHouse}"
+                                                             th:text="${phonesAndLink.petrogradskoyTelephonyHouse}"></a>
+                    </div>
+                </div>
+                <div class="col-3 d-flex justify-content-end overflow-hidden">
+                    <div class="transform_up_text">
+                        <a class="me-2 link-main underline-one link-main underline-one"
+                           href="#"
+                           onclick="window.location.href = document.getElementById('link-tlg').getAttribute('data-href');">TLG</a>/
+                        <a class="ms-2 me-2 link-main underline-one" href="#"
+                           onclick="window.location.href = document.getElementById('link-vk').getAttribute('data-href');">VK</a>/<a
+                            class="ms-2 me-2 link-main underline-one" href="#"
+                            onclick="window.location.href = document.getElementById('link-inst').getAttribute('data-href');">INST</a>/<a
+                            class="ms-2 link-main underline-one" href="#"
+                            onclick="window.location.href = document.getElementById('link-fb').getAttribute('data-href');">FB</a>
+                    </div>
+                </div>
+                <div class="col-12 mt-2">
+                    <div class="border-top-grey border_hide_center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="menu" class="bg_black_pop_up_windows_on_the_right_darkening" style="display: none">
+        <div class="bg_black_pop_up_windows">
+            <nav class="row h5 text-uppercase position-sticky top-0">
+                <div class="col-lg-5">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_left"></div>
+                    </div>
+                </div>
+                <div class="offset-2 col-5 d-none d-lg-block">
+                    <div class="overflow-hidden">
+                        <div class="border-top border_hide_right"></div>
+                    </div>
+                </div>
+                <div class="col-3 d-flex justify-content-start align-items-end fc-peach overflow-hidden">
+                    <div class="transform_up_text">меню</div>
+                </div>
+                <div class="col-6 overflow-hidden">
+                    <div class="transform_up_text h-37px">
+                        <a th:href="@{/ru}"><img src="/img/navbar__logo.svg" alt="navbar__logo"
+                                               class="position-absolute start-50 translate-middle-x h-37px">
+                        </a></div>
+                </div>
+                <div class="col-3 d-flex justify-content-end align-items-end overflow-hidden">
+                    <div class="transform_up_text"><a class="link-main underline-one" href="#"
+                                                      onclick="openPopUp('menu',event)">закрыть</a></div>
+                </div>
+            </nav>
+            <div class="row">
+                <div class="offset-lg-2 col-lg-4 mt-130px h2 text-uppercase">
+                    <div class="d-lg-none d-block text-uppercase h1 text-center overflow-hidden">
+                        <div class="transform_up_text ">каталог</div>
+                    </div>
+                    <div class="d-lg-none d-block mb-3 overflow-hidden">
+                        <div class="border-top border_hide_left"></div>
+                    </div>
+                    <div class="d-flex justify-content-lg-start justify-content-center align-items-center ps-xxl-5 ps-lg-3 ps-0 menu-link overflow-hidden">
+                        <img
+                                class="me-4 ps-xxl-5 ps-lg-3 ps-0 menu-link-img" src="/img/sheet.svg" alt="sheet"> <a
+                            th:href="@{/ru/catalog#product?text=type=cigar}"
+                            class="menu-link transform_up_text">сигары</a></div>
+                    <div
+                            class="mt-lg-3 mt-2 d-flex justify-content-lg-start justify-content-center align-items-center ps-xxl-5 ps-lg-3 ps-0 menu-link overflow-hidden">
+                        <img class="me-4 ps-xxl-5 ps-lg-3 ps-0 menu-link-img" src="/img/sheet.svg" alt="sheet"> <a
+                            th:href="@{/ru/catalog#product?text=type=cigarillo}"
+                            class="menu-link transform_up_text">сигариллы</a></div>
+                    <div
+                            class="mt-lg-3 mt-2 d-flex justify-content-lg-start justify-content-center align-items-center ps-xxl-5 ps-lg-3 ps-0 menu-link overflow-hidden">
+                        <img class="me-4 ps-xxl-5 ps-lg-3 ps-0 menu-link-img" src="/img/sheet.svg" alt="sheet"> <a
+                            th:href="@{/ru/catalog#product?text=type=coffee}"
+                            class="menu-link transform_up_text">кофе</a></div>
+                    <div
+                            class="mt-lg-3 mt-2 d-flex justify-content-lg-start justify-content-center align-items-center ps-xxl-5 ps-lg-3 ps-0 menu-link overflow-hidden">
+                        <img class="me-4 ps-xxl-5 ps-lg-3 ps-0 menu-link-img" src="/img/sheet.svg" alt="sheet"> <a
+                            th:href="@{/ru/catalog#product?text=type=accessory}"
+                            class="menu-link transform_up_text">аксессуары</a></div>
+                    <div
+                            class="mt-5 d-flex justify-content-lg-start justify-content-center align-items-center ps-xxl-5 ps-lg-3 ps-0 menu-link overflow-hidden">
+                        <img class="me-4 ps-xxl-5 ps-lg-3 ps-0 menu-link-img" src="/img/sheet.svg" alt="sheet"> <a
+                            th:href="@{/ru/about-us}"
+                            class="menu-link transform_up_text">о нас</a></div>
+                    <div
+                            class="mt-lg-3 mt-2 d-flex justify-content-lg-start justify-content-center align-items-center ps-xxl-5 ps-lg-3 ps-0 menu-link overflow-hidden">
+                        <img class="me-4 ps-xxl-5 ps-lg-3 ps-0 menu-link-img" src="/img/sheet.svg" alt="sheet"> <a
+                            th:href="@{/ru/news}"
+                            class="menu-link transform_up_text">новости</a></div>
+                    <div
+                            class="mt-lg-3 mt-2 d-flex justify-content-lg-start justify-content-center align-items-center ps-xxl-5 ps-lg-3 ps-0 menu-link overflow-hidden">
+                        <img class="me-4 ps-xxl-5 ps-lg-3 ps-0 menu-link-img" src="/img/sheet.svg" alt="sheet"> <a
+                            th:href="@{/ru/contact}"
+                            class="menu-link transform_up_text">контакты</a></div>
+                </div>
+                <div class="col-lg-6 position-relative h5 text-uppercase menu__col-right">
+                    <div class="position-absolute bottom-0">
+                        <div class="menu-link overflow-hidden">
+                            <div class="transform_up_text d-lg-block d-flex justify-content-center"><img
+                                    class="me-4 menu-link-img" src="/img/sheet.svg"
+                                    alt="sheet"> <a th:href="@{/ru/payment-and-delivery}">Оплата и доставка</a></div>
+                        </div>
+                        <div class="mt-3 menu-link overflow-hidden">
+                            <div class="transform_up_text d-lg-block d-flex justify-content-center"><img
+                                    class="me-4 menu-link-img" src="/img/sheet.svg"
+                                    alt="sheet"> <a th:href="@{/ru/to-wholesale-buyers}">Оптовым покупателям</a></div>
+                        </div>
+                        <div class="mt-3 menu-link overflow-hidden">
+                            <div class="transform_up_text d-lg-block d-flex justify-content-center"><img
+                                    class="me-4 menu-link-img" src="/img/sheet.svg"
+                                    alt="sheet"> <a th:href="@{/ru/privacy-policy}">Политика конфиденциальности</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 position-absolute bottom-0 row h5 gy-1 pe-3 menu__footer">
+                <div class="col-2 text-uppercase overflow-hidden">
+                    <div class="transform_up_text">lcdh bolshoy p.side:</div>
+                </div>
+                <div class="col-4 overflow-hidden">
+                    <div class="ps-xxl-5 ps-lg-3 ps-0 transform_up_text"><img class="ps-xxl-5 ps-lg-3 ps-0"
+                                                                              src="/img/sheet.svg" alt="sheet"
+                                                                              style="opacity: 0"><span
+                            class="ps-4 transform_up_text">г. Санкт-Петербург,Большой пр.
+                                П.С., 37</span></div>
+                </div>
+                <div class="col-4 h5-num overflow-hidden">
+                    <div class="transform_up_text"><img class="me-4 pe-1" src="/img/sheet.svg" alt="sheet"
+                                                        style="opacity: 0"><a class="link-main underline-one"
+                                                                              th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyHouse}"
+                                                                              th:text="${phonesAndLink.kuznechnyTelephonyHouse}"></a>
+                    </div>
+                </div>
+                <div class="col-2 d-flex justify-content-end overflow-hidden">
+                    <div class="transform_up_text"><a class="me-2 link-main underline-one" href="#"
+                                                      onclick="window.location.href = document.getElementById('link-tlg').getAttribute('data-href');">TLG</a>/<a
+                            class="ms-2 me-2 link-main underline-one" href="#"
+                            onclick="window.location.href = document.getElementById('link-vk').getAttribute('data-href');">VK</a>/<a
+                            class="ms-2 me-2 link-main underline-one" href="#"
+                            onclick="window.location.href = document.getElementById('link-inst').getAttribute('data-href');">INST</a>/<a
+                            class="ms-2 link-main underline-one" href="#"
+                            onclick="window.location.href = document.getElementById('link-fb').getAttribute('data-href');">FB</a>
+                    </div>
+                </div>
+                <div class="col-2 text-uppercase overflow-hidden">
+                    <div class="transform_up_text">lcdh kuznechny:</div>
+                </div>
+                <div class="col-4 overflow-hidden">
+                    <div class="ps-xxl-5 ps-lg-3 ps-0 transform_up_text"><img class="ps-xxl-5 ps-lg-3 ps-0"
+                                                                              src="/img/sheet.svg" alt="sheet"
+                                                                              style="opacity: 0"><span class="ps-4">г. Санкт-Петербург, Кузнечный пер., 14А</span>
+                    </div>
+                </div>
+                <div class="col-4 h5-num overflow-hidden">
+                    <div class="transform_up_text"><img class="me-4 pe-1" src="/img/sheet.svg" alt="sheet"
+                                                        style="opacity: 0"><a
+                            class="link-main underline-one transform_up_text"
+                            th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyHouse}"
+                            th:text="${phonesAndLink.petrogradskoyTelephonyHouse}"></a></div>
+                </div>
+                <div class="col-2 text-uppercase d-flex justify-content-end overflow-hidden"><a
+                        class="transform_up_text" th:href="${'mailto:' + phonesAndLink.linkMail}"
+                        th:text="${phonesAndLink.linkMail}">lcdh@cigarplace.ru</a></div>
+                <div class="col-12 mt-2">
+                    <div class="border-top-grey border_hide_center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

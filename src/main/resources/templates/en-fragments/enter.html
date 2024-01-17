@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+
+<div th:fragment="enter-main-page" id="enter" class="bg_black_pop_up_windows_on_the_right_darkening_enter">
+   <div class=" bg_black_pop_up_windows_enter container">
+      <nav class="row h5 text-uppercase position-sticky top-0">
+         <div class="d-flex justify-content-center align-items-center">
+            <div class="h-37px"><a th:href="@{/en/}"><img src="/img/navbar__logo.svg" alt="navbar__logo"
+                                                          class="h-37px"></a></div>
+         </div>
+      </nav>
+      <div class="row mt-2 w-100 position-absolute top-265px">
+         <div class="col-12 h2 text-uppercase text-center">
+            <div class="h1-64 fc-peach text-uppercase">have you turned 18?</div>
+         </div>
+      </div>
+      <div class="row h2-32 fw-700 text-uppercase w-100 position-absolute top-510px">
+         <div class="offset-3 col-3 text-center">
+            <div id="yes" class="fc-white">yes</div>
+         </div>
+         <div class="col-3 text-center">
+            <div id="no" class="fc-white">no</div>
+         </div>
+      </div>
+      <div class="row h3 fw-700 fc-peach text-uppercase w-100 position-absolute top-775px"
+           style="opacity: 0">
+         <div class="d-flex justify-content-center align-items-center overflow-hidden">
+            <div class="transform_up_text">loading</div>
+         </div>
+      </div>
+
+   </div>
+</div>
+<div th:fragment="enter-other-page" id="enter" class="bg_black_pop_up_windows_on_the_right_darkening_enter">
+   <div class=" bg_black_pop_up_windows_enter container">
+      <nav class="row h5 text-uppercase position-sticky top-0">
+         <div class="d-flex justify-content-center align-items-center">
+            <div class="h-37px"><a th:href="@{/en/}"><img src="/img/navbar__logo.svg" alt="navbar__logo"
+                                                          class="h-37px"></a></div>
+         </div>
+      </nav>
+      <div class="row mt-2 w-100 position-absolute top-265px">
+         <div class="col-12 h2 text-uppercase text-center">
+            <div class="h1-64 fc-peach text-uppercase">have you turned 18?</div>
+         </div>
+      </div>
+      <div class="row h2-32 fw-700 text-uppercase w-100 position-absolute top-510px">
+         <div class="offset-3 col-3 text-center">
+            <div id="yes" class="fc-white">yes</div>
+         </div>
+         <div class="col-3 text-center">
+            <div id="no" class="fc-white">no</div>
+         </div>
+      </div>
+      <div class="row h3 w-100 fw-700 fc-peach text-uppercase position-absolute top-775px"
+           style="opacity: 0;pointer-events: none">
+         <div class="row mb-3 position-relative d-flex justify-content-center">
+            <div id="main__img_div" class="main__img_div w-75">
+               <svg id="svg_loading" style="z-index: 30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+                  <rect width="100%" height="100%" fill="white" stroke="white" style="position:absolute;"/>
+               </svg>
+            </div>
+         </div>
+         <div class="d-flex justify-content-center align-items-center overflow-hidden">
+            <div class="transform_up_text">loading</div>
+         </div>
+      </div>
+
+   </div>
+</div>
+</body>
+</html>

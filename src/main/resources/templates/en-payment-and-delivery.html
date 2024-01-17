@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script th:src="@{/webjars/jquery/3.6.4/jquery.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/gsap.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/ScrollTrigger.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-5.1.3-dist/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/screen-size.css}">
+    <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
+    <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
+
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Main"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Payment and delivery"
+                    }
+                ]
+            },
+            "inLanguage": "en-EN",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
+
+    <title>Payment and delivery</title>
+</head>
+
+<!--/*@thymesVar id="phonesAndLink" type="com.vladislavgoncharov.lacasadelhabano.dto.PhonesAndLinkDTO"*/-->
+<body class="container payment_and_delivery">
+<div class="payment_and_delivery__bg_vinous height-auto"></div>
+<div class="position-absolute top-0 start-0 w-100 height-auto">
+    <div class="bg_nav_vinous"></div>
+</div>
+
+<th:block th:insert="~{en-fragments/nav :: nav-desktop}"></th:block>
+<th:block th:insert="~{en-fragments/nav :: nav-mobile}"></th:block>
+<th:block th:insert="~{en-fragments/all-menu :: all-menu}"></th:block>
+<th:block th:insert="~{en-fragments/enter :: enter-other-page}"></th:block>
+
+<section>
+    <div class="row mt-156px">
+        <div class="col-11 d-lg-flex d-none justify-content-star align-items-center h4 text-uppercase">main
+            <img src="/img/vector-dash.svg" class="ps-3 pe-3" alt="vector-dash">payment and delivery
+        </div>
+        <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase pe-0">payment and
+            delivery
+        </div>
+        <div class="col-1 d-flex justify-content-end align-items-center ps-0"><img src="/img/sheet.svg" alt="sheet">
+        </div>
+        <div class="col-12 mt-lg-3">
+            <div class="border-top"></div>
+        </div>
+    </div>
+    <div class="row mt-2 d-none d-lg-flex">
+        <div class="col-12 h1 text-uppercase"><h1 class="h1">payment and delivery</h1></div>
+    </div>
+    <div class="row mt-110px">
+        <div class="offset-lg-3 offset-md-2 offset-0 col-lg-9 col-md-10 col-12">
+            <div class="overflow-hidden">
+                <div class="border-top border_hide_right"
+                ></div>
+            </div>
+            <div>
+                <div class="pt-4 pb-4 h2-32 w-100 opacity_hide_text"><h2 class="h2-32">Payment and delivery</h2></div>
+                <div id="answer-1" class="h4 text-mobile">
+                    <div class="mt-lg-2 opacity_hide_text">
+                        <img class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg"
+                             alt="rhomb">Apply for the purchase of goods on our
+                        site
+                    </div>
+                    <div class="mt-lg-4 mt-2 pt-lg-2 d-none d-lg-block opacity_hide_text"><img
+                            class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">You can also issue
+                        request by phone <span class="ff-lato" th:text="${phonesAndLink.kuznechnyTelephonyHouse}">
+                            +7 (812) 572 32 90</span> or by email lcdh@cigarsplace.ru
+                    </div>
+                    <div class="mt-lg-4 mt-2 pt-lg-2 d-block d-lg-none opacity_hide_text"><img
+                            class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">You can also issue
+                        request by phone or by e-mail
+                    </div>
+                    <div class="mt-lg-4 mt-2 pt-lg-2 opacity_hide_text"><img
+                            class="me-lg-3 me-sm-2 me-1 opacity_hide_text" src="/img/rhomb.svg" alt="rhomb">After
+                        after sending the application, our manager will contact you to clarify the order
+                    </div>
+                    <div class="mt-lg-4 mt-2 pt-lg-2 opacity_hide_text"><img
+                            class="me-lg-3 me-sm-2 me-1 opacity_hide_text" src="/img/rhomb.svg" alt="rhomb">Chart
+                        our store works: daily from 11:00 to 01:00
+                    </div>
+                    <div class="mt-lg-4 mt-2 pt-lg-2 d-none d-lg-block opacity_hide_text"><img
+                            class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">You can pay and pick up
+                        order in our store at St. Petersburg, Kuznechny lane, 14A
+                    </div>
+                    <div class="mt-lg-4 mt-2 pt-lg-2 d-block d-lg-none opacity_hide_text"><img
+                            class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">You can pay and pick up
+                        order in our stores
+                    </div>
+                    <div class="mt-lg-4 mt-2 mb-lg-5 mb-3 pt-lg-2 opacity_hide_text">
+                        <img class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">Payment
+                        it is carried out by cash and non-cash payment
+                    </div>
+                </div>
+                <div class="overflow-hidden">
+                    <div class="border-top border_hide_right"></div>
+                </div>
+            </div>
+            <div>
+                <div class="h2-32 w-100 pt-4 pb-4 opacity_hide_text"><h2 class="h2-32">Terms of delivery</h2></div>
+                <div id="answer-2" class="h4 text-mobile">
+                    <div class="mt-lg-2 opacity_hide_text">
+                        <img class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">
+                        Specify the terms and delivery terms with our manager by phone.
+                    </div>
+                    <div class="mt-lg-4 mt-2 pt-lg-2 opacity_hide_text">
+                        <img class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">Delivery
+                        it is carried out in Russia.
+                    </div>
+                    <div class="mt-lg-4 mt-2 pt-lg-2 opacity_hide_text">
+                        <img class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">Cost
+                        delivery is calculated separately for each order.
+                    </div>
+                    <div class="mt-lg-4 mt-2 mb-lg-5 mb-3 pt-lg-2 opacity_hide_text">
+                        <img class="me-lg-3 me-sm-2 me-1" src="/img/rhomb.svg" alt="rhomb">Payment for delivery
+                        it is carried out on 100% prepayment.
+                    </div>
+                </div>
+                <div class="overflow-hidden">
+                    <div class="border-top border_hide_right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="mt-156px section_text">
+    <div class="row h1 overflow-hidden">
+        <div class="col-12 d-flex justify-content-center align-items-center transform_up_text text-uppercase">
+            <h2 class="h1">attention!</h2>
+        </div>
+    </div>
+    <div class="row h5 mt-96px opacity_hide_text">
+        <div class="offset-xl-2 col-xl-8 offset-lg-1 col-lg-10 offset-0 col-12 text-center text-1 text-mobile">
+            Products on the website are presented for information purposes only. Our shop is not engaged in distance
+            selling of tobacco products. In accordance with the Federal Law of 23.12.2013 No. 15-FZ the sale of tobacco
+            products via the Internet is prohibited.
+        </div>
+    </div>
+    <div class="row h5 mt-5 opacity_hide_text">
+        <div class="offset-xl-2 col-xl-8 offset-lg-1 col-lg-10 offset-0 col-12 text-center text-2 text-mobile">According
+            to the Government Decree No. 612 of 27.09.2007, delivery of tobacco products not related to distance selling
+            is not prohibited and is an additional service for goods purchased on the territory of the shop.
+        </div>
+    </div>
+    <div class="row h5 mt-5 opacity_hide_text">
+        <div class="offset-lg-2 col-lg-8 offset-0 col-12 text-center text-3 text-mobile">
+            We do not sell tobacco products to anyone under the age of 18.
+        </div>
+    </div>
+    <div class="row mt-156px h1 overflow-hidden">
+        <div class="col-12 d-flex justify-content-center align-items-center transform_up_text text-uppercase">get in touch</div>
+    </div>
+    <th:block th:insert="~{en-fragments/feedback :: feedback}"></th:block>
+    <th:block th:insert="~{en-fragments/footer :: footer-black}"></th:block>
+</section>
+<script th:src="@{/js/smoothscroll/SmoothScroll.js}"></script>
+<script th:src="@{/js/OverlayScrollbars/OverlayScrollbars.min.js}"></script>
+<script th:src="@{/js/air-datepicker-3/air-datepicker.js}"></script>
+<script th:src="@{/js/en-js-file/global-js.js}"></script>
+<script th:src="@{/js/en-js-file/payment-and-delivery-js.js}"></script>
+<script th:src="@{/js/en-js-file/search.js}"></script>
+<script th:src="@{/js/en-js-file/basket.js}"></script>
+</body>
+
+</html>

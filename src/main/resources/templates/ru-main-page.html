@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script th:src="@{/webjars/jquery/3.6.4/jquery.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/gsap.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/ScrollTrigger.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-5.1.3-dist/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/screen-size.css}">
+    <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
+    <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
+
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Главная"
+                    }
+                ]
+            },
+            "inLanguage": "ru-RU",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
+
+    <title>La Casa Del Habano</title>
+</head>
+
+<body class="container main">
+<!--/*@thymesVar id="phonesAndLink" type="com.vladislavgoncharov.lacasadelhabano.dto.PhonesAndLinkDTO"*/-->
+<!--/*@thymesVar id="accessoryAmount" type="com.vladislavgoncharov.lacasadelhabano.controller.GlobalControllerAdvice"*/-->
+<!--/*@thymesVar id="cigarAmount" type="com.vladislavgoncharov.lacasadelhabano.controller.GlobalControllerAdvice"*/-->
+<!--/*@thymesVar id="cigarilloAmount" type="com.vladislavgoncharov.lacasadelhabano.controller.GlobalControllerAdvice"*/-->
+<!--/*@thymesVar id="coffeeAmount" type="com.vladislavgoncharov.lacasadelhabano.controller.GlobalControllerAdvice"*/-->
+<div id="toScrollTop"></div>
+<div class="position-absolute top-0 start-0 w-100 h-680px">
+    <div class="bg_nav_vinous"></div>
+</div>
+<div class="position-absolute top-2720px start-0 w-100 height-auto">
+    <div class="bg_nav_vinous"></div>
+</div>
+
+<th:block th:insert="~{ru-fragments/nav :: nav-desktop}"></th:block>
+<th:block th:insert="~{ru-fragments/nav :: nav-mobile}"></th:block>
+<th:block th:insert="~{ru-fragments/all-menu :: all-menu}"></th:block>
+<th:block th:insert="~{ru-fragments/enter :: enter-main-page}"></th:block>
+
+<div class="row mt-3 gx-0 position-relative">
+    <div id="main__img_div" class="offset-lg-3 offset-md-2 col-lg-6 col-md-8 col-12 g-0 main__img_div">
+        <svg id="svg_loading" style="z-index: 30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="100%" height="100%">
+            <rect width="100%" height="100%" fill="white" stroke="white" style="position:absolute;"/>
+        </svg>
+        <video id="video-anim" class="main__img" pip="false" muted="true" autoplay="true" loop="true" playsinline="true" preload="true" controls="false">
+            <source src="/video/animate.webm" type="video/webm"/>
+            <source src="/video/animate_2.mp4" type="video/mp4"/>
+            Ваш браузер не поддерживает воспроизведение видео-анимацию
+        </video>
+        <script>
+            let video = document.getElementById('video-anim');
+
+            video.addEventListener('canplay', function () {
+                video.play();
+            });
+
+            video.load();
+        </script>
+    </div>
+</div>
+<div class="main__bg_black_div">
+    <div class="position-absolute start-0 w-100 h-2036px top--25px">
+        <div class="bg_nav_black"></div>
+    </div>
+    <div class="container position-relative">
+        <div id="container_for_img_brands" class="z-index--1 opacity_hide_text">
+            <div class="position-absolute brand_1" data-depth="0.8"><img src="/img/main__brand_1.svg" alt="brand_1">
+            </div>
+            <div class="position-absolute brand_2" data-depth="0.2"><img src="/img/main__brand_2.svg" alt="brand_2">
+            </div>
+            <div class="position-absolute brand_3" data-depth="0.2"><img src="/img/main__brand_3.svg" alt="brand_3">
+            </div>
+            <div class="position-absolute brand_4" data-depth="0.5"><img src="/img/main__brand_4.svg" alt="brand_4">
+            </div>
+            <div class="position-absolute brand_5" data-depth="0.5"><img src="/img/main__brand_5.svg" alt="brand_5">
+            </div>
+            <div class="position-absolute brand_6" data-depth="0.2"><img src="/img/main__brand_6.svg" alt="brand_6">
+            </div>
+            <div class="position-absolute brand_7" data-depth="0.2"><img src="/img/main__brand_7.svg" alt="brand_7">
+            </div>
+        </div>
+        <div class="long_logo opacity_hide_text">
+            <div class="long_logo_img"></div>
+        </div>
+        <div class="row">
+            <div
+                    class="offset-lg-3 col-lg-6 offset-md-2 col-md-8 col-12 d-flex justify-content-center align-items-center overflow-hidden">
+                <img class="img-fluid enter-show" src="/img/main__text_house_of_cuban_cigars_ru.svg" alt="main__text_house_of_cuban_cigars_ru"></div>
+        </div>
+        <div class="row mt-2 h5 overflow-hidden">
+            <div class="col-12 text-center enter-show"><h1 class="h5"> СИГАРНЫЕ МАГАЗИНЫ И ДЕГУСТАЦИОННЫЕ
+                <br class="d-none d-lg-block"> ЗОНЫ<br class="d-block d-lg-none"> В ЦЕНТРЕ САНКТ-ПЕТЕРБУРГА</h1>
+            </div>
+        </div>
+        <div class="row mt-4 h5 overflow-hidden d-flex d-lg-none">
+            <div class="offset-md-2 col-md-4 col-6 text-center enter-show">
+                <button class="flat-button text-center h5" onclick="openPopUp('reserve',event)">
+                    <div>Резерв</div>
+                </button>
+            </div>
+            <div class="col-md-4 col-6 text-center enter-show">
+                <button class="flat-button text-center h5" onclick="openPopUp('catalog',event)">
+                    <div>Каталог</div>
+                </button>
+            </div>
+        </div>
+        <div class="row mt-235px h1 overflow-hidden">
+            <div class="col-12 text-center transform_up_text"><h2 class="h1">ДОМ КУБИНСКИХ СИГАР</h2></div>
+        </div>
+        <div class="row">
+            <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8 col-12 mt-96px">
+                <div class="border-top border_hide_center"></div>
+            </div>
+        </div>
+        <div class="row h3 overflow-hidden">
+            <div class="col-12  mt-4 text-center transform_up_text"> <h3 class="h3">Эксклюзивность</h3></div>
+        </div>
+        <div class="row h5">
+            <div class="col-12  mt-3 text-center opacity_hide_text"> Самый большой в России ассортимент кубинских
+                сигар: лимитированные
+                <br> и специальные выпуски, винтажные серии, эксклюзивные витолы.
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8 col-12  mt-4">
+                <div class="border-top border_hide_center"></div>
+            </div>
+        </div>
+        <div class="row h3 overflow-hidden">
+            <div class="col-12 mt-4 text-center transform_up_text"> <h3 class="h3">Качество</h3></div>
+        </div>
+        <div class="row h5">
+            <div class="col-12 mt-3 text-center opacity_hide_text"> Высочайшее качество хранения и квалифицированная
+                <br> помощь в выборе всегда к вашим услугам.
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8 col-12 mt-4">
+                <div class="border-top border_hide_center"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8 col-12 mt-md-5 mt-4 opacity_hide_text">
+                <button class="flat-button text-center h5" onclick="window.location.href='ru/about-us'">
+                    <div>О нас</div>
+                </button>
+            </div>
+        </div>
+        <div class="row h1 overflow-hidden">
+            <div class="col-12 text-center mt-400px transform_up_text"><h2 class="h1">АССОРТИМЕНТ</h2></div>
+        </div>
+        <div class="row mt-5 h5">
+            <div class="col-md-3 col-6 gx-lg-4 gx-3 overflow-hidden">
+                <a th:href="@{/ru/catalog#product?text=type=cigar}">
+                    <div class="fc-white main__bg_black_card_div transform_up_text">
+                        <div
+                                class="mt-lg-5 mt-4 position-absolute top-0 start-50 translate-middle-x z-index-1 opacity_hide_text">
+                            <h3 class="h5">СИГАРЫ</h3>
+
+                        </div>
+                        <div class="mt-168px main__bg_black_card_img_div position-relative z-index-1"><img
+                                src="/img/main__img_card_1.jpg" alt="card-1"></div>
+                        <div
+                                class="mb-lg-5 mb-4 position-absolute bottom-0 start-50 translate-middle-x z-index-1 h5-num opacity_hide_text"
+                                th:text="${'(' + cigarAmount + ')'}">
+                            (211)
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-6 gx-lg-4 gx-3 overflow-hidden">
+                <a th:href="@{/ru/catalog#product?text=type=cigarillo}">
+                    <div class="fc-white main__bg_black_card_div transform_up_text">
+                        <div
+                                class="mt-lg-5 mt-4 position-absolute top-0 start-50 translate-middle-x z-index-1 opacity_hide_text">
+                            <h3 class="h5">СИГАРИЛЛЫ</h3>
+
+                        </div>
+                        <div class="mt-168px main__bg_black_card_img_div position-relative z-index-1"><img
+                                src="/img/main__img_card_2.jpg" alt="card-2"></div>
+                        <div
+                                class="mb-lg-5 mb-4 position-absolute bottom-0 start-50 translate-middle-x z-index-1 h5-num opacity_hide_text opacity_hide_text"
+                                th:text="${'(' + cigarilloAmount + ')'}">
+                            (31)
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-6 gx-lg-4 gx-3 mt-md-0 mt-4 overflow-hidden">
+                <a th:href="@{/ru/catalog#product?text=type=coffee}">
+                    <div class="fc-white main__bg_black_card_div transform_up_text">
+                        <div
+                                class="mt-lg-5 mt-4 position-absolute top-0 start-50 translate-middle-x z-index-1 opacity_hide_text">
+                            <h3 class="h5">КОФЕ</h3>
+
+                        </div>
+                        <div class="mt-168px main__bg_black_card_img_div position-relative z-index-1"><img
+                                src="/img/main__img_card_3.jpg" alt="card-3"></div>
+                        <div
+                                class="mb-lg-5 mb-4 position-absolute bottom-0 start-50 translate-middle-x z-index-1 h5-num opacity_hide_text"
+                                th:text="${'(' + coffeeAmount + ')'}">
+                            (12)
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-6 gx-lg-4 gx-3 mt-md-0 mt-4 overflow-hidden">
+                <a th:href="@{/ru/catalog#product?text=type=accessory}">
+                    <div class="fc-white main__bg_black_card_div transform_up_text">
+                        <div
+                                class="mt-lg-5 mt-4 position-absolute top-0 start-50 translate-middle-x z-index-1 opacity_hide_text">
+                            <h3 class="h5">АКСЕССУАРЫ</h3>
+
+                        </div>
+                        <div class="mt-168px main__bg_black_card_img_div position-relative z-index-1"><img
+                                src="/img/main__img_card_4.jpg" alt="card-4"></div>
+                        <div
+                                class="mb-lg-5 mb-4 position-absolute bottom-0 start-50 translate-middle-x z-index-1 h5-num opacity_hide_text"
+                                th:text="${'(' + accessoryAmount + ')'}">
+                            (86)
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-2120px h1">
+    <div class="col-12 text-center overflow-hidden">
+        <div class="transform_up_text"><h2 class="h1">НАШИ МАГАЗИНЫ</h2></div>
+    </div>
+    <div class="col-12 mt-4 d-none d-lg-flex">
+        <div class="border-top border_hide_center"></div>
+    </div>
+</div>
+<div class="main__our_mug_div  overflow-lg-hidden"><img id="our_mug_img_1"
+                                                        class="our-mug__img-full-screen transform_scale"
+                                                        src="/img/main__our_mug_full_screen_1.jpg" alt="our_mug"
+                                                        style='z-index: 0'> <img id="our_mug_img_2"
+                                                                                 class="our-mug__img-full-screen transform_scale"
+                                                                                 src="/img/main__our_mug_full_screen_4.jpg"
+                                                                                 alt="our_mug" style='z-index: -1'>
+    <div class="container">
+        <div class="row h5">
+            <div class="col-lg-3 col-12 overflow-lg-hidden">
+                <div class="main__our_mug_card_left_div transform_up_text">
+                    <div class="overflow-hidden position-relative d-none d-lg-block">
+                        <div class="fc-transparent">transparent</div>
+                        <div class="position-absolute top-0 our_shop_on_kuznechnoye" style="background: var(--mc-vinous)">LA CASA DEL HABANO НА КУЗНЕЧНОМ
+                        </div>
+                        <div class="position-absolute top-0 our_shop_on_petrogradskaya " style="background: var(--mc-vinous)">LA CASA DEL HABANO НА
+                            ПЕТРОГРАДСКОЙ
+                        </div>
+                    </div>
+                    <div class="overflow-hidden position-relative d-lg-none d-block">
+                        <div class="fc-transparent">transparent</div>
+                        <span
+                                class="position-absolute top-0 our_shop_on_kuznechnoye" style="background: var(--mc-vinous)">
+                                <div class="d-flex justify-content-center">LA CASA DEL HABANO НА КУЗНЕЧНОМ</div>
+                            </span> <span class="position-absolute top-0 our_shop_on_petrogradskaya " style="background: var(--mc-vinous)">
+                                <div class="d-flex justify-content-center">LA CASA DEL HABANO НА ПЕТРОГРАДСКОЙ</div>
+                            </span>
+                    </div>
+                    <div class="mt-2 border-top"></div>
+                    <div class="d-lg-none d-block">
+                        <div class="mt-md-3 mt-3 d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center"><a class="underline-one"
+                                                                      href="https://yandex.ru/maps/org/la_casa_del_habano/106333396780/?from=tabbar&ll=30.353964%2C59.927151&mode=search&sctx=ZAAAAAgBEAAaKAoSCdwNorWiVT5AEYjxmld1%2BE1AEhIJU%2BdR8X9Hyj8RrVEP0egOsj8iBgABAgMEBSgKOABAAkgBagJydZ0BzcxMPaABAKgBAL0Ba87T7MIBBqy%2B24%2BMA%2BoBAPIBAPgBAIICKmxhIGNhc2EgZGVsIGhhYmFubyDQvdCwINC60YPQt9C90LXRh9C90L7QvIoCAJICBTEwODczmgIMZGVza3RvcC1tYXBz&sll=30.353964%2C59.927151&source=serp_navig&sspn=0.025663%2C0.008821&text=la%20casa%20del%20habano%20%D0%BD%D0%B0%20%D0%BA%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%D0%BC&z=16"
+                                                                      target="_blank">Санкт - Петербург</a></div>
+                            <span
+                                    class="mt-1 overflow-hidden position-relative">
+                                    <div class="fc-transparent">transparenttransparent</div> <a
+                                    class="position-absolute top-0 our_shop_on_kuznechnoye underline-one" style="background: var(--mc-vinous)"
+                                    href="https://yandex.ru/maps/org/la_casa_del_habano/106333396780/?from=tabbar&ll=30.353964%2C59.927151&mode=search&sctx=ZAAAAAgBEAAaKAoSCdwNorWiVT5AEYjxmld1%2BE1AEhIJU%2BdR8X9Hyj8RrVEP0egOsj8iBgABAgMEBSgKOABAAkgBagJydZ0BzcxMPaABAKgBAL0Ba87T7MIBBqy%2B24%2BMA%2BoBAPIBAPgBAIICKmxhIGNhc2EgZGVsIGhhYmFubyDQvdCwINC60YPQt9C90LXRh9C90L7QvIoCAJICBTEwODczmgIMZGVza3RvcC1tYXBz&sll=30.353964%2C59.927151&source=serp_navig&sspn=0.025663%2C0.008821&text=la%20casa%20del%20habano%20%D0%BD%D0%B0%20%D0%BA%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%D0%BC&z=16"
+                                    target="_blank"><div
+                                    class="d-flex justify-content-end">Кузнечный пер., 14А</div></a> <a
+                                    class="position-absolute top-0 our_shop_on_petrogradskaya underline-one " style="background: var(--mc-vinous)"
+                                    href="https://yandex.ru/maps/org/la_casa_del_habano/198481625494/?from=tabbar&ll=30.302790%2C59.959905&mode=search&sctx=ZAAAAAgBEAAaKAoSCZombD8ZUz5AEVg4SfPH%2BE1AEhIJU%2BdR8X9Hyj8RaY1BJ4QOsj8iBgABAgMEBSgKOABAAkgBagJydZ0BzcxMPaABAKgBAL0BXtfSaMIBBpaDtbPjBeoBAPIBAPgBAIICLmxhIGNhc2EgZGVsIGhhYmFubyDQvdCwINCx0L7Qu9GM0YjQvtC5INC%2F0YAgMzeKAgCSAgEymgIMZGVza3RvcC1tYXBz&sll=30.302790%2C59.959905&source=serp_navig&sspn=0.025663%2C0.008812&text=la%20casa%20del%20habano%20%D0%BD%D0%B0%20%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9%20%D0%BF%D1%80%2037&z=16"
+                                    target="_blank"><div
+                                    class="d-flex justify-content-end">Большой пр. П.С., 37</div></a>
+                                </span>
+                        </div>
+                        <div class="mt-md-4 mt-3 d-flex justify-content-between">
+                            <div class="fw-200">Городской</div>
+                            <div class="h5-num overflow-hidden position-relative">
+                                <div class="fc-transparent">+7 (812) 572 32 90</div>
+                                <a class="position-absolute top-0 our_shop_on_kuznechnoye underline-one" style="background: var(--mc-vinous)"
+                                   th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyHouse}"
+                                   th:text="${phonesAndLink.kuznechnyTelephonyHouse}"></a>
+                                <a class="position-absolute top-0 our_shop_on_petrogradskaya underline-one" style="background: var(--mc-vinous)"
+                                   th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyHouse}"
+                                   th:text="${phonesAndLink.petrogradskoyTelephonyHouse}"></a>
+                            </div>
+                        </div>
+                        <div class="mt-md-3 mt-2 d-flex justify-content-between">
+                            <div class="fw-200">Сотовый</div>
+                            <div class="h5-num overflow-hidden position-relative">
+                                <div class="fc-transparent">+7 (981) 893 90 53</div>
+                                <a class="position-absolute top-0 our_shop_on_kuznechnoye underline-one" style="background: var(--mc-vinous)"
+                                   th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyMobile}"
+                                   th:text="${phonesAndLink.kuznechnyTelephonyMobile}"></a>
+                                <a class="position-absolute top-0 our_shop_on_petrogradskaya underline-one" style="background: var(--mc-vinous)"
+                                   th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyMobile}"
+                                   th:text="${phonesAndLink.petrogradskoyTelephonyMobile}"></a>
+                            </div>
+                        </div>
+                        <div
+                                class="mt-md-5 mt-3 d-flex justify-content-lg-between justify-content-center align-items-center h5-num position-relative">
+                            <div class="overflow-hidden position-relative">
+                                <div class="fc-transparent">c 11:00 до 01:00</div>
+                                <div class="position-absolute top-0 our_shop_on_kuznechnoye" style="background: var(--mc-vinous)">c 11:00 до 01:00</div>
+                                <div class="position-absolute top-0 our_shop_on_petrogradskaya " style="background: var(--mc-vinous)">c 11:00 до 23:00
+                                </div>
+                            </div>
+                            <div class="d-none d-lg-block">
+                                <button class="round-button"
+                                        onclick="reserveBtnMainPage()"><span>Резерв</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="our-mug__images-selectors">
+                        <div class="our-mug__images-container" id="selectors-images-on-kuz" style='z-index: 1'>
+                            <div class="our-mug__img-content our-mug__img-content--kuz our-mug__img-content--focused"
+                                 data-img-name="main__our_mug_full_screen_1.jpg">
+                                <img class="our-mug__img"
+                                                                                      src="/img/view-mug-on-kuz-mini-1.png"
+                                                                                      alt="image-on-kuz-1"></div>
+                            <div class="our-mug__img-content our-mug__img-content--kuz"
+                                 data-img-name="main__our_mug_full_screen_2.jpg">
+                                <img class="our-mug__img"
+                                                                                      src="/img/view-mug-on-kuz-mini-2.png"
+                                                                                      alt="image-on-kuz-2"></div>
+                            <div class="our-mug__img-content our-mug__img-content--kuz"
+                                 data-img-name="main__our_mug_full_screen_3.jpg">
+                                <img class="our-mug__img"
+                                                                                      src="/img/view-mug-on-kuz-mini-3.png"
+                                                                                      alt="image-on-kuz-3"></div>
+                        </div>
+                        <div class="our-mug__images-container" id="selectors-images-on-petr" style='z-index: 0'>
+                            <div class="our-mug__img-content our-mug__img-content--petr our-mug__img-content--focused"
+                                 data-img-name="main__our_mug_full_screen_4.jpg">
+                                <img class="our-mug__img"
+                                                                                      src="/img/view-mug-on-petr-mini-1.png"
+                                                                                      alt="image-on-petr-1"></div>
+                            <div class="our-mug__img-content our-mug__img-content--petr"
+                                 data-img-name="main__our_mug_full_screen_5.jpg">
+                                <img class="our-mug__img"
+                                                                                      src="/img/view-mug-on-petr-mini-2.png"
+                                                                                      alt="image-on-petr-2"></div>
+                            <div class="our-mug__img-content our-mug__img-content--petr"
+                                 data-img-name="main__our_mug_full_screen_6.jpg">
+                                <img class="our-mug__img"
+                                                                                      src="/img/view-mug-on-petr-mini-3.png"
+                                                                                      alt="image-on-petr-3"></div>
+                        </div>
+                    </div>
+                    <div class="d-none d-lg-block">
+                        <div class="mt-3 d-flex justify-content-between align-items-center">
+                            <div><a class="underline-one"
+                                    href="https://yandex.ru/maps/org/la_casa_del_habano/106333396780/?from=tabbar&ll=30.353964%2C59.927151&mode=search&sctx=ZAAAAAgBEAAaKAoSCdwNorWiVT5AEYjxmld1%2BE1AEhIJU%2BdR8X9Hyj8RrVEP0egOsj8iBgABAgMEBSgKOABAAkgBagJydZ0BzcxMPaABAKgBAL0Ba87T7MIBBqy%2B24%2BMA%2BoBAPIBAPgBAIICKmxhIGNhc2EgZGVsIGhhYmFubyDQvdCwINC60YPQt9C90LXRh9C90L7QvIoCAJICBTEwODczmgIMZGVza3RvcC1tYXBz&sll=30.353964%2C59.927151&source=serp_navig&sspn=0.025663%2C0.008821&text=la%20casa%20del%20habano%20%D0%BD%D0%B0%20%D0%BA%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%D0%BC&z=16"
+                                    target="_blank">Санкт - Петербург</a></div>
+                            <span
+                                    class="mt-1 overflow-hidden position-relative">
+                                    <div class="fc-transparent">Кузнечный пер., 14А</div> <a
+                                    class="position-absolute top-0 our_shop_on_kuznechnoye underline-one" style="background: var(--mc-vinous)"
+                                    href="https://yandex.ru/maps/org/la_casa_del_habano/106333396780/?from=tabbar&ll=30.353964%2C59.927151&mode=search&sctx=ZAAAAAgBEAAaKAoSCdwNorWiVT5AEYjxmld1%2BE1AEhIJU%2BdR8X9Hyj8RrVEP0egOsj8iBgABAgMEBSgKOABAAkgBagJydZ0BzcxMPaABAKgBAL0Ba87T7MIBBqy%2B24%2BMA%2BoBAPIBAPgBAIICKmxhIGNhc2EgZGVsIGhhYmFubyDQvdCwINC60YPQt9C90LXRh9C90L7QvIoCAJICBTEwODczmgIMZGVza3RvcC1tYXBz&sll=30.353964%2C59.927151&source=serp_navig&sspn=0.025663%2C0.008821&text=la%20casa%20del%20habano%20%D0%BD%D0%B0%20%D0%BA%D1%83%D0%B7%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%D0%BC&z=16"
+                                    target="_blank">Кузнечный пер., 14А</a> <a
+                                    class="position-absolute top-0 our_shop_on_petrogradskaya underline-one " style="background: var(--mc-vinous)"
+                                    href="https://yandex.ru/maps/org/la_casa_del_habano/198481625494/?from=tabbar&ll=30.302790%2C59.959905&mode=search&sctx=ZAAAAAgBEAAaKAoSCZombD8ZUz5AEVg4SfPH%2BE1AEhIJU%2BdR8X9Hyj8RaY1BJ4QOsj8iBgABAgMEBSgKOABAAkgBagJydZ0BzcxMPaABAKgBAL0BXtfSaMIBBpaDtbPjBeoBAPIBAPgBAIICLmxhIGNhc2EgZGVsIGhhYmFubyDQvdCwINCx0L7Qu9GM0YjQvtC5INC%2F0YAgMzeKAgCSAgEymgIMZGVza3RvcC1tYXBz&sll=30.302790%2C59.959905&source=serp_navig&sspn=0.025663%2C0.008812&text=la%20casa%20del%20habano%20%D0%BD%D0%B0%20%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9%20%D0%BF%D1%80%2037&z=16"
+                                    target="_blank">Большой пр. П.С., 37</a>
+                                </span>
+                        </div>
+                        <div class="mt-4 d-flex justify-content-between">
+                            <div class="fw-200">Городской</div>
+                            <div class="h5-num overflow-hidden position-relative">
+                                <div class="fc-transparent">+7 (812) 572 32 90</div>
+                                <a class="position-absolute top-0 our_shop_on_kuznechnoye underline-one" style="background: var(--mc-vinous)"
+                                   th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyHouse}"
+                                   th:text="${phonesAndLink.kuznechnyTelephonyHouse}">+7 (812) 572 32 90</a> <a
+                                    class="position-absolute top-0 our_shop_on_petrogradskaya underline-one" style="background: var(--mc-vinous)"
+                                    th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyHouse}"
+                                    th:text="${phonesAndLink.petrogradskoyTelephonyHouse}">+7 (812) 332 45 97</a>
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex justify-content-between">
+                            <div class="fw-200">Сотовый</div>
+                            <div class="h5-num overflow-hidden position-relative">
+                                <div class="fc-transparent">+7 (981) 893 90 53</div>
+                                <a
+                                        class="position-absolute top-0 our_shop_on_kuznechnoye underline-one" style="background: var(--mc-vinous)"
+                                        th:href="${'tel:'+ phonesAndLink.kuznechnyTelephonyMobile}"
+                                        th:text="${phonesAndLink.kuznechnyTelephonyMobile}">+7 (981) 893 90 53</a> <a
+                                    class="position-absolute top-0 our_shop_on_petrogradskaya underline-one" style="background: var(--mc-vinous)"
+                                    th:href="${'tel:'+ phonesAndLink.petrogradskoyTelephonyMobile}"
+                                    th:text="${phonesAndLink.petrogradskoyTelephonyMobile}">+7 (981) 045 99 45</a>
+                            </div>
+                        </div>
+                        <div
+                                class="mt-5 d-flex justify-content-lg-between justify-content-center align-items-center h5-num position-relative">
+                            <div class="overflow-hidden position-relative">
+                                <div class="fc-transparent">c 11:00 до 01:00</div>
+                                <div class="position-absolute top-0 our_shop_on_kuznechnoye" style="background: var(--mc-vinous)">c 11:00 до 01:00</div>
+                                <div class="position-absolute top-0 our_shop_on_petrogradskaya " style="background: var(--mc-vinous)">c 11:00 до 23:00
+                                </div>
+                            </div>
+                            <div class="d-none d-lg-block">
+                                <button class="round-button"
+                                        onclick="reserveBtnMainPage()"><span>Резерв</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="offset-lg-6 col-lg-3 col-12  overflow-lg-hidden">
+                <div class="main__our_mug_card_right_div overflow-hidden transform_up_text"><img id="little_img_1"
+                                                                                                 class="position-absolute top-0 left-0 d-none d-lg-block"
+                                                                                                 src="/img/main__our_mug_little_2.jpg"
+                                                                                                 alt="our_mug_little">
+                    <img id="little_img_2"
+                         class="position-absolute top-0 left-0 d-none d-lg-block" src="/img/main__our_mug_little.jpg"
+                         alt="our_mug_little">
+                    <div
+                            class="d-lg-flex justify-content-lg-between align-items-center main__our_mug_card_right_inner_div">
+                        <div class="h5 fw-500 overflow-hidden position-relative">
+                            <div class="our_shop_on_kuznechnoye fc-transparent">На Петроградской</div>
+                            <div class="position-absolute top-0 our_shop_on_kuznechnoye">На Петроградской</div>
+                            <div class="position-absolute top-0 our_shop_on_petrogradskaya ">На Кузнечном</div>
+                        </div>
+                        <div>
+                            <button class="round-button" onclick="nextMug()">
+                                <svg width="23" height="34" viewBox="0 0 23 34" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.9043 2L19.9995 17L1.9043 32" stroke="white" stroke-width="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ps-3 pe-3 d-lg-none d-block">
+        <button class="flat-button flat-button-bg-light" type="submit"
+                onclick="reserveBtnMainPage()">
+            <div>Резерв</div>
+        </button>
+    </div>
+</div>
+<div class="row mt-950px h1 overflow-hidden">
+    <div class="col-12 text-center transform_up_text"><h2 class="h1">ДРУГИЕ ПРОЕКТЫ</h2> </div>
+</div>
+<div class="main__others_project row mt-96px">
+    <div class="offset-lg-6 col-lg-1 col-12 h3-num ps-3 opacity_hide_text"><span class="d-none d-lg-block">01</span>
+        <span class="h3 d-lg-none d-flex">
+                <div class="me-3 ">01</div>Ресторан O! Cuba
+            </span></div>
+    <div class="offset-3 col-3 mt-3 g-0 position-relative opacity_hide_text d-lg-flex d-none">
+        <a id="button_information_show_o_cuba"
+           class="round-button round-button-middle d-flex justify-content-center align-items-center" href="#">
+            <div class="overflow-hidden position-absolute"><img class="transform_up transform_show"
+                                                                src="/img/vector-information.svg" alt="information">
+            </div>
+            <div class="overflow-hidden position-absolute"><img class="transform_down" src="/img/cross.svg"
+                                                                alt="cross"></div>
+        </a>
+        <div id="text_information_show_o_cuba" class="position-absolute bottom-0 pe-3">
+            <div class="h3 overflow-hidden">
+                <div class="transform_down">Ресторан O!Cuba</div>
+            </div>
+            <div class="mt-3 h5 overflow-hidden">
+                <div class="transform_down">Наш ресторан на улице Рубинштейна порадует Вас разнообразием кубинской
+                    кухни, теплотой и душевностью улиц Тринидада и самобытной музыкой уроженцев Острова Свободы.
+                </div>
+            </div>
+            <div class="mt-3 h5 overflow-hidden">
+                <button class="mt-4 transform_down flat-button flat-button-bg-light text-center h5 transform_down"
+                        onclick="window.location.href = document.getElementById('link-cuba-restaurant').getAttribute('data-href');"
+                        th:data-href="${phonesAndLink.linkCubaRestaurant}"
+                        id="link-cuba-restaurant">
+                    <div>На сайт</div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12 mt-3">
+        <div class="main__other_project_div ms-1">
+            <div class="main__other_project_img_name opacity_hide_text"><img src="/img/main__o_cuba.svg"
+                                                                             alt="o_cuba"></div>
+            <div class="main__other_project_img_text_in_circle opacity_hide_text"><img id="img_text"
+                                                                                       src="/img/main__text_in_circle.png"
+                                                                                       alt="o_cuba"></div>
+            <div class="main__other_project_img_head opacity_hide_text"><img src="/img/main__head_o_cuba.svg"
+                                                                             alt="head_o_cuba"></div>
+        </div>
+    </div>
+    <div class="col-sm-8 col-12 d-flex d-lg-none h5 ps-3 pe-3 opacity_hide_text">
+        <div class="mt-3">Наш ресторан на улице Рубинштейна порадует Вас разнообразием кубинской кухни, теплотой
+            и душевностью улиц Тринидада и самобытной музыкой уроженцев Острова Свободы.
+        </div>
+    </div>
+    <div class="col-12 d-flex d-lg-none h5 ps-3 pe-3 mt-3 opacity_hide_text">
+        <button class="flat-button flat-button-bg-light"
+                onclick="window.location.href = document.getElementById('link-cuba-restaurant-2').getAttribute('data-href');"
+                th:data-href="${phonesAndLink.linkCubaRestaurant}"
+                id="link-cuba-restaurant-2">
+            <div>На сайт</div>
+        </button>
+    </div>
+</div>
+<div id="border_top_information_show_o_cuba" class="row g-0 d-lg-flex d-none">
+    <div class="offset-3 col-3 mt-5 overflow-hidden">
+        <div class="border-top transform_right_line"></div>
+    </div>
+    <div class="col-6 ps-3 pt-5 position-relative overflow-hidden">
+        <div class="h3 pb-1 position-absolute transform_down transform_show bottom-0">Ресторан O!Cuba</div>
+        <div class="border-top border_hide_right"></div>
+    </div>
+</div>
+<div class="main__others_project row mt-5">
+    <div class="offset-lg-6 col-lg-1 col-12 h3-num ps-3 opacity_hide_text"><span class="d-none d-lg-block">02</span>
+        <span class="h3 d-lg-none d-flex">
+                <div class="me-3 ">02</div>Проект Cuba Day
+            </span></div>
+    <div class="offset-3 col-3 mt-3 g-0 position-relative opacity_hide_text d-lg-flex d-none">
+        <a id="button_information_show_cuba_day"
+           class="round-button round-button-middle d-flex justify-content-center align-items-center" href="#">
+            <div class="overflow-hidden position-absolute"><img class="transform_up transform_show"
+                                                                src="/img/vector-information.svg" alt="information">
+            </div>
+            <div class="overflow-hidden position-absolute"><img class="transform_down" src="/img/cross.svg"
+                                                                alt="cross"></div>
+        </a>
+        <div id="text_information_show_cuba_day" class="position-absolute bottom-0 pe-3">
+            <div class="h3 overflow-hidden">
+                <div class="transform_down">Cuba Day</div>
+            </div>
+            <div class="mt-3 h5 overflow-hidden">
+                <div class="transform_down">Cuba Day - бренд, объединяющий Дом Кубинских Сигар и ресторан O! Cuba.
+                    На сайте вы сможете ознакомиться с тем, что мы ещё не придумали.
+                </div>
+            </div>
+            <div class="mt-3 h5 overflow-hidden">
+                <button class="mt-4 transform_down flat-button flat-button-bg-light text-center h5 transform_down"
+                        onclick="window.location.href = document.getElementById('link-cuba-day').getAttribute('data-href');"
+                        th:data-href="${phonesAndLink.linkCubaDay}"
+                        id="link-cuba-day">
+                    <div>На сайт</div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12 mt-3">
+        <div class="main__other_project_div ms-1">
+            <div class="main__other_project_img_name opacity_hide_text">
+                <svg width="646" height="176" viewBox="0 0 646 176" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M319.584 35.7903V54.8927H273.098V35.7903C273.098 22.9536 283.504 12.5473 296.341 12.5473C309.178 12.5473 319.584 22.9536 319.584 35.7903ZM261.477 35.7903C261.477 16.5352 277.086 0.925781 296.341 0.925781C315.596 0.925781 331.206 16.5352 331.206 35.7903V54.8927V64.2539H331.215V175.076H319.594V66.5142H319.584H273.098L273.098 175.076H261.477V66.5142V64.2539V54.8927V35.7903Z"
+                          fill="white" fill-opacity="0.3"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M185.926 12.5473H197.548C210.384 12.5473 220.791 22.9536 220.791 35.7904V54.8927H185.926V12.5473ZM174.305 0.925781H185.926H197.548C216.803 0.925781 232.412 16.5352 232.412 35.7904V54.8927V61.0137C239.469 66.3143 244.034 74.7535 244.034 84.2589V116.966C244.034 149.058 218.018 175.074 185.926 175.074H174.305V163.452V66.8266V66.5143V55.2051V54.8927V12.5473V0.925781ZM185.926 66.8266H214.98C224.608 66.8266 232.412 74.6313 232.412 84.2589V116.966C232.412 142.64 211.6 163.452 185.926 163.452V66.8266Z"
+                          fill="white" fill-opacity="0.3"/>
+                    <mask id="path-3-inside-1_809_1169" fill="white">
+                        <path
+                                d="M69.7266 0.927734H58.1051C26.0131 0.927734 -0.00251007 26.9434 -0.00251007 59.0354V116.969C-0.00251007 149.061 26.0131 175.077 58.1051 175.077H69.7266V0.927734Z"/>
+                    </mask>
+                    <path
+                            d="M69.7266 -10.6938H58.1051C19.5948 -10.6938 -11.624 20.525 -11.624 59.0354H11.619C11.619 33.3618 32.4316 12.5493 58.1051 12.5493H69.7266V-10.6938ZM-11.624 116.969C-11.624 155.479 19.5948 186.698 58.1051 186.698H69.7266V163.455H58.1051C32.4316 163.455 11.619 142.642 11.619 116.969H-11.624ZM69.7266 175.077V0.927734V175.077ZM58.1051 -10.6938C19.5948 -10.6938 -11.624 20.525 -11.624 59.0354V116.969C-11.624 155.479 19.5948 186.698 58.1051 186.698L58.1051 163.455C32.4316 163.455 11.619 142.642 11.619 116.969V59.0354C11.619 33.3618 32.4316 12.5493 58.1051 12.5493L58.1051 -10.6938Z"
+                            fill="white" fill-opacity="0.3" mask="url(#path-3-inside-1_809_1169)"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M87.1562 0.925781H98.7778L98.7778 89.1289V163.451H99.3587C124.711 163.451 145.264 142.899 145.264 117.546V89.131H145.25V0.925781H156.872V89.1289H156.885V117.546C156.885 149.317 131.13 175.072 99.3587 175.072H98.7778V175.075H87.1562V175.072V89.1289V0.925781Z"
+                          fill="white" fill-opacity="0.3"/>
+                    <path
+                            d="M406.756 6.7385H412.567C441.45 6.7385 464.864 30.1526 464.864 59.0354V116.969C464.864 145.852 441.45 169.266 412.567 169.266H406.756V6.7385Z"
+                            stroke="white" stroke-opacity="0.3" stroke-width="11.6215"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M546.201 35.7903V54.8927H499.715V35.7903C499.715 22.9536 510.122 12.5473 522.958 12.5473C535.795 12.5473 546.201 22.9536 546.201 35.7903ZM488.094 35.7903C488.094 16.5352 503.703 0.925781 522.958 0.925781C542.213 0.925781 557.823 16.5352 557.823 35.7903V54.8927V64.2539H557.832V175.076H546.211V66.5142H546.201H499.715L499.715 175.076H488.094V66.5142V64.2539V54.8927V35.7903Z"
+                          fill="white" fill-opacity="0.3"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M633.381 0.925781H645.003V66.5137V66.5141V116.966C645.003 149.058 618.987 175.074 586.895 175.074H575.273V163.452H586.895C612.568 163.452 633.381 142.64 633.381 116.966V66.5141H632.8C601.029 66.5141 575.273 40.7585 575.273 8.98749V8.98748V0.925781H586.895V8.98749C586.895 34.3401 607.447 54.8925 632.8 54.8925H633.381V0.925781Z"
+                          fill="white" fill-opacity="0.3"/>
+                </svg>
+            </div>
+            <div class="main__other_project_img_plate position-absolute bottom-0 start-0 opacity_hide_text"><img
+                    src="/img/main__plate_cuba_day.png" alt="plate_cuba_day"></div>
+        </div>
+    </div>
+    <div class="col-sm-8 col-12 d-flex d-lg-none h5 ps-3 pe-3 opacity_hide_text">
+        <div class="mt-3">Cuba Day - бренд, объединяющий Дом Кубинских Сигар и ресторан O! Cuba. На сайте вы сможете
+            ознакомиться с тем, что мы ещё не придумали.
+        </div>
+    </div>
+    <div class="col-12 d-flex d-lg-none h5 ps-3 pe-3 mt-3 opacity_hide_text">
+        <button class="flat-button flat-button-bg-light"
+                onclick="window.location.href = document.getElementById('link-cuba-day-2').getAttribute('data-href');"
+                th:data-href="${phonesAndLink.linkCubaDay}"
+                id="link-cuba-day-2">
+            <div>На сайт</div>
+        </button>
+    </div>
+</div>
+<div id="border_top_information_show_cuba_day" class="row g-0 d-lg-flex d-none">
+    <div class="offset-3 col-3 mt-5 overflow-hidden">
+        <div class="border-top transform_right_line"></div>
+    </div>
+    <div class="col-6 ps-3 pt-5 position-relative overflow-hidden">
+        <div class="h3 pb-1 position-absolute transform_down transform_show bottom-0">Cuba Day</div>
+        <div class="border-top border_hide_right"></div>
+    </div>
+</div>
+<div class="row mt-156px h1">
+    <div class="offset-lg-3 offset-2 col-lg-6 col-8 opacity_hide_text"><a th:href="@{/ru/about-us}"
+                                                                          class="d-flex justify-content-center align-items-center flat-link">О
+        НАС
+    </a></div>
+    <div class="offset-lg-3 offset-2 col-lg-6 col-8 opacity_hide_text"><a th:href="@{/ru/catalog}"
+                                                                          class="d-flex justify-content-center align-items-center flat-link">КАТАЛОГ
+    </a></div>
+    <div class="offset-lg-3 offset-2 col-lg-6 col-8 opacity_hide_text"><a th:href="@{/ru/news}"
+                                                                          class="d-flex justify-content-center align-items-center flat-link">НОВОСТИ
+    </a></div>
+    <div class="offset-lg-3 offset-2 col-lg-6 col-8 opacity_hide_text"><a th:href="@{/ru/contact}"
+                                                                          class="d-flex justify-content-center align-items-center flat-link">КОНТАКТЫ
+    </a></div>
+</div>
+<div class="row mt-156px">
+    <div
+            class="offset-lg-3 offset-md-2 col-lg-6 col-md-8 d-flex justify-content-center align-items-center opacity_hide_text">
+        <img class="img-fluid" src="/img/main__logo_footer.svg" alt="logo_footer"></div>
+    <div
+            class="offset-lg-3 offset-md-2 col-lg-6 col-md-8 mt-4 d-flex justify-content-center align-items-center opacity_hide_text">
+        <img class="img-fluid" src="/img/main__text_house_of_cuban_cigars_2_ru.svg" alt="text_house_of_cuban_cigars">
+    </div>
+</div>
+<div class="row mt-96px h1 overflow-hidden">
+    <div class="col-12 d-flex justify-content-center align-items-center transform_up_text"><h2 class="h1">ОБРАТНАЯ СВЯЗЬ</h2></div>
+</div>
+<th:block th:insert="~{ru-fragments/feedback :: feedback}"></th:block>
+<th:block th:insert="~{ru-fragments/footer :: footer-black}"></th:block>
+<div id="is_homepage" style="display: none"></div>
+
+<script th:src="@{/js/parallax/parallax.min.js}"></script>
+<script th:src="@{/js/smoothscroll/SmoothScroll.js}"></script>
+<script th:src="@{/js/OverlayScrollbars/OverlayScrollbars.min.js}"></script>
+<script th:src="@{/js/air-datepicker-3/air-datepicker.js}"></script>
+<script th:src="@{/js/ru-js-file/main-page-js.js}"></script>
+<script th:src="@{/js/ru-js-file/global-js.js}"></script>
+<script th:src="@{/js/ru-js-file/search.js}"></script>
+<script th:src="@{/js/ru-js-file/basket.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script th:src="@{/webjars/jquery/3.6.4/jquery.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/gsap.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/ScrollTrigger.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/ScrollToPlugin.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-5.1.3-dist/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/screen-size.css}">
+    <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
+    <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/js/noUiSlider-15.7.1/nouislider.min.css}">
+
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Main"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Catalog"
+                    }
+                ]
+            },
+            "inLanguage": "en-EN",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
+
+    <title>Catalog</title>
+</head>
+<!--нужно проверить и исправить все ошибки из браузера-->
+<body class="container bg_white catalog">
+<th:block th:insert="~{en-fragments/all-menu :: all-menu}"></th:block>
+<th:block th:insert="~{en-fragments/enter :: enter-other-page}"></th:block>
+
+    <section class="position-relative">
+        <div class="position-absolute top-0 w-100 height-auto">
+            <div class="bg_nav_white"></div>
+        </div>
+        <th:block th:insert="~{en-fragments/nav :: nav-desktop-white}"></th:block>
+        <th:block th:insert="~{en-fragments/nav :: nav-mobile-white}"></th:block>
+        <div class="row mt-156px">
+            <div th:if="${titleOnCatalogPage.isSwitcher()}" class="col-12">
+                <div class="title-on-catalog-page" th:text="${titleOnCatalogPage.textEn}"
+                     th:style="${'background:' + titleOnCatalogPage.colorBackground + ';color:' + titleOnCatalogPage.colorText}" ></div>
+            </div>
+            
+            <div class="col-11 d-lg-flex d-none justify-content-star align-items-center h4 text-uppercase">MAIN<img
+                    src="/img/vector-dash-black.svg" class="ps-3 pe-3" alt="vector-dash">catalog</div>
+            <div class="col-1 d-lg-flex d-none justify-content-end align-items-center"><img src="/img/sheet_black.svg"
+                    alt="sheet">
+            </div>
+            <div class="col-12 mt-3 d-lg-flex d-none">
+                <div class="border-top-black w-100"></div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12 d-flex justify-content-between h1 text-uppercase">
+                <div id="scrollToCatalog"><h1 class="h1">catalog</h1></div>
+                <div class="col-1 d-lg-none d-flex justify-content-end align-items-center"><img
+                        src="/img/sheet_black.svg" alt="sheet">
+                </div>
+            </div>
+        </div>
+        <div class="mt-2 position-sticky top-3">
+            <div class="border-top-black"></div>
+        </div>
+        <div class="row gx-0">
+            <div class="col-lg-3 pe-lg-3">
+                <div class="border-right-black height-along-central-column position-relative">
+                    <div class="filters-main-shadow">
+                        <div class="filters-main-shadow-top"></div>
+
+                        <div class="filters-main">
+                            <div class="d-block d-lg-none nav-mobile-filters">
+                                <div class="mt-5 mb-5"></div>
+                                <div class="mt-5 mb-5"></div>
+                                <div class="pt-3 d-flex justify-content-between h5 text-uppercase">
+                                    <div class="fc-peach">Filters</div>
+                                    <div id="closeMobileFilters">To close</div>
+                                </div>
+
+                            </div>
+                            <div class="pt-4 d-lg-block d-none h5">Filters</div>
+                            <div class="mt-lg-3 h5 text-uppercase border-top-black">
+                                <label class="checkbox-type-filter"><h2 class="h5">cigars</h2><input type="checkbox" name="type"
+                                        data-name="cigar"></label>
+                                <label class="checkbox-type-filter"><h2 class="h5">cigarillos</h2><input type="checkbox" name="type"
+                                        data-name="cigarillo"></label>
+                                <label class="checkbox-type-filter"><h2 class="h5">coffee</h2><input type="checkbox" name="type"
+                                        data-name="coffee"></label>
+                                <label class="checkbox-type-filter"><h2 class="h5">Accessories</h2><input type="checkbox" name="type"
+                                        data-name="accessory"></label>
+                            </div>
+                            <div id="filterSeries" class="mb-sm-4 mb-2 border-top-black" style="display: none;">
+                                <button type="button" onclick="openFilter('1')"
+                                    class="d-flex justify-content-between align-items-center w-100 pe-4 pt-sm-4 pt-2">
+                                    <div class="h4 text-uppercase">series</div> <img class="transition-05 rotate-180"
+                                        id="jackdaw_1" src="/img/jackdaw.svg" alt="jackdaw">
+                                </button>
+                                <div  id="filters_1" class="filters-checkbox ps-3 h5" style="display: none">
+                                    <div th:each="subsection, number : ${mapSubsections.get('cigar-series')}"
+                                         class="mt-sm-3 mb-2 d-flex justify-content-start align-items-center"
+                                        th:id="${'series_' + subsection.replace(' ', '_')}">
+                                        <input th:id="${'series_' + number.count}" type="checkbox" name="series" class="checkbox-filter me-3"
+                                            th:data-name="${subsection}" data-option="series">
+                                        <label th:for="${'series_' + number.count}" th:text="${subsection}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="filterBrands" class="mb-sm-4 mb-2 border-top-black" style="display: none;">
+                                <button type="button" onclick="openFilter('2')"
+                                    class="d-flex justify-content-between align-items-center w-100 pe-4 pt-sm-4 pt-2">
+                                    <div class="h4 text-uppercase">brand</div> <img class="transition-05 rotate-180"
+                                        id="jackdaw_2" src="/img/jackdaw.svg" alt="jackdaw">
+                                </button>
+                                <div id="filters_2" class="filters-checkbox ps-3 h5" style="display: none;">
+                                    <div id="brandsCigar">
+                                        <div th:each="subsection, number : ${mapSubsections.get('cigar-brands')}"
+                                             class="mt-sm-3 mb-2 d-flex justify-content-start align-items-center"
+                                             th:id="${'brand_cigar_' + subsection.replace(' ', '_')}">
+                                            <input th:id="${'brand_cigar_' + number.count}" type="checkbox" name="brand"
+                                                   class="checkbox-filter me-3"
+                                                   th:data-name="${subsection}" data-option="brand">
+                                            <label th:for="${'brand_cigar_' + number.count}" th:text="${subsection}"></label>
+                                        </div>
+                                    </div>
+                                    <div id="brandsCigarillo">
+                                        <div th:each="subsection, number : ${mapSubsections.get('cigarillo-brands')}"
+                                             class="mt-sm-3 mb-2 d-flex justify-content-start align-items-center"
+                                             th:id="${'brand_cigarillo_' + subsection.replace(' ', '_')}">
+                                            <input th:id="${'brand_cigarillo_' + number.count}" type="checkbox" name="brand"
+                                                   class="checkbox-filter me-3"
+                                                   th:data-name="${subsection}" data-option="brand">
+                                            <label th:for="${'brand_cigarillo_' + number.count}" th:text="${subsection}"></label>
+                                        </div>
+                                    </div>
+                                    <div id="brandsCoffee">
+                                        <div th:each="subsection, number : ${mapSubsections.get('coffee-brands')}"
+                                             class="mt-sm-3 mb-2 d-flex justify-content-start align-items-center"
+                                             th:id="${'brand_coffee_' + subsection.replace(' ', '_')}">
+                                            <input th:id="${'brand_coffee_' + number.count}" type="checkbox" name="brand"
+                                                   class="checkbox-filter me-3"
+                                                   th:data-name="${subsection}" data-option="brand">
+                                            <label th:for="${'brand_coffee_' + number.count}" th:text="${subsection}"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="filterFactoryNames" class="mb-sm-4 mb-2 border-top-black" style="display: none;">
+                                <button type="button" onclick="openFilter('4')"
+                                        class="d-flex justify-content-between align-items-center w-100 pe-4 pt-sm-4 pt-2">
+                                    <div class="h4 text-uppercase">Factory format</div> <img class="transition-05 rotate-180"
+                                                                                                 id="jackdaw_4" src="/img/jackdaw.svg" alt="jackdaw">
+                                </button>
+                                <div  id="filters_4" class="filters-checkbox ps-3 h5" style="display: none">
+                                    <div th:each="subsection, number : ${mapSubsections.get('cigar-factory-name')}"
+                                         class="mt-sm-3 mb-2 d-flex justify-content-start align-items-center"
+                                         th:id="${'factory-name_' + subsection.replace(' ', '_')}">
+                                        <input th:id="${'factory-name_' + number.count}" type="checkbox" name="factoryName" class="checkbox-filter me-3"
+                                               th:data-name="${subsection}" data-option="factoryName">
+                                        <label th:for="${'factory-name_' + number.count}" th:text="${subsection}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="filterTypeOfAccessory" class="mb-sm-4 mb-2  border-top-black"
+                                style="display: none;">
+                                <button type="button" onclick="openFilter('3')"
+                                    class="d-flex justify-content-between align-items-center w-100 pe-4 pt-sm-4 pt-2">
+                                    <div class="h4 text-uppercase">type of accessories</div> <img
+                                        class="transition-05 rotate-180" id="jackdaw_3" src="/img/jackdaw.svg"
+                                        alt="jackdaw">
+                                </button>
+                                <div id="filters_3" class="filters-checkbox ps-3 h5" style="display: none;">
+                                    <div th:each="subsection, number : ${mapSubsections.get('accessory-type-of-accessories')}"
+                                         class="mt-sm-3 mb-2 d-flex justify-content-start align-items-center"
+                                         th:id="${'accessory_' + subsection.replace(' ', '_')}">
+                                        <input th:id="${'accessory_' + number.count}" 
+                                               type="checkbox" 
+                                               name="typeOfAccessory"
+                                               class="checkbox-filter me-3"
+                                               th:data-name="${subsection}" data-option="typeOfAccessory">
+                                        <label th:for="${'accessory_' + number.count}" th:text="${subsection}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-top-black mb-5"></div>
+                            <div id="filterPrice" class="mb-3 pe-4">
+                                <div class="h4 text-uppercase">price</div>
+                                <div class="mt-3 h3-num fw-200 d-flex justify-content-between">
+                                    <div id="range-price-from">630</div>
+                                    <div id="range-price-to">287000</div>
+                                </div>
+                                <div id="range-price" class="ps-2 mt-3"></div>
+                            </div>
+                            <div id="filterRingGuage" class="mb-3 pe-4" style="display: none;">
+                                <div class="h4 text-uppercase">Ring gauge</div>
+                                <div class="mt-3 h3-num fw-200 d-flex justify-content-between">
+                                    <div id="range-ring-gauge-from">30</div>
+                                    <div id="range-ring-gauge-to">54</div>
+                                </div>
+                                <div id="range-ring-gauge" class="ps-2 mt-3"></div>
+                            </div>
+                            <div id="filterSize" class="mb-3 pe-4" style="display: none;">
+                                <div class="h4 text-uppercase">size, мм</div>
+                                <div class="mt-3 h3-num fw-200 d-flex justify-content-between">
+                                    <div id="range-size-from">90</div>
+                                    <div id="range-size-to">194</div>
+                                </div>
+                                <div id="range-size" class="ps-2 mt-3"></div>
+                            </div>
+                            <div id="filterFortress" class="mb-3 pe-4" style="display: none;">
+                                <div class="h4 text-uppercase">fortress</div>
+                                <div class="mt-3 h3-num fw-200 d-flex justify-content-between">
+                                    <div id="range-fortress-from">1</div>
+                                    <div id="range-fortress-to">5</div>
+                                </div>
+                                <div id="range-fortress" class="ps-2 mt-3"></div>
+                            </div>
+                            <div class="pt-5 pb-5 fc-white"></div>
+                        </div>
+                        <div class="filters-main-shadow-bottom"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 central-column">
+
+                <div id="containerForItems" class="row gx-3">
+                    <div id="nav-filter" class="col-12 nav-filter h5">
+                        <div class="position-relative d-flex justify-content-between w-100">
+                            <div class="filters-nav-shadow-left d-lg-block d-none"></div>
+                            <div class="filters me-4 d-flex">
+
+                            </div>
+                            <div class="filters-nav-shadow-right d-lg-flex d-none"></div>
+                            <div class="d-lg-none d-flex justify-content-start align-items-center w-25">
+                                <div id="openMobileFilters" class="me-2">Filters</div>
+                                <div id="countFilters" class="ff-lato"></div>
+                            </div>
+                            <div id="resetFilters" class="ms-3">
+                                <div class="d-flex justify-content-between align-items-center underline-one">
+                                    <div class="me-lg-0 me-2">Reset the filter</div>
+                                    <button class="pe-0"><img src="/img/cross_black.svg" alt="cross_black"></button>
+                                </div>
+                            </div>
+                            <div class="position-relative w-25">
+                                <select class="select">
+                                    <option value="none" disabled>Don't sort</option>
+                                    <option value="desc">Price in descending order</option>
+                                    <option value="asc">Price in ascending order</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="border-bottom-black"></div>
+                        </div>
+                    </div>
+                    <div id="pagination-footer" class="col-12 pagination-footer h5">
+                        <div class="border-top-black"></div>
+                        <div class="ms-3 mt-2 mb-2 h3-num" id="pagination-catalog"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<th:block th:insert="~{en-fragments/footer :: footer-white}"></th:block>
+    <!-- Modal -->
+    <div class="modal modal- fade" id="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select an option</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body modal-select-option-item" id="selectOptionItem">
+                </div>
+                <div class="modal-footer">
+                    <a class="underline-one d-flex align-items-center" id="addItemInBasketLinkModal"
+                    data-bs-dismiss="modal"
+                    >Add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<script th:src="@{/css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/noUiSlider-15.7.1/nouislider.min.js}"></script>
+<script th:src="@{/js/smoothscroll/SmoothScroll.js}"></script>
+<script th:src="@{/js/OverlayScrollbars/OverlayScrollbars.min.js}"></script>
+<script th:src="@{/js/air-datepicker-3/air-datepicker.js}"></script>
+<script th:src="@{/js/en-js-file/global-js.js}"></script>
+<script th:src="@{/js/en-js-file/catalog-style-js.js}"></script>
+<script th:src="@{/js/en-js-file/catalog-js.js}"></script>
+<script th:src="@{/js/en-js-file/search.js}"></script>
+<script th:src="@{/js/en-js-file/basket.js}"></script>
+<script th:src="@{/js/paginationjs.dist/pagination.min.js}"></script>
+</body>
+
+</html>

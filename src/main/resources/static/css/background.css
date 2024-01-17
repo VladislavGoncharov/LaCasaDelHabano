@@ -1,0 +1,202 @@
+.bg_black_pop_up_windows,
+.bg_black_pop_up_windows_enter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 14px 18px 24px 18px;
+    z-index: 20;
+    background: var(--mc-black);
+    transition: 1s ease-in-out;
+    transform: translateY(-100%)
+}
+
+.bg_black_pop_up_windows_enter {
+    left: 50%;
+    transform: translateX(-50%)
+}
+#svg_loading {
+    display: none;
+}
+#svg_loading rect{
+    fill: var(--mc-white);
+    stroke: var(--mc-white);
+}
+.border-none {
+    border: none !important;
+}
+.bg_black_pop_up_windows_on_the_right_darkening,
+.bg_black_pop_up_windows_on_the_right_darkening_enter {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 105vw;
+    height: 100vh;
+    z-index: 19;
+    background: var(--mc-darkening);
+    pointer-events: all;
+}
+
+.bg_black_pop_up_windows_on_the_right_darkening_enter {
+    background: var(--mc-black);
+}
+
+.bg_black_pop_up_windows_on_the_right_dark {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 50vw;
+    height: 100vh;
+    z-index: 20;
+    background: var(--mc-black);
+    padding: 40px 160px 48px;
+    transition: 1s ease-in-out;
+    transform: translateX(100%)
+}
+
+.open_pop_up {
+    transform: translate(0)
+}
+
+.bg_white {
+    background: var(--mc-white);
+    color: var(--mc-black);
+}
+
+.bg_white * {
+    color: var(--mc-black);
+}
+
+.bg_white a:hover {
+    color: var(--mc-black);
+}
+.bg_white .air-datepicker-nav *, .bg_white .air-datepicker--buttons *, .bg_white .air-datepicker-body--cells *  {
+    color: var(--adp-color);
+}
+.bg_transparent {
+    height: 1100px;
+    background: transparent;
+}
+
+.bg_transparent_for_long_logo {
+    position: absolute;
+    left: -1vw;
+    width: 101vw;
+    height: 175px;
+    overflow: hidden;
+    background: transparent;
+}
+
+.bg_nav_vinous,
+.bg_nav_black,
+.bg_nav_white {
+    height: 60px;
+    z-index: 7;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: #6a3837;
+}
+
+.bg_nav_black {
+    background: #0F0E0D
+}
+
+.bg_nav_white {
+    background: #ffffff
+}
+
+.about_us__foreground_picture {
+    background-image: url('/img/about_us__picture_cigars.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: contain;
+    z-index: -2;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scale(1.1);
+    top: 2030px;
+    height: 100vh;
+    width: 100%;
+    max-width: 1920px;
+}
+
+.about_us__bg_vinous,
+.about_us__bg_vinous_2 {
+    position: absolute;
+    left: 0;
+    top: -25px;
+    width: 100%;
+    height: 1994px;
+    background: var(--mc-vinous);
+    z-index: -1;
+}
+
+.about_us__bg_vinous_2 {
+    top: calc(1969px + 100vh);
+}
+
+
+
+.payment_and_delivery__bg_vinous,
+.payment_and_delivery__bg_vinous_2 {
+    position: absolute;
+    left: 0;
+    top: -25px;
+    width: 100%;
+    height: 1480px;
+    background: var(--mc-vinous);
+    z-index: -1;
+}
+
+.payment_and_delivery__bg_vinous_2 {
+    top: calc(1450px + 100vh);
+}
+
+.payment_and_delivery__foreground_picture {
+    background-image: url('/img/payment_and_delivery__cigars.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+    z-index: -2;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scale(1.1);
+    top: 1450px;
+    height: 100vh;
+    width: 100%;
+    max-width: 1920px;
+}
+
+
+/*/////////////////////////max-width: 1535px//////////////////////////////////////////////*/
+
+@media screen and (max-width: 1535px) {
+    .bg_nav_vinous,
+    .bg_nav_black,
+    .bg_nav_white {
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .bg_nav_vinous,
+    .bg_nav_black,
+    .bg_nav_white {
+        height: 90px;
+    }
+}
+
+
+/*
+@media screen and (max-width: 1537px) {
+
+.bg_nav_vinous, .bg_nav_black, .bg_nav_white {
+
+}
+}
+*/

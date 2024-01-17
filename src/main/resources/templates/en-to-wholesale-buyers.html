@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script th:src="@{/webjars/jquery/3.6.4/jquery.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/gsap.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/ScrollTrigger.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-5.1.3-dist/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/screen-size.css}">
+    <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
+    <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
+
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Main"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "For wholesale customers"
+                    }
+                ]
+            },
+            "inLanguage": "en-EN",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
+
+    <title>For wholesalers</title>
+</head>
+
+<body class="container to-wholesale-buyers">
+<div class="position-absolute top-0 start-0 w-100 height-auto">
+    <div class="bg_nav_vinous"></div>
+</div>
+<th:block th:insert="~{en-fragments/nav :: nav-desktop}"></th:block>
+<th:block th:insert="~{en-fragments/nav :: nav-mobile}"></th:block>
+<th:block th:insert="~{en-fragments/all-menu :: all-menu}"></th:block>
+<th:block th:insert="~{en-fragments/enter :: enter-other-page}"></th:block>
+
+<div class="row mt-130px">
+    <div class="col-11 d-lg-flex d-none justify-content-star align-items-center h4 text-uppercase">main <img
+            src="/img/vector-dash.svg" class="ps-3 pe-3" alt="vector-dash">for wholesalers
+    </div>
+    <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase pe-0">for wholesalers
+    </div>
+    <div class="col-1 d-flex justify-content-end align-items-center ps-0"><img src="/img/sheet.svg" alt="sheet"></div>
+    <div class="col-12 mt-lg-3">
+        <div class="border-top"></div>
+    </div>
+</div>
+<div class="row mt-2 d-none d-lg-flex">
+    <div class="col-12 h1 text-uppercase"><h1 class="h1">for wholesalers</h1></div>
+</div>
+<div class="row mt-110px opacity_hide_text">
+    <div class="col-lg-3 col-sm-9 col-12 offset-lg-0 offset-md-2 offset-0 pe-0 h5">
+        <div class="text-align-justify d-none d-lg-flex">Our company has the largest assortment of Cuban cigars and
+            aims to build long and mutually beneficial relationships with buyers from Russia and neighbouring countries.
+        </div>
+        <div class="d-lg-none d-flex pe-3">Our company has the largest assortment of Cuban cigars and
+            aims to build long and mutually beneficial relationships with buyers from Russia and neighbouring countries.
+        </div>
+    </div>
+    <div class="w-100"></div>
+    <div class="col-lg-3 col-sm-9 col-12 offset-lg-0 offset-md-2 offset-0  mt-4 pe-0 h5">
+        <div class="text-align-justify d-none d-lg-flex">
+            We offer you favourable cigar prices and terms if you:
+        </div>
+        <div class="d-lg-none">
+            We offer you favourable cigar prices and terms if you:
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-10 col-12 offset-lg-0 offset-md-2 offset-0 overflow-hidden  mt-4">
+        <div class="border-top border_hide_right"
+        ></div>
+    </div>
+    <div class="col-lg-9 col-md-10 col-12 offset-lg-3 offset-md-2 offset-0 h5 mt-4 text-mobile">
+        <div><img src="/img/rhomb.svg" alt="rhomb" class="me-4">Legal entity or individual entrepreneur</div>
+        <div class="overflow-hidden mt-4">
+            <div class="border-top border_hide_right"
+            ></div>
+        </div>
+        <div class="mt-4"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">Wholesale buyer</div>
+        <div class="overflow-hidden mt-4">
+            <div class="border-top border_hide_right"
+            ></div>
+        </div>
+        <div class="mt-4"><img src="/img/rhomb.svg" alt="rhomb" class="me-4">Regional store</div>
+        <div class="overflow-hidden mt-4">
+            <div class="border-top border_hide_right"
+            ></div>
+        </div>
+    </div>
+</div>
+<div class="row img_number">
+    <div class="offset-lg-3 offset-md-2 offset-0 col-md-9 col-12 h5 mt-156px opacity_hide_text">
+        Items in the range</div>
+    <div class="offset-lg-3 offset-md-2 offset-0 col-md-9 col-12 d-flex justify-content-start mt-3 img_number">
+        <div class="overflow-hidden" th:each="number : ${quantityItems}">
+            <div class="transform_left d-flex justify-content-start">
+                <img th:src="${'/img/number-' + number + '.png'}" th:alt="${'number-' + number}"></div>
+        </div>
+    </div>
+</div>
+<div class="row mt-96px">
+    <div class="offset-lg-3 offset-md-2 offset-0 col-md-9 col-12 h5 opacity_hide_text">We have been working since 2018</div>
+</div>
+<div class="row mt-3 ">
+    <div class="offset-lg-3 offset-md-2 offset-0 col-md-9 col-12 d-flex justify-content-start img_number">
+        <div class="overflow-hidden">
+            <div class="transform_left d-flex justify-content-start"><img src="/img/number-2.png" alt="number-2"></div>
+        </div>
+        <div class="overflow-hidden">
+            <div class="transform_left d-flex justify-content-start"><img src="/img/number-0.png" alt="number-0"></div>
+        </div>
+        <div class="overflow-hidden">
+            <div class="transform_left d-flex justify-content-start"><img src="/img/number-1.png" alt="number-1"></div>
+        </div>
+        <div class="overflow-hidden">
+            <div class="transform_left d-flex justify-content-start"><img src="/img/number-8.png" alt="number-8"></div>
+        </div>
+    </div>
+</div>
+<div class="mt-96px h5 text-center  opacity_hide_text transform_up_text">Submit an application</div>
+<div class="mt-3 d-flex justify-content-center  opacity_hide_text transform_up_text">
+    <div class="position-relative">
+        <a class="round-button d-flex justify-content-center align-items-center" href="#submit_an_application">
+            <svg width="16" height="35" viewBox="0 0 16 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.7071 34.6482C8.31658 35.0388 7.68341 35.0388 7.29289 34.6482L0.92893 28.2843C0.538405 27.8937 0.538405 27.2606 0.92893 26.8701C1.31945 26.4795 1.95262 26.4795 2.34314 26.8701L8 32.5269L13.6569 26.8701C14.0474 26.4795 14.6805 26.4795 15.0711 26.8701C15.4616 27.2606 15.4616 27.8937 15.0711 28.2843L8.7071 34.6482ZM7 33.9411L7 -8.74228e-08L9 8.74228e-08L9 33.9411L7 33.9411Z"
+                      fill="white"/>
+            </svg>
+        </a>
+    </div>
+</div>
+<div class="row mt-156px">
+    <div class="col-2 d-none d-lg-flex opacity_hide_text transform_up_text">
+        <div class="position-relative h-100 ">
+            <div class="position-sticky top-0 start-0 pt-156px">
+                <a id="downloadButtonDocument" class="round-button round-button-very-big d-flex flex-column justify-content-center align-items-center">
+                    <div class="h5 text-uppercase">price</div>
+                    <div class="h5 text-uppercase mt-1">pdf</div>
+                    <div class="mt-3 pt-2"><img src="/img/download.svg" alt="download"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="offset-lg-1 col-lg-6 offset-md-2 col-md-8 offset-0 col-12">
+        <div id="submit_an_application" class="row text-uppercase h5">
+            <div class="offset-lg-2 offset-md-1 offset-0 col-lg-8 col-md-10 col-12 p-lg-0 text-center opacity_hide_text">
+                Apply for wholesale customer registration in the form below, Provide the following details in the message:
+            </div>
+        </div>
+        <form class="row mt-96px g-1 position-relative h5" action="#">
+            <div class="col-lg-6 col-12 pe-lg-2 fw-200 overflow-hidden">
+                <input class="input-main opacity_hide_text transform_up_text" type="text" placeholder="NAME*">
+                <div class="border-top border_hide_left"></div>
+            </div>
+            <div class="col-lg-6 col-12 ps-lg-2 mt-lg-1 mt-4 fw-200 overflow-hidden">
+                <input class="input-main opacity_hide_text transform_up_text" type="text"
+                       placeholder="PHONE NUMBER OR E-MAIL*">
+                <div class="border-top border_hide_left"></div>
+            </div>
+            <div class="col-lg-6 col-12 pe-lg-2 fw-200 mt-76px-for-form overflow-hidden">
+                <input class="input-main opacity_hide_text transform_up_text" type="text"
+                       placeholder="NAME OF THE ORGANIZATION OR SOLE PROPRIETOR*">
+                <div class="border-top border_hide_left"></div>
+            </div>
+            <div class="col-lg-6 col-12 ps-lg-2 fw-200 mt-76px-for-form overflow-hidden">
+                <input class="input-main opacity_hide_text transform_up_text" type="text"
+                       placeholder="CITY OR LOCALITY*">
+                <div class="border-top border_hide_left"></div>
+            </div>
+            <div class="col-12 mt-76px-for-form fw-200 overflow-hidden">
+                <input class="input-main opacity_hide_text transform_up_text" type="text"
+                       placeholder="SUBJECT LINE*">
+                <div class="border-top border_hide_left"></div>
+            </div>
+
+            <div class="col-12 mt-76px-for-form position-relative fw-200 overflow-hidden">
+                <textarea class="textarea-main opacity_hide_text transform_up_text" placeholder="MESSAGE"></textarea>
+                <div class="border-top border_hide_left"></div>
+            </div>
+            <div class="col-12 mt-5 position-relative">
+                <button class="flat-button flat-button-bg-light opacity_hide_text"
+                        type="button" onclick="sendRegistration(event)">
+                    <div>Send</div>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:insert="~{en-fragments/footer :: footer-black}"></th:block>
+
+<script th:src="@{/js/smoothscroll/SmoothScroll.js}"></script>
+<script th:src="@{/js/OverlayScrollbars/OverlayScrollbars.min.js}"></script>
+<script th:src="@{/js/air-datepicker-3/air-datepicker.js}"></script>
+<script th:src="@{/js/en-js-file/global-js.js}"></script>
+<script th:src="@{/js/en-js-file/to-wholesale-buyers-js.js}"></script>
+<script th:src="@{/js/en-js-file/search.js}"></script>
+<script th:src="@{/js/en-js-file/basket.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script th:src="@{/webjars/jquery/3.6.4/jquery.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/gsap.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/ScrollTrigger.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-5.1.3-dist/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/screen-size.css}">
+    <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
+    <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
+
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <title>Админ</title>
+</head>
+<!--/*@thymesVar id="phonesAndLink" type="com.vladislavgoncharov.lacasadelhabano.dto.PhonesAndLinkDTO"*/-->
+<body class="container contact">
+<div class="position-absolute top-0 start-0 w-100 height-auto">
+    <div class="bg_nav_vinous"></div>
+</div>
+<th:block th:insert="~{ru-fragments/nav :: nav-desktop}"></th:block>
+<th:block th:insert="~{ru-fragments/nav :: nav-mobile}"></th:block>
+<th:block th:insert="~{ru-fragments/all-menu :: all-menu}"></th:block>
+<th:block th:insert="~{ru-fragments/enter :: enter-other-page}"></th:block>
+<div class="row mt-130px">
+    <div class="col-11 d-lg-flex d-none justify-content-star align-items-center h4 text-uppercase">
+        <a href="/">ГЛАВНАЯ</a> <img
+            src="/img/vector-dash.svg" class="ps-3 pe-3" alt="vector-dash">админка
+    </div>
+    <div class="col-11 d-lg-flex d-none justify-content-star align-items-center h4 text-uppercase">
+        <a href="/ru/logout">выйти</a>
+    </div>
+    <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase">админка</div>
+    <div class="col-1 d-flex justify-content-end align-items-center"><img src="/img/sheet.svg" alt="sheet"></div>
+    <div class="col-12 mt-lg-3 mt-0">
+    </div>
+</div>
+<section>
+    <div class="admin__header">
+        <label class="admin__header-box admin__header-box--active">
+            <input class="admin__header-input" type="radio" name="header-btn" value="item" checked>Товары</label>
+        <label class="admin__header-box">
+            <input class="admin__header-input" type="radio" name="header-btn" value="news">Новости</label>
+        <label class="admin__header-box">
+            <input class="admin__header-input" type="radio" name="header-btn" value="reserve">Резервы</label>
+        <label class="admin__header-box">
+            <input class="admin__header-input" type="radio" name="header-btn" value="fb-customer">ОС от клиентов</label>
+        <label class="admin__header-box">
+            <input class="admin__header-input" type="radio" name="header-btn" value="fb-wholesale">ОС от
+            оптовиков</label>
+        <label class="admin__header-box">
+            <input class="admin__header-input" type="radio" name="header-btn" value="other">Остальные настройки</label>
+    </div>
+    <div class="admin__selection">
+        <div class="admin__selection-box" id="admin-item" style="display: block">
+            <div class="admin__selection-header">
+                <div>
+                    <button class="admin__button" type="button"
+                            onclick="createOpenModal('item')"
+                            data-bs-toggle="modal" data-bs-target="#modal-add-item">Добавить товар
+                    </button>
+                </div>
+                <div id="countItem"></div>
+                <div class="admin__input-box"><input class="admin__input input-main" type="text"
+                                                     name="" id="input__body-item"
+                                                     placeholder="Поиск по id, артикулу, бренду и названию"></div>
+            </div>
+            <div class="admin__selection-body" id="admin__body-item"></div>
+            <div class="admin__selection-footer" id="pagination__body-item"></div>
+        </div>
+        <div class="admin__selection-box" id="admin-news" style="display: none">
+            <div class="admin__selection-header">
+                <div>
+                    <button class="admin__button" type="button"
+                            data-bs-toggle="modal" data-bs-target="#modal-add-news">Добавить новость
+                    </button>
+                </div>
+                <div id="countNews"></div>
+                <div class="admin__input-box"><input class="admin__input input-main" type="text"
+                                                     name="" id="input__body-news"
+                                                     placeholder="Поиск по id, заголовку, дате и тегам"></div>
+            </div>
+            <div class="admin__selection-body" id="admin__body-news"></div>
+            <div class="admin__selection-footer" id="pagination__body-news"></div>
+        </div>
+        <div class="admin__selection-box" id="admin-reserve" style="display: none">
+            <div class="admin__selection-header">
+                <div id="countReserve"></div>
+                <div class="admin__input-box">
+                    <input class="admin__input input-main" type="text"
+                           name="" id="input__body-reserve"
+                           placeholder="Поиск по id, магазину, дате, гостю и тел./email"></div>
+            </div>
+            <div class="admin__selection-body" id="admin__body-reserve"></div>
+            <div class="admin__selection-footer" id="pagination__body-reserve"></div>
+        </div>
+        <div class="admin__selection-box" id="admin-fb-customer" style="display: none">
+            <div class="admin__selection-header">
+                <div id="countFeedback"></div>
+                <div class="admin__input-box"><input class="admin__input input-main" type="text"
+                                                     name="" id="input__body-fb-customer"
+                                                     placeholder="Поиск по id, дате, гостю и тел./email"></div>
+            </div>
+            <div class="admin__selection-body" id="admin__body-fb-customer"></div>
+            <div class="admin__selection-footer" id="pagination__body-fb-customer"></div>
+        </div>
+        <div class="admin__selection-box" id="admin-fb-wholesale" style="display: none">
+            <div class="admin__selection-header">
+                <div id="countRegistration"></div>
+                <div class="admin__input-box"><input class="admin__input input-main" type="text"
+                                                     name="" id="input__body-fb-wholesale"
+                                                     placeholder="Поиск по id, организации, клиенту и тел./email"></div>
+            </div>
+            <div class="admin__selection-body" id="admin__body-fb-wholesale"></div>
+            <div class="admin__selection-footer" id="pagination__body-fb-wholesale"></div>
+        </div>
+        <div class="admin__selection-box" id="admin-other" style="display: none">
+            <div class="admin__selection-header">Телефоны и ссылки</div>
+            <div class="admin__selection-body" id="admin__body-other">
+            </div>
+            <div class="admin__selection-body" id="admin__body-other-telegram">
+            </div>
+            <div class="admin__selection-body" id="admin__body-other-title-on-catalog-page">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal delete -->
+<div class="modal modal- fade" id="modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title"></h5>
+                <button type="button" class="btn-close" id="modal-btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div id="modal-body-line-first"></div>
+                <div id="modal-body-line-second"></div>
+            </div>
+            <div class="modal-footer" id="modal-footer">
+                <a class="d-flex align-items-center" id="modal-btn"
+                ></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal update PhoneAndLink -->
+<div class="modal modal- fade" id="modal-update-phone-and-link" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-update-phone-and-link-title">Изменить</h4>
+                <button type="button" class="btn-close" id="modal-update-phone-and-link-btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modal-update-phone-and-link-body">
+                <div id="modal-update-phone-and-link-body-line-first"></div>
+                <div style="margin-top: 1vw;">
+                    <label class="modal__text-container--label">Поле ввода:
+                        <input class="modal__text-container--input" id="modal-update-phone-and-link-input" type="text"
+                               placeholder="+7 (812) 572 32 90"
+                               title="Пример ввода телефона: +7 (812) 572 32 90. Пример ввода ссылки: https://www.cuba-restaurant.ru"
+                               style="max-width: 70%;"></label></div>
+            </div>
+            <div class="modal-footer" id="modal-update-phone-and-link-footer">
+                <a class="d-flex align-items-center" id="modal-update-phone-and-link-btn"
+                >Подтвердить изменения</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal update TitleOnCatalogPage -->
+<div class="modal modal- fade" id="modal-update-title-on-catalog-page" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70vw !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Изменить</h4>
+                <button type="button" class="btn-close" id="modal-update-title-on-catalog-page-btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div style="margin-top: 1vw;">
+                    Текущий режим:
+                    <label class="modal__text-container--label">вкл
+                        <input class="modal__text-container--input" type="radio"
+                               name="modal-update-title-on-catalog-page-switcher" value="true"
+                               style="max-width: 70%;"></label>
+                    <label class="modal__text-container--label">выкл
+                        <input class="modal__text-container--input" type="radio"
+                               name="modal-update-title-on-catalog-page-switcher" value="false"
+                               style="max-width: 70%;"></label></div>
+                <div style="margin-top: 1vw;">
+                    <label class="modal__text-container--label">Русский текст:
+                        <input class="modal__text-container--input" id="modal-update-title-on-catalog-page-textRu" type="text"
+                               placeholder="Сайт на актуализации"
+                               style="max-width: 70%;"></label></div>
+                <div style="margin-top: 1vw;">
+                    <label class="modal__text-container--label">Английский текст:
+                        <input class="modal__text-container--input" id="modal-update-title-on-catalog-page-textEn" type="text"
+                               placeholder="The site is being updated"
+                               style="max-width: 70%;"></label></div>
+                <div style="margin-top: 1vw;">
+                    <label class="modal__text-container--label">Цвет текста:
+                        <input class="modal__text-container--input" id="modal-update-title-on-catalog-page-colorText" type="text"
+                               placeholder="#0f0e0d"
+                               style="max-width: 70%;"></label></div>
+                <div style="margin-top: 1vw;">
+                    <label class="modal__text-container--label">Цвет фона:
+                        <input class="modal__text-container--input" id="modal-update-title-on-catalog-page-colorBackground" type="text"
+                               placeholder="#e1694e"
+                               style="max-width: 70%;"></label></div>
+            </div>
+            <div class="modal-footer" id="modal-update-title-on-catalog-page-footer">
+                <a class="d-flex align-items-center" id="modal-update-title-on-catalog-page-btn"
+                >Подтвердить изменения</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal add item -->
+<div class="modal modal- fade" id="modal-add-item" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Форма добавления товара</h5>
+                <button type="button" class="btn-close modal-add-item-btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-header">
+                <label class="admin__modal-header-box">
+                    <input type="radio" class="admin__header-input" name="select-add-item" value="CIGAR">
+                    Сигара
+                </label>
+                <label class="admin__modal-header-box">
+                    <input type="radio" class="admin__header-input" name="select-add-item" value="CIGARILLO">
+                    Сигарилла
+                </label>
+                <label class="admin__modal-header-box">
+                    <input type="radio" class="admin__header-input" name="select-add-item" value="COFFEE">
+                    Кофе
+                </label>
+                <label class="admin__modal-header-box">
+                    <input type="radio" class="admin__header-input" name="select-add-item" value="ACCESSORY">
+                    Аксессуар
+                </label>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="add-item-modal-select-CIGAR">
+                <div class="col-12 modal__img-row">
+                    <div>
+                        <label class="input-file">
+                            <input type="file" name="photoMultipartFile" id="input-cigar-img" multiple accept="image/*">
+                            <span class="admin__model-button">Выберите файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или 3:4
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Наименование
+                            <input class="modal__text-container--input" id="input-cigar-ru-name" type="text"
+                                   name="new-item-CIGAR"
+                                   placeholder="Medias Coronas Vintage"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Бренд
+                            <input class="modal__text-container--input" id="input-cigar-ru-brand" type="text"
+                                   name="new-item-CIGAR"
+                                   placeholder="Montecristo"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Серия
+                            <input class="modal__text-container--input" id="input-cigar-ru-series" type="text"
+                                   name="new-item-CIGAR"
+                                   placeholder="Винтажная серия"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Опции</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-ru">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Текст
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-CIGAR-ru-option-key-1"
+                                               type="text" name="new-item-CIGAR" placeholder="25 сигар/сигарилл/пачек"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Значение
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-CIGAR-ru-option-value-1"
+                                               type="number" name="new-item-CIGAR" placeholder="25"
+                                               title="ввод только цифр, количество товара">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Страна
+                            <input class="modal__text-container--input" id="input-cigar-ru-country" type="text"
+                                   name="new-item-CIGAR" placeholder="Куба"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Описание
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-cigar-ru-description" type="text"
+                                      name="new-item-CIGAR"
+                                      placeholder="Сигары Montecristo были самой престижной маркой среди кубинских сигар..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Name
+                            <input class="modal__text-container--input" id="input-cigar-en-name" type="text"
+                                   name="new-item-CIGAR"
+                                   placeholder="Medias Coronas Vintage"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Brand
+                            <input class="modal__text-container--input" id="input-cigar-en-brand" type="text"
+                                   name="new-item-CIGAR"
+                                   placeholder="Montecristo"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Series
+                            <input class="modal__text-container--input" id="input-cigar-en-series" type="text"
+                                   name="new-item-CIGAR"
+                                   placeholder="Vintage series"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Options</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-en">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Text
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-CIGAR-en-option-key-1"
+                                               type="text" name="new-item-CIGAR" placeholder="25 cigars"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Value
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-CIGAR-en-option-value-1"
+                                               type="number" name="new-item-CIGAR" placeholder="25"
+                                               title="ввод только цифр, количество товара" step="1">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">A country
+                            <input class="modal__text-container--input" id="input-cigar-en-country" type="text"
+                                   name="new-item-CIGAR" placeholder="Cuba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Description
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-cigar-en-description" type="text"
+                                      name="new-item-CIGAR"
+                                      placeholder="Montecristo cigars were the most prestigious brand among Cuban cigars..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Артикул
+                            <input class="modal__text-container--input" id="input-cigar-article" type="text"
+                                   name="new-item-CIGAR" placeholder="403"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Фаб. формат
+                            <input class="modal__text-container--input" id="input-cigar-factory-name" type="text"
+                                   name="new-item-CIGAR" placeholder="Vitola de galera"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Размер, мм
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-cigar-size" type="number" name="new-item-CIGAR" placeholder="5"
+                                   title="ввод только цифр" step="1"></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Цена
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-cigar-price" type="number" name="new-item-CIGAR" placeholder="1650"
+                                   title="ввод только цифр, цена должна быть за 1 ед. товара" step="1"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Ring gauge
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-cigar-ring-gauge" type="number" name="new-item-CIGAR" placeholder="42"
+                                   title="ввод только цифр" step="1"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Крепкость
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-cigar-fortress" type="number" name="new-item-CIGAR" placeholder="4"
+                                   title="ввод только цифр от 1 до 5" step="1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="add-item-modal-select-CIGARILLO">
+                <div class="col-12 modal__img-row">
+                    <div>
+                        <label class="input-file">
+                            <input type="file" name="photoMultipartFile" id="input-cigarillo-img" multiple
+                                   accept="image/*">
+                            <span class="admin__model-button">Выберите файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или 3:4
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Наименование
+                            <input class="modal__text-container--input" id="input-cigarillo-ru-name" type="text"
+                                   name="new-item-CIGARILLO"
+                                   placeholder="Short Limited Edicion 5 шт"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Бренд
+                            <input class="modal__text-container--input" id="input-cigarillo-ru-brand" type="text"
+                                   name="new-item-CIGARILLO"
+                                   placeholder="Cohiba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Опции</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-ru">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Текст
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-CIGARILLO-ru-option-key-1"
+                                               type="text" name="new-item-CIGARILLO"
+                                               placeholder="25 сигар/сигарилл/пачек"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Значение
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-CIGARILLO-ru-option-value-1"
+                                               type="number" name="new-item-CIGARILLO" placeholder="25"
+                                               title="ввод только цифр, количество товара">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Страна
+                            <input class="modal__text-container--input" id="input-cigarillo-ru-country" type="text"
+                                   name="new-item-CIGARILLO" placeholder="Куба"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Описание
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-cigarillo-ru-description" type="text"
+                                      name="new-item-CIGARILLO"
+                                      placeholder="Сигариллы Cohiba были самой престижной маркой среди кубинских сигарилл..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Name
+                            <input class="modal__text-container--input" id="input-cigarillo-en-name" type="text"
+                                   name="new-item-CIGARILLO"
+                                   placeholder="Short Limited Edicion 5 pieces"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Brand
+                            <input class="modal__text-container--input" id="input-cigarillo-en-brand" type="text"
+                                   name="new-item-CIGARILLO"
+                                   placeholder="Cohiba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Options</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-en">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Text
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-CIGARILLO-en-option-key-1"
+                                               type="text" name="new-item-CIGARILLO" placeholder="25 cigars"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Value
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-CIGARILLO-en-option-value-1"
+                                               type="number" name="new-item-CIGARILLO" placeholder="25"
+                                               title="ввод только цифр, количество товара" step="1">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">A country
+                            <input class="modal__text-container--input" id="input-cigarillo-en-country" type="text"
+                                   name="new-item-CIGARILLO" placeholder="Cuba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Description
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-cigarillo-en-description" type="text"
+                                      name="new-item-CIGARILLO"
+                                      placeholder="Cohiba cigarills were the most prestigious brand among Cuban cigars..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Артикул
+                            <input class="modal__text-container--input" id="input-cigarillo-article" type="text"
+                                   name="new-item-CIGARILLO" placeholder="403"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Цена
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-cigarillo-price" type="number" name="new-item-CIGARILLO" placeholder="1650"
+                                   title="ввод только цифр, цена должна быть за 1 ед. товара" step="1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="add-item-modal-select-COFFEE">
+                <div class="col-12 modal__img-row">
+                    <div>
+                        <label class="input-file">
+                            <input type="file" name="photoMultipartFile" id="input-coffee-img" multiple
+                                   accept="image/*">
+                            <span class="admin__model-button">Выберите файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или 3:4
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Наименование
+                            <input class="modal__text-container--input" id="input-coffee-ru-name" type="text"
+                                   name="new-item-COFFEE"
+                                   placeholder="Кофе Арриеро молотый, 250 гр"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Бренд
+                            <input class="modal__text-container--input" id="input-coffee-ru-brand" type="text"
+                                   name="new-item-COFFEE"
+                                   placeholder="Arriero"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Опции</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-ru">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Текст
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-COFFEE-ru-option-key-1"
+                                               type="text" name="new-item-COFFEE" placeholder="25 сигар/сигарилл/пачек"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Значение
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-COFFEE-ru-option-value-1"
+                                               type="number" name="new-item-COFFEE" placeholder="25"
+                                               title="ввод только цифр, количество товара">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Страна
+                            <input class="modal__text-container--input" id="input-coffee-ru-country" type="text"
+                                   name="new-item-COFFEE" placeholder="Куба"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Описание
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-coffee-ru-description" type="text"
+                                      name="new-item-COFFEE"
+                                      placeholder="Кофе Arriero был самой престижной маркой среди кубинского кофе..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Name
+                            <input class="modal__text-container--input" id="input-coffee-en-name" type="text"
+                                   name="new-item-COFFEE"
+                                   placeholder="Ground Arriero coffee, 250 g"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Brand
+                            <input class="modal__text-container--input" id="input-coffee-en-brand" type="text"
+                                   name="new-item-COFFEE"
+                                   placeholder="Arriero"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Options</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-en">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Text
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-COFFEE-en-option-key-1"
+                                               type="text" name="new-item-COFFEE" placeholder="25 cigars"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Value
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-COFFEE-en-option-value-1"
+                                               type="number" name="new-item-COFFEE" placeholder="25"
+                                               title="ввод только цифр, количество товара" step="1">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">A country
+                            <input class="modal__text-container--input" id="input-coffee-en-country" type="text"
+                                   name="new-item-COFFEE" placeholder="Cuba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Description
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-coffee-en-description" type="text"
+                                      name="new-item-COFFEE"
+                                      placeholder="Arriero coffee were the most prestigious brand among Cuban coffee..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Артикул
+                            <input class="modal__text-container--input" id="input-coffee-article" type="text"
+                                   name="new-item-COFFEE" placeholder="403"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Цена
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-coffee-price" type="number" name="new-item-COFFEE" placeholder="1650"
+                                   title="ввод только цифр, цена должна быть за 1 ед. товара" step="1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="add-item-modal-select-ACCESSORY">
+                <div class="col-12 modal__img-row">
+                    <div>
+                        <label class="input-file">
+                            <input type="file" name="photoMultipartFile" id="input-accessory-img" multiple
+                                   accept="image/*">
+                            <span class="admin__model-button">Выберите файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или 3:4
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Наименование
+                            <input class="modal__text-container--input" id="input-accessory-ru-name" type="text"
+                                   name="new-item-ACCESSORY"
+                                   placeholder="Зажигалка Adorini Jet White"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Тип аксессуара
+                            <input class="modal__text-container--input" id="input-accessory-ru-type-of-accessory"
+                                   type="text"
+                                   name="new-item-ACCESSORY"
+                                   placeholder="Зажигалка"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Опции</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-ru">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Текст
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-ACCESSORY-ru-option-key-1"
+                                               type="text" name="new-item-ACCESSORY"
+                                               placeholder="25 сигар/сигарилл/пачек"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Значение
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-ACCESSORY-ru-option-value-1"
+                                               type="number" name="new-item-ACCESSORY" placeholder="25"
+                                               title="ввод только цифр, количество товара">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Страна
+                            <input class="modal__text-container--input" id="input-accessory-ru-country" type="text"
+                                   name="new-item-ACCESSORY" placeholder="Куба"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Описание
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-accessory-ru-description" type="text"
+                                      name="new-item-ACCESSORY"
+                                      placeholder="Зажигалка Adorini были самой престижной маркой среди кубинских зажигалок..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Name
+                            <input class="modal__text-container--input" id="input-accessory-en-name" type="text"
+                                   name="new-item-ACCESSORY"
+                                   placeholder="Adorini Jet White Lighter"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Type of accessory
+                            <input class="modal__text-container--input" id="input-accessory-en-type-of-accessory"
+                                   type="text"
+                                   name="new-item-ACCESSORY"
+                                   placeholder="Lighter"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Options</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-en">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Text
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-ACCESSORY-en-option-key-1"
+                                               type="text" name="new-item-ACCESSORY" placeholder="25 cigars"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Value
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-ACCESSORY-en-option-value-1"
+                                               type="number" name="new-item-ACCESSORY" placeholder="25"
+                                               title="ввод только цифр, количество товара" step="1">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">A country
+                            <input class="modal__text-container--input" id="input-accessory-en-country" type="text"
+                                   name="new-item-ACCESSORY" placeholder="Cuba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Description
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-accessory-en-description" type="text"
+                                      name="new-item-ACCESSORY"
+                                      placeholder="Adorini Lighter were the most prestigious brand among Cuban lighters..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Артикул
+                            <input class="modal__text-container--input" id="input-accessory-article" type="text"
+                                   name="new-item-ACCESSORY" placeholder="403"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Цена
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-accessory-price" type="number" name="new-item-ACCESSORY" placeholder="1650"
+                                   title="ввод только цифр, цена должна быть за 1 ед. товара" step="1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="result-text-add-item"></div>
+                <a class="admin__model-button" id="modal-check-item-btn"
+                   onclick="modelBtnCheckItem('CIGAR')">Проверка</a>
+                <a class="admin__model-button" id="modal-add-item-btn" onclick="modelBtnAddItem('CIGAR')">Добавить
+                    товар</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal add news -->
+<div class="modal modal- fade" id="modal-add-news" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Форма добавления новости</h5>
+                <button type="button" class="btn-close modal-add-item-btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="add-item-modal-select-NEWS">
+                <div class="col-12 modal__img-row">
+                    <div>
+                        <label class="input-file">
+                            <input type="file" name="photoMultipartFile" id="input-news-img" multiple accept="image/*">
+                            <span class="admin__model-button">Выберите файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или 3:4
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Заголовок
+                            <input class="modal__text-container--input" id="input-news-ru-header" type="text"
+                                   name="new-news"
+                                   placeholder="Приятная пятница"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Теги
+                            <input class="modal__text-container--input" id="input-news-ru-tag" type="text"
+                                   name="new-news"
+                                   placeholder="La Casa del Habano Большой, La Casa del Habano Кузнечный"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Основной текст
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-news-ru-main-text" type="text"
+                                      name="new-news"
+                                      placeholder="Традиционная «Приятная пятница» 5 мая 2023 года в наших сигарных магазинах всемирно известной франшизы в Санкт-Петербурге...."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                    <div class="box-by-btn-for-textarea-news">
+                        <button type="button" class="admin__model-button" onclick="addNewLine('ru','')">Новая строка
+                        </button>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Header
+                            <input class="modal__text-container--input" id="input-news-en-header" type="text"
+                                   name="new-news"
+                                   placeholder="Have a nice Friday"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Tags
+                            <input class="modal__text-container--input" id="input-news-en-tag" type="text"
+                                   name="new-news"
+                                   placeholder="La Casa del Habano Large, La Casa del Habano Blacksmith"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Main text
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-news-en-main-text" type="text"
+                                      name="new-news"
+                                      placeholder="The traditional «Pleasant Friday» on May 5, 2023 in our cigar stores of the world-famous franchise in St. Petersburg...."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                    <div class="box-by-btn-for-textarea-news">
+                        <button type="button" class="admin__model-button" onclick="addNewLine('en','')">Новая строка
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="result-text-add-item"></div>
+                <a class="admin__model-button" id="modal-check-news-btn"
+                   onclick="modelBtnCheckItem('NEWS')">Проверка</a>
+                <a class="admin__model-button" id="modal-add-news-btn" onclick="modelBtnAddNews()">Добавить
+                    новость</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal update news -->
+<div class="modal modal- fade" id="modal-update-news" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Форма изменения новости</h5>
+                <button type="button" class="btn-close modal-add-item-btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="update-item-modal-select-NEWS">
+                <div class="col-12 modal__img-row">
+                    <div class="modal-update-container-img">
+                        <label class="input-file update-input-file" data-target="false">
+                            <input type="file" name="photoMultipartFile" id="input-update-news-img" multiple
+                                   accept="image/*">
+                            <span class="admin__model-button">Изменить файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Если нажать на кнопку "Изменить файл", картинку нужно обязательно загрузить
+                        </div>
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или
+                            3:4
+                        </div>
+                    </div>
+                </div>
+                <div id="update-news-id"></div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Заголовок
+                            <input class="modal__text-container--input" id="input-update-news-ru-header" type="text"
+                                   name="new-news"
+                                   placeholder="Приятная пятница"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Теги
+                            <input class="modal__text-container--input" id="input-update-news-ru-tag" type="text"
+                                   name="new-news"
+                                   placeholder="La Casa del Habano Большой, La Casa del Habano Кузнечный"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Основной текст
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-news-ru-main-text" type="text"
+                                      name="new-news"
+                                      placeholder="Традиционная «Приятная пятница» 5 мая 2023 года в наших сигарных магазинах всемирно известной франшизы в Санкт-Петербурге...."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                    <div class="box-by-btn-for-textarea-news">
+                        <button type="button" class="admin__model-button" onclick="addNewLine('ru','-update')">Новая
+                            строка
+                        </button>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Header
+                            <input class="modal__text-container--input" id="input-update-news-en-header" type="text"
+                                   name="new-news"
+                                   placeholder="Have a nice Friday"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Tags
+                            <input class="modal__text-container--input" id="input-update-news-en-tag" type="text"
+                                   name="new-news"
+                                   placeholder="La Casa del Habano Large, La Casa del Habano Blacksmith"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Main text
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-news-en-main-text" type="text"
+                                      name="new-news"
+                                      placeholder="The traditional «Pleasant Friday» on May 5, 2023 in our cigar stores of the world-famous franchise in St. Petersburg...."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                    <div class="box-by-btn-for-textarea-news">
+                        <button type="button" class="admin__model-button" onclick="addNewLine('en','-update')">Новая
+                            строка
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="result-text-add-item"></div>
+                <a class="admin__model-button"
+                   onclick="modelBtnCheckNewsUpdate()">Проверка</a>
+                <a class="admin__model-button" onclick="modelBtnUpdateNews()">Изменить
+                    новость</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal update item -->
+<div class="modal modal- fade" id="modal-update-item" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Форма изменения товара</h5>
+                <button type="button" class="btn-close modal-add-item-btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-header">
+                <label class="admin__modal-header-box admin__modal-header-box--active" id="header-btn-CIGAR">
+                    <input type="radio" class="admin__header-input" value="CIGAR" disabled>
+                    Сигара
+                </label>
+                <label class="admin__modal-header-box admin__modal-header-box--active" id="header-btn-CIGARILLO">
+                    <input type="radio" class="admin__header-input" value="CIGARILLO" disabled>
+                    Сигарилла
+                </label>
+                <label class="admin__modal-header-box admin__modal-header-box--active" id="header-btn-COFFEE">
+                    <input type="radio" class="admin__header-input" value="COFFEE" disabled>
+                    Кофе
+                </label>
+                <label class="admin__modal-header-box admin__modal-header-box--active" id="header-btn-ACCESSORY">
+                    <input type="radio" class="admin__header-input" value="ACCESSORY" disabled>
+                    Аксессуар
+                </label>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="update-item-modal-select-CIGAR">
+                <div class="col-12 modal__img-row">
+                    <div class="modal-update-container-img">
+                        <label class="input-file update-input-file-item-CIGAR" data-target="false">
+                            <input type="file" name="photoMultipartFile" id="input-update-CIGAR-img" multiple
+                                   accept="image/*">
+                            <span class="admin__model-button">Изменить файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Если нажать на кнопку "Изменить файл", картинку нужно обязательно загрузить
+                        </div>
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или
+                            3:4
+                        </div>
+                    </div>
+                </div>
+                <div id="update-CIGAR-id"></div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Наименование
+                            <input class="modal__text-container--input" id="input-update-CIGAR-ru-name" type="text"
+                                   name="update-item-CIGAR"
+                                   placeholder="Medias Coronas Vintage"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Бренд
+                            <input class="modal__text-container--input" id="input-update-CIGAR-ru-brand" type="text"
+                                   name="update-item-CIGAR"
+                                   placeholder="Montecristo"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Серия
+                            <input class="modal__text-container--input" id="input-update-CIGAR-ru-series" type="text"
+                                   name="update-item-CIGAR"
+                                   placeholder="Винтажная серия"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Опции</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-ru">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Текст
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-update-CIGAR-ru-option-key-1"
+                                               type="text" name="update-item-CIGAR"
+                                               placeholder="25 сигар/сигарилл/пачек"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Значение
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-update-CIGAR-ru-option-value-1"
+                                               type="number" name="update-item-CIGAR" placeholder="25"
+                                               title="ввод только цифр, количество товара">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Страна
+                            <input class="modal__text-container--input" id="input-update-CIGAR-ru-country" type="text"
+                                   name="update-item-CIGAR" placeholder="Куба"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Описание
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-CIGAR-ru-description" type="text"
+                                      name="update-item-CIGAR"
+                                      placeholder="Сигары Montecristo были самой престижной маркой среди кубинских сигар..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Name
+                            <input class="modal__text-container--input" id="input-update-CIGAR-en-name" type="text"
+                                   name="update-item-CIGAR"
+                                   placeholder="Medias Coronas Vintage"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Brand
+                            <input class="modal__text-container--input" id="input-update-CIGAR-en-brand" type="text"
+                                   name="update-item-CIGAR"
+                                   placeholder="Montecristo"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Series
+                            <input class="modal__text-container--input" id="input-update-CIGAR-en-series" type="text"
+                                   name="update-item-CIGAR"
+                                   placeholder="Vintage series"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Options</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-en">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Text
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-update-CIGAR-en-option-key-1"
+                                               type="text" name="update-item-CIGAR" placeholder="25 cigars"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Value
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-update-CIGAR-en-option-value-1"
+                                               type="number" name="update-item-CIGAR" placeholder="25"
+                                               title="ввод только цифр, количество товара" step="1">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">A country
+                            <input class="modal__text-container--input" id="input-update-CIGAR-en-country" type="text"
+                                   name="update-item-CIGAR" placeholder="Cuba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Description
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-CIGAR-en-description" type="text"
+                                      name="update-item-CIGAR"
+                                      placeholder="Montecristo cigars were the most prestigious brand among Cuban cigars..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Артикул
+                            <input class="modal__text-container--input" id="input-update-CIGAR-article" type="text"
+                                   name="update-item-CIGAR" placeholder="403"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Фаб. формат
+                            <input class="modal__text-container--input" id="input-update-CIGAR-factory-name" type="text"
+                                   name="update-item-CIGAR" placeholder="Vitola de galera"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Размер, мм
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-update-CIGAR-size" type="number" name="update-item-CIGAR" placeholder="5"
+                                   title="ввод только цифр" step="1"></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Цена
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-update-CIGAR-price" type="number" name="update-item-CIGAR"
+                                   placeholder="1650"
+                                   title="ввод только цифр, цена должна быть за 1 ед. товара" step="1"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Ring gauge
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-update-CIGAR-ring-gauge" type="number" name="update-item-CIGAR"
+                                   placeholder="42"
+                                   title="ввод только цифр" step="1"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Крепкость
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-update-CIGAR-fortress" type="number" name="update-item-CIGAR"
+                                   placeholder="4"
+                                   title="ввод только цифр от 1 до 5" step="1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="update-item-modal-select-CIGARILLO">
+                <div class="col-12 modal__img-row">
+                    <div class="modal-update-container-img">
+                        <label class="input-file update-input-file-item-CIGARILLO" data-target="false">
+                            <input type="file" name="photoMultipartFile" id="input-update-CIGARILLO-img" multiple
+                                   accept="image/*">
+                            <span class="admin__model-button">Изменить файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Если нажать на кнопку "Изменить файл", картинку нужно обязательно загрузить
+                        </div>
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или
+                            3:4
+                        </div>
+                    </div>
+                </div>
+                <div id="update-CIGARILLO-id"></div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Наименование
+                            <input class="modal__text-container--input" id="input-update-CIGARILLO-ru-name" type="text"
+                                   name="update-item-CIGARILLO"
+                                   placeholder="Short Limited Edicion 5 шт"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Бренд
+                            <input class="modal__text-container--input" id="input-update-CIGARILLO-ru-brand" type="text"
+                                   name="update-item-CIGARILLO"
+                                   placeholder="Cohiba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Опции</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-ru">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Текст
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-update-CIGARILLO-ru-option-key-1"
+                                               type="text" name="update-item-CIGARILLO"
+                                               placeholder="25 сигар/сигарилл/пачек"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Значение
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-update-CIGARILLO-ru-option-value-1"
+                                               type="number" name="update-item-CIGARILLO" placeholder="25"
+                                               title="ввод только цифр, количество товара">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Страна
+                            <input class="modal__text-container--input" id="input-update-CIGARILLO-ru-country"
+                                   type="text"
+                                   name="update-item-CIGARILLO" placeholder="Куба"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Описание
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-CIGARILLO-ru-description" type="text"
+                                      name="update-item-CIGARILLO"
+                                      placeholder="Сигариллы Cohiba были самой престижной маркой среди кубинских сигарилл..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Name
+                            <input class="modal__text-container--input" id="input-update-CIGARILLO-en-name" type="text"
+                                   name="update-item-CIGARILLO"
+                                   placeholder="Short Limited Edicion 5 pieces"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Brand
+                            <input class="modal__text-container--input" id="input-update-CIGARILLO-en-brand" type="text"
+                                   name="update-item-CIGARILLO"
+                                   placeholder="Cohiba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Options</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-en">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Text
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-update-CIGARILLO-en-option-key-1"
+                                               type="text" name="update-item-CIGARILLO" placeholder="25 cigars"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Value
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-update-CIGARILLO-en-option-value-1"
+                                               type="number" name="update-item-CIGARILLO" placeholder="25"
+                                               title="ввод только цифр, количество товара" step="1">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">A country
+                            <input class="modal__text-container--input" id="input-update-CIGARILLO-en-country"
+                                   type="text"
+                                   name="update-item-CIGARILLO" placeholder="Cuba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Description
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-CIGARILLO-en-description" type="text"
+                                      name="update-item-CIGARILLO"
+                                      placeholder="Cohiba cigarills were the most prestigious brand among Cuban cigars..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Артикул
+                            <input class="modal__text-container--input" id="input-update-CIGARILLO-article" type="text"
+                                   name="update-item-CIGARILLO" placeholder="403"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Цена
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-update-CIGARILLO-price" type="number" name="update-item-CIGARILLO"
+                                   placeholder="1650"
+                                   title="ввод только цифр, цена должна быть за 1 ед. товара" step="1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="update-item-modal-select-COFFEE">
+                <div class="col-12 modal__img-row">
+                    <div class="modal-update-container-img">
+                        <label class="input-file update-input-file-item-COFFEE" data-target="false">
+                            <input type="file" name="photoMultipartFile" id="input-update-COFFEE-img" multiple
+                                   accept="image/*">
+                            <span class="admin__model-button">Изменить файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Если нажать на кнопку "Изменить файл", картинку нужно обязательно загрузить
+                        </div>
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или
+                            3:4
+                        </div>
+                    </div>
+                </div>
+                <div id="update-COFFEE-id"></div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Наименование
+                            <input class="modal__text-container--input" id="input-update-COFFEE-ru-name" type="text"
+                                   name="update-item-COFFEE"
+                                   placeholder="Кофе Арриеро молотый, 250 гр"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Бренд
+                            <input class="modal__text-container--input" id="input-update-COFFEE-ru-brand" type="text"
+                                   name="update-item-COFFEE"
+                                   placeholder="Arriero"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Опции</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-ru">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Текст
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-update-COFFEE-ru-option-key-1"
+                                               type="text" name="update-item-COFFEE"
+                                               placeholder="25 сигар/сигарилл/пачек"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Значение
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-update-COFFEE-ru-option-value-1"
+                                               type="number" name="update-item-COFFEE" placeholder="25"
+                                               title="ввод только цифр, количество товара">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Страна
+                            <input class="modal__text-container--input" id="input-update-COFFEE-ru-country" type="text"
+                                   name="update-item-COFFEE" placeholder="Куба"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Описание
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-COFFEE-ru-description" type="text"
+                                      name="update-item-COFFEE"
+                                      placeholder="Кофе Arriero был самой престижной маркой среди кубинского кофе..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Name
+                            <input class="modal__text-container--input" id="input-update-COFFEE-en-name" type="text"
+                                   name="update-item-COFFEE"
+                                   placeholder="Ground Arriero coffee, 250 g"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Brand
+                            <input class="modal__text-container--input" id="input-update-COFFEE-en-brand" type="text"
+                                   name="update-item-COFFEE"
+                                   placeholder="Arriero"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Options</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-en">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Text
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-update-COFFEE-en-option-key-1"
+                                               type="text" name="update-item-COFFEE" placeholder="25 cigars"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Value
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-update-COFFEE-en-option-value-1"
+                                               type="number" name="update-item-COFFEE" placeholder="25"
+                                               title="ввод только цифр, количество товара" step="1">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">A country
+                            <input class="modal__text-container--input" id="input-update-COFFEE-en-country" type="text"
+                                   name="update-item-COFFEE" placeholder="Cuba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Description
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-COFFEE-en-description" type="text"
+                                      name="update-item-COFFEE"
+                                      placeholder="Arriero coffee were the most prestigious brand among Cuban coffee..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Артикул
+                            <input class="modal__text-container--input" id="input-update-COFFEE-article" type="text"
+                                   name="update-item-COFFEE" placeholder="403"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Цена
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-update-COFFEE-price" type="number" name="update-item-COFFEE"
+                                   placeholder="1650"
+                                   title="ввод только цифр, цена должна быть за 1 ед. товара" step="1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body add-item-modal-body row" id="update-item-modal-select-ACCESSORY">
+                <div class="col-12 modal__img-row">
+                    <div class="modal-update-container-img">
+                        <label class="input-file update-input-file-item-ACCESSORY" data-target="false">
+                            <input type="file" name="photoMultipartFile" id="input-update-ACCESSORY-img" multiple
+                                   accept="image/*">
+                            <span class="admin__model-button">Изменить файл</span>
+                        </label>
+                        <div class="input-file-list"></div>
+                    </div>
+                    <div class="modal__img-warning">
+                        <div>
+                            Если нажать на кнопку "Изменить файл", картинку нужно обязательно загрузить
+                        </div>
+                        <div>
+                            Картинка товара должна быть не более 1 мб., на белом фоне, без рамок и формат 9:16 или
+                            3:4
+                        </div>
+                    </div>
+                </div>
+                <div id="update-ACCESSORY-id"></div>
+                <div class="col-6 modal__text-container modal__text-container--right">
+                    <div class="modal__text-container--header">Русская версия</div>
+                    <div>
+                        <label class="modal__text-container--label">Наименование
+                            <input class="modal__text-container--input" id="input-update-ACCESSORY-ru-name" type="text"
+                                   name="update-item-ACCESSORY"
+                                   placeholder="Зажигалка Adorini Jet White"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Тип аксессуара
+                            <input class="modal__text-container--input" id="input-update-ACCESSORY-ru-type-of-accessory"
+                                   type="text"
+                                   name="update-item-ACCESSORY"
+                                   placeholder="Зажигалка"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Опции</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-ru">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Текст
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-update-ACCESSORY-ru-option-key-1"
+                                               type="text" name="update-item-ACCESSORY"
+                                               placeholder="25 сигар/сигарилл/пачек"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Значение
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-update-ACCESSORY-ru-option-value-1"
+                                               type="number" name="update-item-ACCESSORY" placeholder="25"
+                                               title="ввод только цифр, количество товара">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Страна
+                            <input class="modal__text-container--input" id="input-update-ACCESSORY-ru-country"
+                                   type="text"
+                                   name="update-item-ACCESSORY" placeholder="Куба"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Описание
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-ACCESSORY-ru-description" type="text"
+                                      name="update-item-ACCESSORY"
+                                      placeholder="Зажигалка Adorini были самой престижной маркой среди кубинских зажигалок..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6 modal__text-container">
+                    <div class="modal__text-container--header">English version</div>
+                    <div>
+                        <label class="modal__text-container--label">Name
+                            <input class="modal__text-container--input" id="input-update-ACCESSORY-en-name" type="text"
+                                   name="update-item-ACCESSORY"
+                                   placeholder="Adorini Jet White Lighter"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Type of accessory
+                            <input class="modal__text-container--input" id="input-update-ACCESSORY-en-type-of-accessory"
+                                   type="text"
+                                   name="update-item-ACCESSORY"
+                                   placeholder="Lighter"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>Options</div>
+                                <button class="modal__text-container--option-btn modal-btn-option-plus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-plus-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                </button>
+                                <button class="modal__text-container--option-btn modal-btn-option-minus"
+                                        disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-dash-square" viewBox="0 0 16 16">
+                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal__text-container--option-box option-inputs-box-en">
+                                <div>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Text
+                                        <input class="modal__text-container--input modal__text-container--option-input"
+                                               id="input-update-ACCESSORY-en-option-key-1"
+                                               type="text" name="update-item-ACCESSORY" placeholder="25 cigars"
+                                               title="ввод свободный, не более 250 символов">
+                                    </label>
+                                    <label class="modal__text-container--label modal__text-container--option-label">
+                                        Value
+                                        <input class="modal__text-container--input modal__text-container--option-input
+                                        styleForJqIsOnlyForEnteringIntegers"
+                                               id="input-update-ACCESSORY-en-option-value-1"
+                                               type="number" name="update-item-ACCESSORY" placeholder="25"
+                                               title="ввод только цифр, количество товара" step="1">
+                                    </label>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">A country
+                            <input class="modal__text-container--input" id="input-update-ACCESSORY-en-country"
+                                   type="text"
+                                   name="update-item-ACCESSORY" placeholder="Cuba"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Description
+                            <textarea class="modal__text-container--input modal__text-container--textarea"
+                                      id="input-update-ACCESSORY-en-description" type="text"
+                                      name="update-item-ACCESSORY"
+                                      placeholder="Adorini Lighter were the most prestigious brand among Cuban lighters..."
+                                      title="ввод свободный до 2500 символов"></textarea></label>
+                    </div>
+                </div>
+                <div class="col-6" style="margin-bottom: 2vw;padding: 0 2vw 0 1vw">
+                    <div>
+                        <label class="modal__text-container--label">Артикул
+                            <input class="modal__text-container--input" id="input-update-ACCESSORY-article" type="text"
+                                   name="update-item-ACCESSORY" placeholder="403"
+                                   title="ввод свободный, не более 250 символов"></label>
+                    </div>
+                    <div>
+                        <label class="modal__text-container--label">Цена
+                            <input class="modal__text-container--input styleForJqIsOnlyForEnteringIntegers"
+                                   id="input-update-ACCESSORY-price" type="number" name="update-item-ACCESSORY"
+                                   placeholder="1650"
+                                   title="ввод только цифр, цена должна быть за 1 ед. товара" step="1"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="result-text-add-item"></div>
+                <a class="admin__model-button" id="modelBtnCheckItemUpdate"
+                   onclick="modelBtnCheckItemUpdate()">Проверка</a>
+                <a class="admin__model-button" id="modelBtnUpdateItem" onclick="modelBtnUpdateItem()">Изменить
+                    товар</a>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:insert="~{ru-fragments/footer :: footer-black}"></th:block>
+<script th:src="@{/css/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/smoothscroll/SmoothScroll.js}"></script>
+<script th:src="@{/js/OverlayScrollbars/OverlayScrollbars.min.js}"></script>
+<script th:src="@{/js/air-datepicker-3/air-datepicker.js}"></script>
+<script th:src="@{/js/ru-js-file/global-js.js}"></script>
+<script th:src="@{/js/ru-js-file/admin.js}"></script>
+<script th:src="@{/js/ru-js-file/search.js}"></script>
+<script th:src="@{/js/ru-js-file/basket.js}"></script>
+<script th:src="@{/js/paginationjs.dist/pagination.min.js}"></script>
+</body>
+
+</html>

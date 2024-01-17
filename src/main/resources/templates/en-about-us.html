@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <script th:src="@{/webjars/jquery/3.6.4/jquery.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/gsap.min.js}"></script>
+    <script th:src="@{/webjars/gsap/3.12.2/dist/ScrollTrigger.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-5.1.3-dist/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/screen-size.css}">
+    <link rel="stylesheet" th:href="@{/js/OverlayScrollbars/OverlayScrollbars.min.css}">
+    <link rel="stylesheet" th:href="@{/js/air-datepicker-3/air-datepicker.css}">
+
+    <link rel="icon" href="/img/sheet_black.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/sheet_black.ico" type="image/x-icon">
+
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" th:content="${pageKeywords}">
+    <link rel="canonical" th:href="${pageUrl}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <script type="application/ld+json" th:inline="text">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "[[${pageUrl}]]",
+            "name": "[[${pageTitle}]]",
+            "description": "[[${pageDescription}]]",
+            "datePublished": "[[${datePublished}]]",
+            "dateModified": "[[${dateModified}]]",
+            "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Main"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "About"
+                    }
+                ]
+            },
+            "inLanguage": "en-EN",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": ["[[${readActionTarget}]]"]
+                }
+            ]
+        }
+    </script>
+
+    <title>About</title>
+</head>
+
+<!--/*@thymesVar id="phonesAndLink" type="com.vladislavgoncharov.lacasadelhabano.dto.PhonesAndLinkDTO"*/-->
+<body class="container about_us">
+<div id="toScrollTop"></div>
+<div class="about_us__bg_vinous height-auto"></div>
+<div class="position-absolute top-0 start-0 w-100 height-auto">
+    <div class="bg_nav_vinous"></div>
+</div>
+
+<th:block th:insert="~{en-fragments/nav :: nav-desktop}"></th:block>
+<th:block th:insert="~{en-fragments/nav :: nav-mobile}"></th:block>
+<th:block th:insert="~{en-fragments/all-menu :: all-menu}"></th:block>
+<th:block th:insert="~{en-fragments/enter :: enter-other-page}"></th:block>
+
+<section class="section-1">
+    <div class="row mt-110px">
+        <div class="col-11 d-lg-flex d-none justify-content-star align-items-center h4 text-uppercase">main <img
+                src="/img/vector-dash.svg" class="ps-3 pe-3" alt="vector-dash">about
+        </div>
+        <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase pe-0">about</div>
+        <div class="col-1 d-flex justify-content-end align-items-center ps-0"><img src="/img/sheet.svg" alt="sheet">
+        </div>
+        <div class="col-12 mt-lg-3">
+            <div class="border-top"></div>
+        </div>
+    </div>
+    <div class="row mt-lg-2 mt-1 opacity_hide_text text-uppercase">
+        <div class="col-3 h1 d-none d-lg-flex"><h1 class="h1">about</h1></div>
+        <div class="col-lg-3 col-md-5 col-sm-7 col-6 h5 pt-lg-2 pt-0 fs-sm-7 under-title-about-us">
+            <h2 class="h5">Cigar places and tasting areas in the centre of st. Petersburg</h2>
+
+
+        </div>
+    </div>
+    <div class="row mt-96px opacity_hide_text">
+        <div class="offset-lg-3 offset-md-2 offset-0 col-lg-3 col-md-8 col-sm-11 col-12 h5 pe-60px">We are part of a
+            global franchise selling Habanos. In our shops you can find the widest range of brands, and excellent
+            storage conditions in optimal temperature and humidity guarantee the quality of our products.
+        </div>
+        <div class="offset-lg-0 offset-md-2 offset-0 col-lg-6 col-md-10 col-12 mt-lg-1 mt-4"><img
+                src="/img/about_us__logo.jpg" alt="about_us__logo" class="w-100"></div>
+        <div class="offset-lg-6 offset-md-2 offset-0 col-lg-3 col-md-8 col-sm-11 col-12  h5 mt-4 pt-4 pe-35px">
+            The House of Cuban Cigars has exclusive vitolas such as Partagas Salomones, H. Upmann Sir Winston, the
+            Limitada range and much more that many other establishments are unlikely to boast.
+        </div>
+    </div>
+    <div class="row mt-156px">
+        <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase overflow-hidden">
+            <div class="transform_up_text"><h2 class="h1">places</h2></div>
+        </div>
+        <div class="col-12 mb-lg-2 mb-0 overflow-hidden">
+            <div class="border-top border_hide_right"></div>
+        </div>
+        <div class="col-3 d-lg-flex d-none h1 overflow-hidden text-uppercase">
+            <div class="transform_up_text"><h2 class="h1">places</h2></div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6 h5 pt-lg-2 pt-1 fs-sm-7 text-uppercase under-title-place opacity_hide_text">
+            <h3 class="h5">to buy and taste your favourite habanos cigars</h3>
+        </div>
+    </div>
+    <div class="row mt-96px opacity_hide_text">
+        <div class="offset-lg-3 offset-md-2 offset-0 col-lg-3 col-md-6 col-12 h5 pe-35px text-place">Our shops are
+            located in the historical centre of St. Petersburg, on both sides of the Neva River: Kuznechny
+            lane and Bolshoy P. Side
+        </div>
+        <div class="col-3 d-lg-block d-none h5 pe-60px">Each shop offers comfortable tasting areas for your
+            favourite Habano and a friendly Cuban atmosphere.
+        </div>
+    </div>
+    <div id="link-on-kuznechny-or-petrogradskoy" class="row mt-4 d-lg-flex d-none opacity_hide_text">
+        <div class="col-3 position-relative"><img class="link-on-kuznechny-img position-absolute w-100 pe-4"
+                                                  src="/img/main__our_mug_little_2.jpg" alt="about_us__mug_on_kuznechny">
+        </div>
+        <div class="col-9 row g-0 link-on-kuznechny" onclick="reserveBtnAboutUsPage('kuznechny')">
+            <div class="col-4 h2 text-uppercase link-on-kuznechny-text">lcdh kuznechny</div>
+            <div class="col-4 ps-2 h5 text-uppercase">Kuznechny lane. 14А</div>
+            <div class="col-4 h5-num d-flex justify-content-end">11:00 - 01:00</div>
+        </div>
+        <div class="col-3 position-relative"><img class="link-on-petrogradskoy-img position-absolute w-100 pe-4"
+                                                  src="/img/main__our_mug_little.jpg" alt="about_us__mug_on_kuznechny">
+        </div>
+        <div class="col-9 row g-0 link-on-petrogradskoy" onclick="reserveBtnAboutUsPage('petrogradskaya')">
+            <div class="col-4 h2 text-uppercase link-on-petrogradskoy-text">lcdh bolshoy p.side</div>
+            <div class="col-4 ps-2 h5 text-uppercase">Bolshoy P. Side. 37</div>
+            <div class="col-4 h5-num d-flex justify-content-end">11:00 - 23:00</div>
+        </div>
+    </div>
+    <div class="row mt-4 d-lg-none d-flex mt-2">
+        <div class="mt-3 mb-4 col-12 overflow-hidden">
+            <div class="border-top border_hide_right"></div>
+        </div>
+        <div class="col-1 number-place opacity_hide_text">01</div>
+        <div class="offset-1 col-md-4 col-sm-5 col-10 d-flex justify-content-sm-start justify-content-end  h2 text-uppercase opacity_hide_text">
+            lcdh kuznechny
+        </div>
+        <div class="col-md-6 col-sm-5 h5 text-uppercase d-flex align-items-end justify-content-md-start justify-content-end mt-sm-1 mt-2 text-mobile opacity_hide_text">
+            Kuznechny lane. 14А
+        </div>
+        <div class="w-100"></div>
+        <div class="offset-md-2 col-md-10 mt-3 opacity_hide_text"><img class="img-fluid" src="/img/main__our_mug_full_screen_4.jpg"
+                                                                       alt="about_us__mug_on_kuznechny"></div>
+        <div class="mt-3 mb-4 col-12 overflow-hidden">
+            <div class="border-top border_hide_right"></div>
+        </div>
+        <div class="col-1 number-place opacity_hide_text">02</div>
+        <div class="offset-1 col-md-4 col-sm-5 col-10 d-flex justify-content-sm-start justify-content-end  h2 text-uppercase opacity_hide_text">
+            lcdh bolshoy p.side
+        </div>
+        <div class="col-md-6 col-sm-5 h5 text-uppercase d-flex align-items-end justify-content-md-start justify-content-end mt-sm-1 mt-2 text-mobile opacity_hide_text">
+            Bolshoy P. Side. 37
+        </div>
+        <div class="w-100"></div>
+        <div class="offset-md-2 col-md-10 mt-3 opacity_hide_text"><img class="img-fluid" src="/img/main__our_mug_full_screen_1.jpg"
+                                                                       alt="about_us__mug_on_kuznechny"></div>
+        <div class="mt-3 mb-4 col-12 overflow-hidden">
+            <div class="border-top border_hide_right"></div>
+        </div>
+        <div class="mt-3 mb-4 col-12">
+            <button class="flat-button flat-button-bg-light col-12 opacity_hide_text transform_up_text" type="button"
+                    onclick="reserveBtnAboutUsPage('kuznechny')">
+                <div>Reserve</div>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="section-2">
+    <div class="row mt-156px">
+        <div class="col-11 d-lg-none d-flex justify-content-star align-items-center h1 text-uppercase overflow-hidden">
+            <div class="transform_up_text"><h2 class="h1">news</h2></div>
+        </div>
+        <div class="col-12 mb-lg-2 mb-0 overflow-hidden">
+            <div class="border-top border_hide_right"></div>
+        </div>
+        <div class="col-3 d-lg-flex d-none h1 overflow-hidden text-uppercase">
+            <div class="transform_up_text"><h2 class="h1">news</h2></div>
+        </div>
+        <div class="col-lg-3 col-md-5 col-6 h5 pt-lg-2 pt-1 fs-sm-7 text-uppercase under-title-news opacity_hide_text">
+            <h3 class="h5">we’ll tell you about our promotions and events in the life of the cigar world
+            </h3>
+        </div>
+    </div>
+    <div class="row mt-110px opacity_hide_text">
+        <div class="offset-lg-3 offset-md-2 col-6 h3-num" th:text="${lastNews.date}">04/05/23</div>
+        <div class="w-100"></div>
+        <div class="offset-lg-3 offset-md-2 col-12 h3 d-lg-none d-block mt-2" th:text="${lastNews.header}"></div>
+    </div>
+    <div class="row mt-3 opacity_hide_text">
+        <div class="offset-lg-3 offset-md-2 col-lg-3 col-sm-4 col-6">
+            <img class="about_us__picture_news img-fluid" src="/img/about_us__picture_news.jpg" alt="picture_news"></div>
+        <div class="offset-lg-1 col-lg-3 col-md-5 col-sm-7 col-6 h3 ">
+            <div class="h3 d-lg-block d-none" th:text="${lastNews.header}"></div>
+            <p class="h5 mt-lg-4 text-mobile" th:text="${lastNews.mainText}">
+            </p>
+        </div>
+        <div class="col-2 h5 d-lg-block d-none opacity_hide_text transform_up_text">
+            <div class="position-relative h-100">
+                <div class="position-absolute bottom-0 end-0"><a class="round-button round-button-big d-flex
+                justify-content-center align-items-center" th:href="@{/en/news}">News</a></div>
+            </div>
+        </div>
+        <div class="w-100"></div>
+        <button class="d-lg-none mt-5 flat-button flat-button-bg-light opacity_hide_text transform_up_text"
+                type="submit" onclick="window.location.href='/news'">
+            <div>News</div>
+        </button>
+    </div>
+    <div class="row">
+        <div class="col-2 d-lg-flex d-none">
+            <div class="position-relative h-100">
+                <div class="position-sticky top-0 start-0 pt-156px">
+                    <a class="round-button round-button-very-big round-button-hover-cuba d-flex justify-content-center
+                    align-items-center">
+                        <div class="flag_of_cuba">
+                            <div class="fs-11 fc-black">We love Cuba</div>
+                            <div class="mt-3 d-flex justify-content-center align-items-center"><img
+                                    src="/img/flag_of_cuba.png" alt="flag_of_cuba"></div>
+                        </div>
+                        <img class="flag_of_information" src="/img/vector-information.svg" alt="information"> </a>
+                </div>
+            </div>
+        </div>
+        <div class="offset-lg-1 col-lg-9 col-12 mt-156px">
+            <div class="h1 overflow-hidden">
+                <div class="transform_up_text text-uppercase"><h2 class="h1">other projects</h2></div>
+            </div>
+            <div class="mt-96px about_us__on_site opacity_hide_text">
+                <div class="overflow-hidden">
+                    <div class="border-top border_hide_right"></div>
+                </div>
+                <div class="pt-5 d-lg-block d-none">
+                    <div class="h3">O!Cuba Restaurant</div>
+                </div>
+                <div class="mt-4 row">
+                    <div class="h5 col-lg-4 col-md-5 col-12 order-lg-1 order-2 pe-5">
+                        <div class="h3 d-lg-none d-block pb-3 mt-md-0 mt-3">O!Cuba Restaurant</div>
+                        <div class="pe-lg-5">Our restaurant on Rubinstein Street will delight you with the variety of
+                            Cuban cuisine, the warmth and soulfulness of the streets of Trinidad and the original music
+                            of the natives of Liberty Island.
+                        </div>
+                    </div>
+                    <div class="offset-lg-0 offset-md-2 col-lg-8 col-4 order-lg-2 order-1 d-flex justify-content-between">
+                        <div><img class="about_us__on_site_img_o_cuba" src="/img/about_us__o_cuba.svg" alt="o_cuba">
+                        </div>
+                        <div class="about_us__btn_on_site d-flex justify-content-between align-items-center d-lg-flex d-none">
+                            <div class="pe-1 me-3">Website</div>
+                            <button class="ms-3 round-button round-button-middle" onclick="window.location.href =
+                                    document.getElementById('link-cuba-restaurant').getAttribute('data-href');"
+                                    th:data-href="${phonesAndLink.linkCubaRestaurant}" id="link-cuba-restaurant">
+                                <img src="/img/vector_up_and_right.svg" alt="vector_up_and_right">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="d-lg-none mt-4 mb-4 flat-button flat-button-bg-light transform_up_text opacity_hide_text"
+                        type="submit"
+                        onclick="window.location.href = document.getElementById('link-cuba-restaurant').getAttribute('data-href');">
+                    <div>Website</div>
+                </button>
+                <div class="overflow-hidden mt-75px">
+                    <div class="border-top border_hide_right"></div>
+                </div>
+            </div>
+            <div class="about_us__on_site opacity_hide_text">
+                <div class="pt-5 d-lg-block d-none">
+                    <div class="h3 ">Cuba Day</div>
+                </div>
+                <div class="mt-4 row">
+                    <div class="h5 col-lg-4 col-md-5 col-12 order-lg-1 order-2 pe-5">
+                        <div class="h3 d-lg-none d-block pb-3 mt-md-0 mt-3">Cuba Day</div>
+                        <div class="pe-lg-5">A brand that unites the House of Cuban Cigars and the restaurant O! Cuba.
+                            On the website you will be able to get acquainted with what we have not yet come up with.
+                        </div>
+                    </div>
+                    <div class="offset-lg-0 offset-md-2 col-lg-8 col-4 order-lg-2 order-1 d-flex justify-content-between">
+                        <div><img class="about_us__on_site_img_cuba_day" src="/img/about_us__cuba_day.svg" alt="o_cuba">
+                        </div>
+                        <div class="about_us__btn_on_site d-flex justify-content-between align-items-center d-lg-flex d-none">
+                            <div class="pe-1 me-3">Website</div>
+                            <button class="ms-3 round-button round-button-middle" onclick="window.location.href =
+                                    document.getElementById('link-cuba-day').getAttribute('data-href');"
+                                    th:data-href="${phonesAndLink.linkCubaDay}" id="link-cuba-day">
+                                <img src="/img/vector_up_and_right.svg" alt="vector_up_and_right">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="d-lg-none mt-4 mb-4 flat-button flat-button-bg-light transform_up_text opacity_hide_text"
+                        type="submit" onclick="window.location.href =
+                        document.getElementById('link-cuba-day').getAttribute('data-href');">
+                    <div>Website</div>
+                </button>
+                <div class="overflow-hidden mt-75px">
+                    <div class="border-top border_hide_right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-156px h1 overflow-hidden">
+        <div class="col-12 d-flex justify-content-center align-items-center transform_up_text"><h2 class="h1">get in touch</h2></div>
+    </div>
+    <th:block th:insert="~{en-fragments/feedback :: feedback}"></th:block>
+    <th:block th:insert="~{en-fragments/footer :: footer-black}"></th:block>
+</section>
+
+<script th:src="@{/js/smoothscroll/SmoothScroll.js}"></script>
+<script th:src="@{/js/OverlayScrollbars/OverlayScrollbars.min.js}"></script>
+<script th:src="@{/js/air-datepicker-3/air-datepicker.js}"></script>
+<script th:src="@{/js/en-js-file/global-js.js}"></script>
+<script th:src="@{/js/en-js-file/about-us-js.js}"></script>
+<script th:src="@{/js/en-js-file/search.js}"></script>
+<script th:src="@{/js/en-js-file/basket.js}"></script>
+
+</body>
+
+</html>
