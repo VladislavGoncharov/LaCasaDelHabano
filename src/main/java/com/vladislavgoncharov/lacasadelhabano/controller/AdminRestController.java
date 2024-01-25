@@ -8,15 +8,19 @@ import com.vladislavgoncharov.lacasadelhabano.service.ItemService;
 import com.vladislavgoncharov.lacasadelhabano.service.NewsService;
 import com.vladislavgoncharov.lacasadelhabano.service.PhonesAndLinkService;
 import com.vladislavgoncharov.lacasadelhabano.service.ReserveAndFeedbackAndRegistrationService;
+import com.vladislavgoncharov.lacasadelhabano.utilities.DisabledDates;
 import com.vladislavgoncharov.lacasadelhabano.utilities.TitleOnCatalogPage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 @RestController
 @MultipartConfig
@@ -27,13 +31,15 @@ public class AdminRestController {
     private final NewsService newsService;
     private final ReserveAndFeedbackAndRegistrationService reserveAndFeedbackAndRegistrationService;
     private final PhonesAndLinkService phonesAndLinkService;
+    private final DisabledDates disabledDates;
 
 
-    public AdminRestController(ItemService itemService, NewsService newsService, ReserveAndFeedbackAndRegistrationService reserveAndFeedbackAndRegistrationService, PhonesAndLinkService phonesAndLinkService) {
+    public AdminRestController(ItemService itemService, NewsService newsService, ReserveAndFeedbackAndRegistrationService reserveAndFeedbackAndRegistrationService, PhonesAndLinkService phonesAndLinkService, DisabledDates disabledDates) {
         this.itemService = itemService;
         this.newsService = newsService;
         this.reserveAndFeedbackAndRegistrationService = reserveAndFeedbackAndRegistrationService;
         this.phonesAndLinkService = phonesAndLinkService;
+        this.disabledDates = disabledDates;
     }
 
 
@@ -204,6 +210,32 @@ public class AdminRestController {
         } catch (RuntimeException exception) {
             exception.printStackTrace();
             return ResponseEntity.badRequest().body(false);
+        }
+    }
+
+    @GetMapping("/getDisabledDates")
+    public TreeSet<LocalDate> getDisabledDates() {
+        try {
+            disabledDates.updateDate();
+            return disabledDates.getDisabledDates();
+        } catch (RuntimeException e) {
+            return new TreeSet<>();
+        }
+    }
+    @PostMapping("/addDisabledDates/{date}")
+    public void addDisabledDates(@PathVariable String date) {
+        try {
+            disabledDates.addDisableDate(date);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
+    @DeleteMapping("/deleteDisabledDates/{date}")
+    public void deleteDisabledDates(@PathVariable String date) {
+        try {
+            disabledDates.deleteDisableDate(date);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -3,3 +3,4 @@ ALTER TABLE item
 
 UPDATE item
 SET factory_name = 'По умолчанию';
+

@@ -163,6 +163,26 @@ function startAdminPage() {
         }
     });
 
+    //дата в резерве
+
+    let position = 'left center'
+    if (document.documentElement.clientWidth < 1000) position = 'bottom center'
+
+    $.ajax({
+        url: siteBaseURL + '/api/admin/getDisabledDates', method: 'GET', // Метод запроса
+        dataType: 'json', // Ожидаемый формат данных
+        success: function (responseData) {
+            let container = $('#admin__body-disable-dates');
+
+            container.empty();
+
+            createSelectionDisableDate(container, responseData)
+
+        }, error: function (xhr, status, error) {
+            // Обработка ошибок
+            console.error(status, error)
+        }
+    });
 
 }
 
@@ -217,12 +237,10 @@ function createItem(container, item) {
     if (item.type === 'ACCESSORY') {
         seriesOrTypeOfAccessoryHTML = `<div class="item-cell-series">Тип акссесуара: ${item.typeOfAccessory}</div>`
         seriesOrTypeOfAccessoryElLangHTML = `<div class="item-cell-series">TypeOfAccessory: ${item.enLangTypeOfAccessory}</div>`
-    }
-    else {
+    } else {
         seriesOrTypeOfAccessoryHTML = `<div class="item-cell-series">Серия: ${item.series}</div>`
         seriesOrTypeOfAccessoryElLangHTML = `<div class="item-cell-series">Series: ${item.enLangSeries}</div>`
     }
-
 
 
     itemDiv.innerHTML = `
@@ -293,7 +311,7 @@ function createItem(container, item) {
 
 function visibleItem(itemId) {
     $.ajax({
-        url: siteBaseURL + '/api/admin/updateVisible/' + itemId ,
+        url: siteBaseURL + '/api/admin/updateVisible/' + itemId,
         method: 'PUT', // Метод запроса
         dataType: 'json', // Ожидаемый формат данных
         success: function (response) {
@@ -310,9 +328,8 @@ function visibleItem(itemId) {
                         '  <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>\n' +
                         '  <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z"/>\n' +
                         '</svg>'
-                    el.attr('data-visible','false')
-                }
-                else {
+                    el.attr('data-visible', 'false')
+                } else {
                     visibleItemHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">\n' +
                         '  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>\n' +
                         '  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>\n' +
@@ -772,6 +789,74 @@ function createSelectionOtherTitleOnCatalogPage(container, data) {
     container.append(itemDiv);
 }
 
+function createSelectionDisableDate(container, data) {
+
+    let itemDiv = document.createElement('div');
+    itemDiv.innerHTML = `
+        <div class="admin__body-other-line__box">
+            <div class="admin__body-other-line">
+                <div>Редактирование дат брони</div>
+            </div>
+            <div class="admin__body-other-line" id="container-disable-dates">
+                
+            </div>
+            <div class="admin__body-other-line">
+                <div><input class="input-main" id="reserve-date-admin" type="text" placeholder="дата*"></div>
+                <div><button class="admin__button" type="button" onclick="addDisableDate()">Добавить дату
+                    </button></div>
+            </div>
+            
+        </div>
+    `;
+    container.append(itemDiv);
+
+
+
+    for (let i = 0; i < data.length; i++) {
+        let dateHTML = document.createElement('div');
+        dateHTML.innerHTML = `
+        <div class="mt-2">${data[i]}<button class="admin__button ms-5" type="button" onclick="deleteDisableDate('${data[i]}')">Удалить
+                    </button></div>
+        `
+        $('#admin__body-disable-dates #container-disable-dates').append(dateHTML)
+    }
+
+
+    let disabledDates = [];
+
+    for (let i = 0; i < data.length; i++) {
+        disabledDates.push(new Date(data[i]));
+    }
+
+    new AirDatepicker('#admin__body-disable-dates #reserve-date-admin', {
+        position: 'right center',
+        minDate: new Date(),
+        maxDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+        buttons: [{
+            content: 'Сегодня', className: 'flat-button flat-button-bg-light', onClick: (dp) => {
+                let date = new Date();
+                dp.selectDate(date);
+                dp.setViewDate(date);
+            }
+        }],
+        // autoClose: true,
+        onSelect: function (date) {
+            if (date.formattedDate === undefined) reserveDate.addClass('input-block')
+            else reserveDate.removeClass('input-block')
+
+        },
+        onRenderCell: ({date}) => {
+            for (let i = 0; i < disabledDates.length; i++) {
+                if (date.toLocaleDateString() === disabledDates[i].toLocaleDateString()) {
+                    return {
+                        disabled: true
+                    }
+                }
+            }
+        }
+    });
+}
+
 $('#input__body-item').on('input', function () {
 
     if (allDataArray[0].length === 0) return;
@@ -1109,6 +1194,18 @@ function deleteItem(id, url) {
             else errorDelete()
         }, error: function (xhr, status, error) {
             errorDelete()
+            console.error(status, error);
+        }
+    });
+}
+
+function deleteDisableDate(date) {
+    $.ajax({
+        url: siteBaseURL + '/api/admin/deleteDisabledDates/' + date,
+        method: 'DELETE', // Метод запроса
+        success: function () {
+            startAdminPage()
+        }, error: function (xhr, status, error) {
             console.error(status, error);
         }
     });
@@ -1941,6 +2038,24 @@ function sendNewsDTOToServer() {
     });
 }
 
+function addDisableDate() {
+    let disableDate = $('#admin__body-disable-dates #reserve-date-admin').val()
+
+    if (disableDate === '') {
+    } else {
+        $.ajax({
+            url: '/api/admin/addDisabledDates/' + disableDate,
+            method: 'POST',
+            success: function (data) {
+               startAdminPage()
+            },
+            error: function (xhr, status, error) {
+                console.error('Ошибка при отправке даты на сервер:', status, error);
+            }
+        });
+    }
+}
+
 // Отправка данных на сервер
 function sendNewsDTOToServerUpdate(switcher) {
 
@@ -2349,10 +2464,9 @@ $('#modal-update-phone-and-link-btn').click(function () {
                 console.error('Ошибка при отправке ItemDTO на сервер:', status, error);
             }
         });
-    }
-    else {
+    } else {
         $.ajax({
-            url: siteBaseURL + '/api/admin/addTelegramId/'+input.val(), method: 'POST', // Метод запроса
+            url: siteBaseURL + '/api/admin/addTelegramId/' + input.val(), method: 'POST', // Метод запроса
             dataType: 'json', // Ожидаемый формат данных
             success: function (data) {
                 if (data) successUpdatePhoneAndLink()
@@ -2370,29 +2484,29 @@ $('#modal-update-phone-and-link-btn').click(function () {
 
 $('#modal-update-title-on-catalog-page-btn').click(function () {
 
-        let formData = new FormData()
-        formData.append('switcher', $('input[name="modal-update-title-on-catalog-page-switcher"]:checked').val())
-        formData.append('textRu', $('#modal-update-title-on-catalog-page-textRu').val())
-        formData.append('textEn', $('#modal-update-title-on-catalog-page-textEn').val())
-        formData.append('colorText', $('#modal-update-title-on-catalog-page-colorText').val())
-        formData.append('colorBackground', $('#modal-update-title-on-catalog-page-colorBackground').val())
-        console.log(formData)
-        $.ajax({
-            url: '/api/admin/updateTitleOnCatalogPage',
-            method: 'PUT',
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function (data) {
-                if (data) successUpdateTitleOnCatalogPage()
-                else errorUpdateTitleOnCatalogPage()
-            },
-            error: function (xhr, status, error) {
+    let formData = new FormData()
+    formData.append('switcher', $('input[name="modal-update-title-on-catalog-page-switcher"]:checked').val())
+    formData.append('textRu', $('#modal-update-title-on-catalog-page-textRu').val())
+    formData.append('textEn', $('#modal-update-title-on-catalog-page-textEn').val())
+    formData.append('colorText', $('#modal-update-title-on-catalog-page-colorText').val())
+    formData.append('colorBackground', $('#modal-update-title-on-catalog-page-colorBackground').val())
+    console.log(formData)
+    $.ajax({
+        url: '/api/admin/updateTitleOnCatalogPage',
+        method: 'PUT',
+        processData: false,
+        contentType: false,
+        data: formData,
+        success: function (data) {
+            if (data) successUpdateTitleOnCatalogPage()
+            else errorUpdateTitleOnCatalogPage()
+        },
+        error: function (xhr, status, error) {
 
-                errorUpdateTitleOnCatalogPage()
-                console.error('Ошибка:', status, error);
-            }
-        });
+            errorUpdateTitleOnCatalogPage()
+            console.error('Ошибка:', status, error);
+        }
+    });
 
 })
 
@@ -2419,6 +2533,7 @@ function errorUpdatePhoneAndLink() {
         }, 500)
     }, 1500)
 }
+
 function successUpdateTitleOnCatalogPage() {
     $('#modal-update-title-on-catalog-page-btn').text('Удачно')
     $('#modal-update-title-on-catalog-page-footer').addClass('modal-success')

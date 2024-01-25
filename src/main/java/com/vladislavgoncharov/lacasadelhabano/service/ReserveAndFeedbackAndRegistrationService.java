@@ -4,6 +4,7 @@ import com.vladislavgoncharov.lacasadelhabano.dto.FeedbackDTO;
 import com.vladislavgoncharov.lacasadelhabano.dto.RegistrationOfWholesaleCustomerDTO;
 import com.vladislavgoncharov.lacasadelhabano.dto.ReserveDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ReserveAndFeedbackAndRegistrationService {

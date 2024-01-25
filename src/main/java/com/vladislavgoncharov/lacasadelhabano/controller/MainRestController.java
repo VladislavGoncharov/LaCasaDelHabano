@@ -4,13 +4,16 @@ import com.vladislavgoncharov.lacasadelhabano.dto.*;
 import com.vladislavgoncharov.lacasadelhabano.service.ItemService;
 import com.vladislavgoncharov.lacasadelhabano.service.NewsService;
 import com.vladislavgoncharov.lacasadelhabano.service.ReserveAndFeedbackAndRegistrationService;
+import com.vladislavgoncharov.lacasadelhabano.utilities.DisabledDates;
 import com.vladislavgoncharov.lacasadelhabano.utilities.SearchQuery;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.TreeSet;
 
 @RestController
 @MultipartConfig
@@ -20,12 +23,14 @@ public class MainRestController {
     private final ItemService itemService;
     private final NewsService newsService;
     private final ReserveAndFeedbackAndRegistrationService reserveAndFeedbackAndRegistrationService;
+    private final DisabledDates disabledDates;
 
 
-    public MainRestController(ItemService itemService, NewsService newsService, ReserveAndFeedbackAndRegistrationService reserveAndFeedbackAndRegistrationService) {
+    public MainRestController(ItemService itemService, NewsService newsService, ReserveAndFeedbackAndRegistrationService reserveAndFeedbackAndRegistrationService, DisabledDates disabledDates) {
         this.itemService = itemService;
         this.newsService = newsService;
         this.reserveAndFeedbackAndRegistrationService = reserveAndFeedbackAndRegistrationService;
+        this.disabledDates = disabledDates;
     }
 
     @GetMapping("/getItemsRu")
@@ -52,12 +57,20 @@ public class MainRestController {
     public List<SearchQuery> getSearchResult(String lang, String searchQuery) {
         return itemService.getResultSearchQuery(lang, searchQuery);
     }
+    @GetMapping("/getDisabledDates")
+    public TreeSet<LocalDate> getDisabledDates() {
+        try {
+            disabledDates.updateDate();
+            return disabledDates.getDisabledDates();
+        } catch (RuntimeException e) {
+            return new TreeSet<>();
+        }
+    }
 
     @GetMapping("/session")
     public String getSessionIsNew(HttpSession session) {
         return session.getId();
     }
-
     @PostMapping("/send-feedback")
     public ResponseEntity<Boolean> sendFeedback(@ModelAttribute FeedbackDTO feedbackDTO) {
         if (reserveAndFeedbackAndRegistrationService.addFeedback(feedbackDTO)) {

@@ -3,124 +3,149 @@
 <body>
 
 <nav th:fragment="nav-desktop" class="row h5 position-sticky top-0 d-lg-flex d-none">
-        <div class="col-5">
-                <div class="border-top"></div>
-        </div>
-        <div class="col-2"><a th:href="@{/ru}"><img src="/img/navbar__logo.svg" alt="navbar__logo"
-                                 class="position-absolute start-50 translate-middle-x h-37px" style="z-index: 35"></a> </div>
-        <div class="col-5">
-                <div class="border-top"></div>
-        </div>
-        <div class="col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one" id="switchLang"
-                                                                           th:href="@{/en}">EN</a></div>
-        <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
-                                                                         onclick="openPopUp('reserve',event)">РЕЗЕРВ</a></div>
-        <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
-                                                                         onclick="openPopUp('catalog',event)">КАТАЛОГ</a></div>
-        <div class="offset-6 col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one"
-                                                                                    href="#" onclick="openPopUp('search',event)">ПОИСК</a></div>
-        <div class="col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one" href="#"
-                                                                           onclick="openPopUp('basket',event)">КОРЗИНА</a></div>
-        <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
-                                                                         onclick="openPopUp('menu',event)">МЕНЮ</a></div>
+    <div class="col-5">
+        <div class="border-top"></div>
+    </div>
+    <div class="col-2"><a th:href="@{/ru}"><img src="/img/navbar__logo.svg" alt="navbar__logo"
+                                                class="position-absolute start-50 translate-middle-x h-37px"
+                                                style="z-index: 35"></a></div>
+    <div class="col-5">
+        <div class="border-top"></div>
+    </div>
+    <div class="col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one" id="switchLang"
+                                                                       th:href="@{/en}">EN</a></div>
+    <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
+                                                                     onclick="openPopUp('reserve',event)">РЕЗЕРВ</a>
+    </div>
+    <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
+                                                                     onclick="openPopUp('catalog',event)">КАТАЛОГ</a>
+    </div>
+    <div class="offset-6 col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one"
+                                                                                href="#"
+                                                                                onclick="openPopUp('search',event)">ПОИСК</a>
+    </div>
+    <div class="col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one" href="#"
+                                                                       onclick="openPopUp('basket',event)">КОРЗИНА
+        <span class="position-absolute translate-middle ff-lato container-for-quantity-items-in-basket"
+              id="container-for-quantity-items-in-basket"><div
+                class="quantity-items-in-basket" id="quantity-items-in-basket"></div></span></a></div>
+    <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
+                                                                     onclick="openPopUp('menu',event)">МЕНЮ</a></div>
 </nav>
 <nav th:fragment="nav-mobile" class="row h5 position-sticky top-0 d-lg-none d-flex">
-        <div class="offset-md-5 col-md-2 offset-4 col-4 d-flex justify-content-center">
-                <a th:href="@{/ru}"><img src="/img/navbar__logo.svg" alt="navbar__logo" class="h-37px"> </a></div>
-        <div class="col-12 mt-2 mb-2">
-                <div class="border-top"></div>
-        </div>
-        <div class="col-1 d-flex justify-content-start align-items-center"><a
-                class="link-main" id="switchLang"
-                th:href="@{/en}">EN</a></div>
-        <div class="offset-md-0 offset-1 col-1 d-flex justify-content-end align-items-center">
-                <a class="link-main search-btn" href="#" onclick="openPopUp('search',event)">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M16.0013 9.9974C16.0013 13.3111 13.315 15.9974 10.0013 15.9974C6.68759 15.9974 4.0013 13.3111 4.0013 9.9974C4.0013 6.68369 6.68759 3.9974 10.0013 3.9974C13.315 3.9974 16.0013 6.68369 16.0013 9.9974ZM14.694 15.6329C13.4223 16.693 11.7863 17.3307 10.0013 17.3307C5.95121 17.3307 2.66797 14.0475 2.66797 9.9974C2.66797 5.94731 5.95121 2.66406 10.0013 2.66406C14.0514 2.66406 17.3346 5.94731 17.3346 9.9974C17.3346 11.7824 16.6969 13.4184 15.6368 14.6901L21.806 20.8593L20.8632 21.8021L14.694 15.6329Z"
-                                      fill="white" />
-                        </svg>
-                </a>
-        </div>
-        <div class="offset-6 offset-md-8 col-1 d-flex justify-content-start align-items-center">
-                <a class="link-main" href="#" onclick="openPopUp('basket',event)">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M15.8321 7.32943C15.7884 7.15938 15.7363 6.99217 15.6761 6.82865C15.4633 6.25062 15.1547 5.7348 14.7747 5.30724C14.3949 4.87998 13.9526 4.5506 13.4778 4.32934C13.0036 4.10837 12.502 3.9974 12 3.9974C11.498 3.9974 10.9964 4.10837 10.5222 4.32934C10.0474 4.5506 9.6051 4.87998 9.22531 5.30724C8.84526 5.7348 8.53668 6.25062 8.32386 6.82865C8.26365 6.99217 8.21159 7.15938 8.16789 7.32943H15.8321ZM17.1997 7.32943C17.1332 7.00167 17.0423 6.68002 16.9274 6.36796C16.6593 5.64001 16.2665 4.97857 15.7712 4.42142C15.276 3.86427 14.688 3.42231 14.041 3.12078C13.3939 2.81926 12.7004 2.66406 12 2.66406C11.2996 2.66406 10.6061 2.81926 9.95902 3.12079C9.31195 3.42231 8.72401 3.86427 8.22876 4.42142C7.73352 4.97857 7.34067 5.64001 7.07264 6.36796C6.95775 6.68002 6.86675 7.00167 6.80029 7.32943H3.9987H3.33203V7.99609V21.3294V21.9961H3.9987H19.9987H20.6654V21.3294V7.99609V7.32943H19.9987H17.1997ZM6.66667 8.66276C6.66667 8.66319 6.66667 8.66363 6.66667 8.66406H8L12 8.66406H16H17.3333C17.3333 8.66363 17.3333 8.66319 17.3333 8.66276H19.332V20.6628H4.66536V8.66276H6.66667Z"
-                                      fill="white" />
-                        </svg>
-                </a>
-        </div>
-        <div class="offset-1 offset-md-0 col-1 d-flex justify-content-end align-items-center">
-                <a class="link-main" href="#" onclick="openPopUp('menu',event)">
-                        <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 2.66797H28" stroke="white" stroke-width="1.33333" />
-                                <path d="M0 12H28" stroke="white" stroke-width="1.33333" />
-                                <path d="M0 21.332H28" stroke="white" stroke-width="1.33333" />
-                        </svg>
-                </a>
-        </div>
+    <div class="offset-md-5 col-md-2 offset-4 col-4 d-flex justify-content-center">
+        <a th:href="@{/ru}"><img src="/img/navbar__logo.svg" alt="navbar__logo" class="h-37px"> </a></div>
+    <div class="col-12 mt-2 mb-2">
+        <div class="border-top"></div>
+    </div>
+    <div class="col-1 d-flex justify-content-start align-items-center"><a
+            class="link-main" id="switchLang"
+            th:href="@{/en}">EN</a></div>
+    <div class="offset-md-0 offset-1 col-1 d-flex justify-content-end align-items-center">
+        <a class="link-main search-btn" href="#" onclick="openPopUp('search',event)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M16.0013 9.9974C16.0013 13.3111 13.315 15.9974 10.0013 15.9974C6.68759 15.9974 4.0013 13.3111 4.0013 9.9974C4.0013 6.68369 6.68759 3.9974 10.0013 3.9974C13.315 3.9974 16.0013 6.68369 16.0013 9.9974ZM14.694 15.6329C13.4223 16.693 11.7863 17.3307 10.0013 17.3307C5.95121 17.3307 2.66797 14.0475 2.66797 9.9974C2.66797 5.94731 5.95121 2.66406 10.0013 2.66406C14.0514 2.66406 17.3346 5.94731 17.3346 9.9974C17.3346 11.7824 16.6969 13.4184 15.6368 14.6901L21.806 20.8593L20.8632 21.8021L14.694 15.6329Z"
+                      fill="white"/>
+            </svg>
+        </a>
+    </div>
+    <div class="offset-6 offset-md-8 col-1 d-flex justify-content-start align-items-center">
+        <a class="link-main position-relative" href="#" onclick="openPopUp('basket',event)">
+
+        <span class="position-absolute translate-middle ff-lato container-for-quantity-items-in-basket"
+              id="container-for-quantity-items-in-basket"><div
+                class="quantity-items-in-basket" id="quantity-items-in-basket"></div></span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M15.8321 7.32943C15.7884 7.15938 15.7363 6.99217 15.6761 6.82865C15.4633 6.25062 15.1547 5.7348 14.7747 5.30724C14.3949 4.87998 13.9526 4.5506 13.4778 4.32934C13.0036 4.10837 12.502 3.9974 12 3.9974C11.498 3.9974 10.9964 4.10837 10.5222 4.32934C10.0474 4.5506 9.6051 4.87998 9.22531 5.30724C8.84526 5.7348 8.53668 6.25062 8.32386 6.82865C8.26365 6.99217 8.21159 7.15938 8.16789 7.32943H15.8321ZM17.1997 7.32943C17.1332 7.00167 17.0423 6.68002 16.9274 6.36796C16.6593 5.64001 16.2665 4.97857 15.7712 4.42142C15.276 3.86427 14.688 3.42231 14.041 3.12078C13.3939 2.81926 12.7004 2.66406 12 2.66406C11.2996 2.66406 10.6061 2.81926 9.95902 3.12079C9.31195 3.42231 8.72401 3.86427 8.22876 4.42142C7.73352 4.97857 7.34067 5.64001 7.07264 6.36796C6.95775 6.68002 6.86675 7.00167 6.80029 7.32943H3.9987H3.33203V7.99609V21.3294V21.9961H3.9987H19.9987H20.6654V21.3294V7.99609V7.32943H19.9987H17.1997ZM6.66667 8.66276C6.66667 8.66319 6.66667 8.66363 6.66667 8.66406H8L12 8.66406H16H17.3333C17.3333 8.66363 17.3333 8.66319 17.3333 8.66276H19.332V20.6628H4.66536V8.66276H6.66667Z"
+                      fill="white"/>
+            </svg>
+        </a>
+    </div>
+    <div class="offset-1 offset-md-0 col-1 d-flex justify-content-end align-items-center">
+        <a class="link-main" href="#" onclick="openPopUp('menu',event)">
+            <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 2.66797H28" stroke="white" stroke-width="1.33333"/>
+                <path d="M0 12H28" stroke="white" stroke-width="1.33333"/>
+                <path d="M0 21.332H28" stroke="white" stroke-width="1.33333"/>
+            </svg>
+        </a>
+    </div>
 </nav>
 
 
 <nav th:fragment="nav-desktop-white" class="row h5 position-sticky top-0 d-lg-flex d-none bg_nav_white">
-        <div class="col-5">
-                <div class="border-top-black"></div>
-        </div>
-        <div class="col-2"><a th:href="@{/ru}"><img src="/img/navbar__logo_black.svg" alt="navbar__logo"
-                                 class="position-absolute start-50 translate-middle-x h-37px" style="z-index: 35"> </a></div>
-        <div class="col-5">
-                <div class="border-top-black"></div>
-        </div>
-        <div class="col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one" id="switchLang"
-                                                                           th:href="@{/en}">EN</a></div>
-        <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
-                                                                         onclick="openPopUp('reserve',event)">РЕЗЕРВ</a></div>
-        <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
-                                                                         onclick="openPopUp('catalog',event)">КАТАЛОГ</a></div>
-        <div class="offset-6 col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one"
-                                                                                    href="#" onclick="openPopUp('search',event)">ПОИСК</a></div>
-        <div class="col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one" href="#"
-                                                                           onclick="openPopUp('basket',event)">КОРЗИНА</a></div>
-        <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
-                                                                         onclick="openPopUp('menu',event)">МЕНЮ</a></div>
+    <div class="col-5">
+        <div class="border-top-black"></div>
+    </div>
+    <div class="col-2"><a th:href="@{/ru}"><img src="/img/navbar__logo_black.svg" alt="navbar__logo"
+                                                class="position-absolute start-50 translate-middle-x h-37px"
+                                                style="z-index: 35"> </a></div>
+    <div class="col-5">
+        <div class="border-top-black"></div>
+    </div>
+    <div class="col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one" id="switchLang"
+                                                                       th:href="@{/en}">EN</a></div>
+    <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
+                                                                     onclick="openPopUp('reserve',event)">РЕЗЕРВ</a>
+    </div>
+    <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
+                                                                     onclick="openPopUp('catalog',event)">КАТАЛОГ</a>
+    </div>
+    <div class="offset-6 col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one"
+                                                                                href="#"
+                                                                                onclick="openPopUp('search',event)">ПОИСК</a>
+    </div>
+    <div class="col-1 d-flex justify-content-start align-items-end"><a class="link-main underline-one" href="#"
+                                                                       onclick="openPopUp('basket',event)">КОРЗИНА
+        <span class="position-absolute translate-middle ff-lato container-for-quantity-items-in-basket"
+              id="container-for-quantity-items-in-basket"><div
+                class="quantity-items-in-basket" id="quantity-items-in-basket"></div></span></a>
+    </div>
+    <div class="col-1 d-flex justify-content-end align-items-end"><a class="link-main underline-one" href="#"
+                                                                     onclick="openPopUp('menu',event)">МЕНЮ</a></div>
 </nav>
 <nav th:fragment="nav-mobile-white" class="row h5 position-sticky top-0 d-lg-none d-flex">
-        <div class="col-12 d-flex justify-content-center"><a th:href="@{/ru}"><img src="/img/navbar__logo_black.svg" alt="navbar__logo"
-                                                                class="h-37px"></a> </div>
-        <div class="col-12 mt-2 mb-2">
-                <div class="border-top-black"></div>
-        </div>
-        <div class="col-1 d-flex justify-content-start align-items-center"><a
-                class="link-main"  id="switchLang"
-                th:href="@{/en}">EN</a></div>
-        <div class="offset-md-0 offset-1 col-1 d-flex justify-content-end align-items-center">
-                <a class="link-main search-btn" href="#" onclick="openPopUp('search',event)">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M16.0013 9.9974C16.0013 13.3111 13.315 15.9974 10.0013 15.9974C6.68759 15.9974 4.0013 13.3111 4.0013 9.9974C4.0013 6.68369 6.68759 3.9974 10.0013 3.9974C13.315 3.9974 16.0013 6.68369 16.0013 9.9974ZM14.694 15.6329C13.4223 16.693 11.7863 17.3307 10.0013 17.3307C5.95121 17.3307 2.66797 14.0475 2.66797 9.9974C2.66797 5.94731 5.95121 2.66406 10.0013 2.66406C14.0514 2.66406 17.3346 5.94731 17.3346 9.9974C17.3346 11.7824 16.6969 13.4184 15.6368 14.6901L21.806 20.8593L20.8632 21.8021L14.694 15.6329Z"
-                                      fill="black" />
-                        </svg>
-                </a>
-        </div>
-        <div class="offset-6 offset-md-8 col-1 d-flex justify-content-start align-items-center">
-                <a class="link-main" href="#" onclick="openPopUp('basket',event)">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                      d="M15.8321 7.32943C15.7884 7.15938 15.7363 6.99217 15.6761 6.82865C15.4633 6.25062 15.1547 5.7348 14.7747 5.30724C14.3949 4.87998 13.9526 4.5506 13.4778 4.32934C13.0036 4.10837 12.502 3.9974 12 3.9974C11.498 3.9974 10.9964 4.10837 10.5222 4.32934C10.0474 4.5506 9.6051 4.87998 9.22531 5.30724C8.84526 5.7348 8.53668 6.25062 8.32386 6.82865C8.26365 6.99217 8.21159 7.15938 8.16789 7.32943H15.8321ZM17.1997 7.32943C17.1332 7.00167 17.0423 6.68002 16.9274 6.36796C16.6593 5.64001 16.2665 4.97857 15.7712 4.42142C15.276 3.86427 14.688 3.42231 14.041 3.12078C13.3939 2.81926 12.7004 2.66406 12 2.66406C11.2996 2.66406 10.6061 2.81926 9.95902 3.12079C9.31195 3.42231 8.72401 3.86427 8.22876 4.42142C7.73352 4.97857 7.34067 5.64001 7.07264 6.36796C6.95775 6.68002 6.86675 7.00167 6.80029 7.32943H3.9987H3.33203V7.99609V21.3294V21.9961H3.9987H19.9987H20.6654V21.3294V7.99609V7.32943H19.9987H17.1997ZM6.66667 8.66276C6.66667 8.66319 6.66667 8.66363 6.66667 8.66406H8L12 8.66406H16H17.3333C17.3333 8.66363 17.3333 8.66319 17.3333 8.66276H19.332V20.6628H4.66536V8.66276H6.66667Z"
-                                      fill="black" />
-                        </svg>
-                </a>
-        </div>
-        <div class="offset-1 offset-md-0 col-1 d-flex justify-content-end align-items-center">
-                <a class="link-main" href="#" onclick="openPopUp('menu',event)">
-                        <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 2.66797H28" stroke="black" stroke-width="1.33333" />
-                                <path d="M0 12H28" stroke="black" stroke-width="1.33333" />
-                                <path d="M0 21.332H28" stroke="black" stroke-width="1.33333" />
-                        </svg>
-                </a>
-        </div>
+    <div class="col-12 d-flex justify-content-center"><a th:href="@{/ru}"><img src="/img/navbar__logo_black.svg"
+                                                                               alt="navbar__logo"
+                                                                               class="h-37px"></a></div>
+    <div class="col-12 mt-2 mb-2">
+        <div class="border-top-black"></div>
+    </div>
+    <div class="col-1 d-flex justify-content-start align-items-center"><a
+            class="link-main" id="switchLang"
+            th:href="@{/en}">EN</a></div>
+    <div class="offset-md-0 offset-1 col-1 d-flex justify-content-end align-items-center">
+        <a class="link-main search-btn" href="#" onclick="openPopUp('search',event)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M16.0013 9.9974C16.0013 13.3111 13.315 15.9974 10.0013 15.9974C6.68759 15.9974 4.0013 13.3111 4.0013 9.9974C4.0013 6.68369 6.68759 3.9974 10.0013 3.9974C13.315 3.9974 16.0013 6.68369 16.0013 9.9974ZM14.694 15.6329C13.4223 16.693 11.7863 17.3307 10.0013 17.3307C5.95121 17.3307 2.66797 14.0475 2.66797 9.9974C2.66797 5.94731 5.95121 2.66406 10.0013 2.66406C14.0514 2.66406 17.3346 5.94731 17.3346 9.9974C17.3346 11.7824 16.6969 13.4184 15.6368 14.6901L21.806 20.8593L20.8632 21.8021L14.694 15.6329Z"
+                      fill="black"/>
+            </svg>
+        </a>
+    </div>
+    <div class="offset-6 offset-md-8 col-1 d-flex justify-content-start align-items-center">
+        <a class="link-main position-relative" href="#" onclick="openPopUp('basket',event)">
+        <span class="position-absolute translate-middle ff-lato container-for-quantity-items-in-basket"
+              id="container-for-quantity-items-in-basket"><div
+                class="quantity-items-in-basket" id="quantity-items-in-basket" style="color: black !important;"></div></span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M15.8321 7.32943C15.7884 7.15938 15.7363 6.99217 15.6761 6.82865C15.4633 6.25062 15.1547 5.7348 14.7747 5.30724C14.3949 4.87998 13.9526 4.5506 13.4778 4.32934C13.0036 4.10837 12.502 3.9974 12 3.9974C11.498 3.9974 10.9964 4.10837 10.5222 4.32934C10.0474 4.5506 9.6051 4.87998 9.22531 5.30724C8.84526 5.7348 8.53668 6.25062 8.32386 6.82865C8.26365 6.99217 8.21159 7.15938 8.16789 7.32943H15.8321ZM17.1997 7.32943C17.1332 7.00167 17.0423 6.68002 16.9274 6.36796C16.6593 5.64001 16.2665 4.97857 15.7712 4.42142C15.276 3.86427 14.688 3.42231 14.041 3.12078C13.3939 2.81926 12.7004 2.66406 12 2.66406C11.2996 2.66406 10.6061 2.81926 9.95902 3.12079C9.31195 3.42231 8.72401 3.86427 8.22876 4.42142C7.73352 4.97857 7.34067 5.64001 7.07264 6.36796C6.95775 6.68002 6.86675 7.00167 6.80029 7.32943H3.9987H3.33203V7.99609V21.3294V21.9961H3.9987H19.9987H20.6654V21.3294V7.99609V7.32943H19.9987H17.1997ZM6.66667 8.66276C6.66667 8.66319 6.66667 8.66363 6.66667 8.66406H8L12 8.66406H16H17.3333C17.3333 8.66363 17.3333 8.66319 17.3333 8.66276H19.332V20.6628H4.66536V8.66276H6.66667Z"
+                      fill="black"/>
+            </svg>
+        </a>
+    </div>
+    <div class="offset-1 offset-md-0 col-1 d-flex justify-content-end align-items-center">
+        <a class="link-main" href="#" onclick="openPopUp('menu',event)">
+            <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 2.66797H28" stroke="black" stroke-width="1.33333"/>
+                <path d="M0 12H28" stroke="black" stroke-width="1.33333"/>
+                <path d="M0 21.332H28" stroke="black" stroke-width="1.33333"/>
+            </svg>
+        </a>
+    </div>
 </nav>
 </body>
 </html>

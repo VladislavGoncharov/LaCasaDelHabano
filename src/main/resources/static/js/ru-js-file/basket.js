@@ -80,13 +80,16 @@ function updateBasket() {
                     updateBasket()
                 }
 
-                createItemInBasket(item, optionKey, count)
+                createItemInBasket(item, optionKey, count, optionValue)
             })
 
 
             if (cumulativeQuantityOfItems > 0) showCountItemsInPageItem(cumulativeQuantityOfItems)
             else zeroingQuantityInProductCards()
 
+
+            $('.container-for-quantity-items-in-basket').css('opacity', '1')
+            $('.quantity-items-in-basket').text(totalCountItems)
 
             $('#reserve-basket').attr('onclick', 'reserveBasket(' + totalCountItems + ',\'' +
                 formatNumberWithThousandsSeparator(totalPrice) + '\')'  )
@@ -158,17 +161,22 @@ function basketIsEmpty() {
     $('#basket_total').css('opacity', 0)
     $('#basket_total_price').text(0)
 
+    $('.container-for-quantity-items-in-basket').css('opacity', '0')
+    $('.quantity-items-in-basket').text('')
+
 
     zeroingQuantityInProductCards()
 }
 
 //создание карточки товара в корзине
-function createItemInBasket(item, option, count) {
+function createItemInBasket(item, option, count, optionValue) {
 
     let disableBTN = count < 2 ? 'disable-btn' : '';
 
     let itemDiv = document.createElement('div');
     itemDiv.classList.add('grid-col-2', 'mt-4', 'pe-3');
+
+    let currentPrice = parseInt(item.price) * parseInt(optionValue)
 
     itemDiv.innerHTML = `
          <div class="basket__box_img">
@@ -180,7 +188,7 @@ function createItemInBasket(item, option, count) {
             <div class="position-absolute bottom-0 w-100">
                <div class="mb-4 pb-2"><a class="h5 fc-grey" onclick="deleteInBasket('${item.id}:${option}')">Удалить</a></div>
                <div class="d-flex justify-content-between align-items-end">
-                  <div class="h3-num">${item.price}</div>
+                  <div class="h3-num">${currentPrice}</div>
                   <div class="d-flex justify-content-center align-items-center">
                      <a class="me-sm-3 me-1 ${disableBTN}" onclick="minusItemInBasket('${item.id}:${option}')">
                         <svg class="plus_minus_basket" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">

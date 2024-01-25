@@ -730,3 +730,19 @@ footer {
 video::-webkit-media-controls {
     display:none !important;
 }
+.container-for-quantity-items-in-basket {
+    opacity: 0;
+    top: 50%;
+    right: -3vw;
+    transition: 0.5s;
+}
+.quantity-items-in-basket {
+    display: flex;
+    justify-content: center;
+    background: white;
+    width: 1.5vw;
+    height: 1.5vw;
+    border-radius: 50px;
+    color: var(--mc-vinous);
+    align-items: center;
+}

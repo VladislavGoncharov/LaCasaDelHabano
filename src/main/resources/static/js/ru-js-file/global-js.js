@@ -59,6 +59,72 @@ $(document).ready(function () {
         }
     });
 
+    //дата в резерве
+
+    let position = 'left center'
+    if (document.documentElement.clientWidth < 1000) position = 'bottom center'
+
+    $.ajax({
+        url: siteBaseURL + '/api/getDisabledDates', method: 'GET', // Метод запроса
+        dataType: 'json', // Ожидаемый формат данных
+        success: function (responseData) {
+            let disabledDates = [];
+
+            for (let i = 0; i < responseData.length; i++) {
+                disabledDates.push(new Date(responseData[i]));
+            }
+
+            new AirDatepicker('#reserve-date', {
+                position: position,
+                minDate: new Date(),
+                maxDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+                buttons: [{
+                    content: 'Сегодня', className: 'flat-button flat-button-bg-light', onClick: (dp) => {
+                        let date = new Date();
+                        dp.selectDate(date);
+                        dp.setViewDate(date);
+                    }
+                }],
+                // autoClose: true,
+                onSelect: function (date) {
+                    if (date.formattedDate === undefined) reserveDate.addClass('input-block')
+                    else reserveDate.removeClass('input-block')
+
+                },
+                onRenderCell: ({date}) => {
+                        for (let i = 0; i < disabledDates.length; i++) {
+                            if (date.toLocaleDateString() === disabledDates[i].toLocaleDateString()) {
+                                return {
+                                    disabled: true
+                                }
+                            }
+                        }
+                }
+            });
+        }, error: function (xhr, status, error) {
+            // Обработка ошибок
+            console.error(status, error);
+            new AirDatepicker('#reserve-date', {
+                position: position,
+                minDate: new Date(),
+                maxDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+                buttons: [{
+                    content: 'Сегодня', className: 'flat-button flat-button-bg-light', onClick: (dp) => {
+                        let date = new Date();
+                        dp.selectDate(date);
+                        dp.setViewDate(date);
+                    }
+                }],
+                autoClose: true,
+                onSelect: function (date) {
+                    if (date.formattedDate === undefined) reserveDate.addClass('input-block')
+                    else reserveDate.removeClass('input-block')
+
+                }
+            });
+        }
+    });
+
 })
 
 function getGlobalAllItems() { // рекурсивная функция, чтобы дождаться, когда в глобал.джс прогрузиться аякс в глобальную переменную
@@ -111,6 +177,7 @@ function adaptationOfScreensaver() {
 
     svgLoading.attr('viewBox', viewBoxSVGLoading);
 }
+
 let isScrollEnabled = true;
 
 // Функция для переключения состояния прокрутки
@@ -126,6 +193,7 @@ function toggleScroll() {
     // Инвертируем состояние
     isScrollEnabled = !isScrollEnabled;
 }
+
 //открытие меню
 function openPopUp(el, event) {
 
@@ -218,8 +286,7 @@ $('html #yes').click(function () {
             .from($('.enter-show'), {
                 yPercent: 100, duration: 2, ease: Power2.easeInOut
             }, 9);
-    }
-    else {
+    } else {
 
         timeline.to(container.find('.top-510px, .top-265px'), {
             opacity: 0, duration: 2
@@ -242,7 +309,7 @@ $('html #yes').click(function () {
                 opacity: 0, duration: 1.5, ease: Power2.easeInOut
             }, 7)
             .to($('.bg_black_pop_up_windows_on_the_right_darkening_enter'), {
-                opacity: 0, duration: 1.5, ease: Power2.easeInOut, onComplete: function() {
+                opacity: 0, duration: 1.5, ease: Power2.easeInOut, onComplete: function () {
                     $('.bg_black_pop_up_windows_on_the_right_darkening_enter').css('display', 'none');
                 }
             }, 7)
@@ -381,29 +448,6 @@ document.body.addEventListener('wheel', function (e) {
 //        this.scrollLeft = Math.max(0, Math.min(max, this.scrollLeft + e.deltaX));
 //      }
 //    },{ passive: false });
-//дата в резерве
-
-let position = 'left center'
-if (document.documentElement.clientWidth < 1000) position = 'bottom center'
-
-new AirDatepicker('#reserve-date', {
-    position: position,
-    minDate: new Date(),
-    maxDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
-    buttons: [{
-        content: 'Сегодня', className: 'flat-button flat-button-bg-light', onClick: (dp) => {
-            let date = new Date();
-            dp.selectDate(date);
-            dp.setViewDate(date);
-        }
-    }],
-    autoClose: true,
-    onSelect: function (date) {
-        if (date.formattedDate === undefined) reserveDate.addClass('input-block')
-        else reserveDate.removeClass('input-block')
-
-    }
-});
 
 
 //авто настройка высоты и ширины картинок в карточках товаров

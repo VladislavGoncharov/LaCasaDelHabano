@@ -53,6 +53,71 @@ $(document).ready(function () {
         }
     });
 
+    //дата в резерве
+
+    let position = 'left center'
+    if (document.documentElement.clientWidth < 1000) position = 'bottom center'
+
+    $.ajax({
+        url: siteBaseURL + '/api/getDisabledDates', method: 'GET', // Метод запроса
+        dataType: 'json', // Ожидаемый формат данных
+        success: function (responseData) {
+            let disabledDates = [];
+
+            for (let i = 0; i < responseData.length; i++) {
+                disabledDates.push(new Date(responseData[i]));
+            }
+
+            new AirDatepicker('#reserve-date', {
+                position: position,
+                minDate: new Date(),
+                maxDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+                buttons: [{
+                    content: 'Сегодня', className: 'flat-button flat-button-bg-light', onClick: (dp) => {
+                        let date = new Date();
+                        dp.selectDate(date);
+                        dp.setViewDate(date);
+                    }
+                }],
+                // autoClose: true,
+                onSelect: function (date) {
+                    if (date.formattedDate === undefined) reserveDate.addClass('input-block')
+                    else reserveDate.removeClass('input-block')
+
+                },
+                onRenderCell: ({date}) => {
+                    for (let i = 0; i < disabledDates.length; i++) {
+                        if (date.toLocaleDateString() === disabledDates[i].toLocaleDateString()) {
+                            return {
+                                disabled: true
+                            }
+                        }
+                    }
+                }
+            });
+        }, error: function (xhr, status, error) {
+            // Обработка ошибок
+            console.error(status, error);
+            new AirDatepicker('#reserve-date', {
+                position: position,
+                minDate: new Date(),
+                maxDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+                buttons: [{
+                    content: 'Сегодня', className: 'flat-button flat-button-bg-light', onClick: (dp) => {
+                        let date = new Date();
+                        dp.selectDate(date);
+                        dp.setViewDate(date);
+                    }
+                }],
+                autoClose: true,
+                onSelect: function (date) {
+                    if (date.formattedDate === undefined) reserveDate.addClass('input-block')
+                    else reserveDate.removeClass('input-block')
+
+                }
+            });
+        }
+    });
 })
 
 function getGlobalAllItems() { // рекурсивная функция, чтобы дождаться, когда в глобал.джс прогрузиться аякс в глобальную переменную
